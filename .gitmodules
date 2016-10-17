@@ -1,0 +1,3 @@
+[submodule "public"]
+	path = public
+	url = git@github.com:jlongrc/jlongrc.github.io.git
