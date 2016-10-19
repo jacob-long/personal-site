@@ -1,24 +1,24 @@
-baseurl = "http://replace-this-with-your-website-url.com/"
-title = "Academic Theme"
-copyright = "&copy; 2016 Your Name"
+baseurl = "http://jacob-long.com"
+title = "Jacob Long"
+copyright = "&copy; 2016 Jacob Long"
 languageCode = "en-us"
 theme = "academic"
 
 # Enable comments by entering your Disqus shortname
-disqusShortname = "spf13"
+disqusShortname = "jacob-long"
 
 # Enable analytics by entering your Google Analytics tracking ID
-googleAnalytics = ""
+googleAnalytics = "UA-85962705-1"
 
 
 [params]
-  name = "Lena Smith"
-  role = "Professor of Artificial Intelligence"
-  organization = "Stanford University"
+  name = "Jacob Long"
+  role = "PhD Student"
+  organization = "Ohio State University"
   avatar = "portrait.jpg"
-  email = "test@example.org"
-  address = "Stanford AI Lab, Stanford University, California, 90210, USA."
-  phone = "888 888 88 88"
+  email = "long.1377@osu.edu"
+  address = "154 N Oval Mall, Columbus, OH, 43210"
+  phone = ""
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
@@ -29,7 +29,7 @@ googleAnalytics = ""
 
   # Enable global LaTeX math rendering?
   #   If false, you can enable it locally on a per page basis.
-  math = false
+  math = true
 
   # Enable native social sharing buttons?
   sharing = true
@@ -61,22 +61,22 @@ googleAnalytics = ""
   [[params.social]]
     icon = "envelope"
     icon_pack = "fa"
-    link = "mailto:test@example.org"
+    link = "mailto:long.1377@osu.edu"
 
   [[params.social]]
     icon = "twitter"
     icon_pack = "fa"
-    link = "//twitter.com/GeorgeCushen"
+    link = "//twitter.com/jlongrc"
 
-  [[params.social]]
-    icon = "google-scholar"
-    icon_pack = "ai"
-    link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
+#  [[params.social]]
+#   icon = "google-scholar"
+#   icon_pack = "ai"
+#    link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
 
   [[params.social]]
     icon = "github"
     icon_pack = "fa"
-    link = "//github.com/gcushen"
+    link = "//github.com/jlongrc"
 
 
 # Navigation Links
@@ -87,27 +87,27 @@ googleAnalytics = ""
   url = "#top"
   weight = 1
 
-[[menu.main]]
-  name = "Publications"
-  url = "#publications"
-  weight = 2
+#[[menu.main]]
+#  name = "Publications"
+#  url = "#publications"
+#  weight = 2
 
 [[menu.main]]
   name = "Posts"
   url = "#posts"
-  weight = 3
+  weight = 2
 
 [[menu.main]]
   name = "Projects"
   url = "#projects"
-  weight = 4
+  weight = 3
 
 [[menu.main]]
   name = "Teaching"
   url = "#teaching"
-  weight = 5
+  weight = 4
 
 [[menu.main]]
   name = "Contact"
   url = "#contact"
-  weight = 6
+  weight = 5
