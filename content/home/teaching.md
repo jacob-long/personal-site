@@ -13,12 +13,9 @@ weight = 50
 
 +++
 
-I am a teaching instructor for the following courses at University X:
+I am currently instructing at Ohio State and have taught the following courses:
 
-- CS101: An intro to computer science
-- CS102: An intro to computer science
-- CS103: An intro to computer science
-- CS104: An intro to computer science
-- CS105: An intro to computer science
-- CS106: An intro to computer science
-- CS107: An intro to computer science
+- COMM 2367 — Persuasive Communication
+- COMM 2367 — Persuasive Communication (online course)
+- COMM 4820 — Public Opinion and Communication
+
