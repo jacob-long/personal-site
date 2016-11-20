@@ -97,10 +97,10 @@ googleAnalytics = "UA-85962705-1"
   url = "#posts"
   weight = 2
 
-[[menu.main]]
-  name = "Projects"
-  url = "#projects"
-  weight = 3
+#[[menu.main]]
+#  name = "Projects"
+#  url = "#projects"
+#  weight = 3
 
 [[menu.main]]
   name = "Teaching"
