@@ -141,16 +141,22 @@ figcaption h4 {
   margin: 0;
 }
 
-pre,
 code {
   font-family: 'Roboto Mono', 'Courier New', 'Courier', monospace;
-  color: #dddddd;
-  background-color: #333333;
 }
 
 pre {
   margin: 0 0 1rem 0;
   overflow: auto;
+}
+
+pre {
+    background-color: #eeeeee;   
+}
+
+.highlight pre {
+  color: #dddddd ;
+  background-color: #333333;
 }
 
 /* Quotes */

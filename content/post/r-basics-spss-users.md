@@ -58,40 +58,39 @@ If I want to use this value later for something else, I can refer to `num` inste
 ```r
 num - 1 
 ```
-```text
-## [1] 4
-```
+
+<pre>[1] 4</pre>
+
 	
-What comes after the two hashmarks is the output R would give in this situation, which is `4`, the end result of 5 minus 1. For now, ignore the `[1]` but be aware it will be there on much of the output (it just means that `4` is the first result of `num - 1`, but of course there is only one result so it isn't so helpful in this situation). 
+What comes in the second, lighter box is the output R would give in this situation, which is `4`, the end result of 5 minus 1. For now, ignore the `[1]` but be aware it will be there on much of the output (it just means that `4` is the first result of `num - 1`, but of course there is only one result so it isn't so helpful in this situation). 
 
 Something that is important to understand about this situation is that you have not changed `num` by subtracting 1, you have just asked R to tell you what would happen if you subtracted 1 from `num`. Here is some more code and output to illustrate:
 
 ```r
 num
 ```
-```text	
-## [1] 5
-```
+<pre>[1] 5
+</pre> 
+
 ```r
 num - 1 
 ```
-```text
-## [1] 4
-```
+<pre>[1] 4
+</pre>
+
 ```r
 num
 ```
-```text
-## [1] 5
-```
+<pre>[1] 5
+</pre>
+
 ```r
 num <- num - 1
 
 num 
 ```
-```text	
-## [1] 4
-```
+<pre>[1] 4
+</pre>
 
 Okay, what did I do there at the end? I told R to change `num` to the value of `num - 1`, meaning the new value of `num` is 4. What this illustrates is that the object only changes if you specifically save the change to that object. Sometimes you're just interested in what the result of something is (what is `5-1`?) while other times you want to save that result for later.
 
@@ -153,27 +152,24 @@ Let's look at another basic function, `sum()`. This, as you might have guessed, 
 ```r
 sum(1,2)
 ```
-```text
-## [1] 3
-```
+<pre>[1] 3
+</pre>
 
 We see that the output is 3, which is the same as doing this:
 
 ```r
 1 + 2
 ```
-```text
-## [1] 3
-```
+<pre>[1] 3
+</pre>
 
 So you haven't saved much time by using the `sum()` function in this case. But if you provide `sum()` with a numeric vector, it will add all the elements within it.
 
 ```r
 sum(numVector)
 ```
-```text	
-## [1] 15
-```
+<pre>[1] 15
+</pre>
 	
 The alternatives to doing this are either
 
@@ -205,10 +201,9 @@ And then R takes care of the rest. Now if I want to *use* one of those functions
 library(psych)
 describe(numVector)
 ```
-```text
-##    vars n mean   sd median trimmed  mad min max range skew kurtosis   se
-## X1    1 5    3 1.58      3       3 1.48   1   5     4    0    -1.91 0.71
-```
+<pre>   vars n mean   sd median trimmed  mad min max range skew kurtosis   se
+X1    1 5    3 1.58      3       3 1.48   1   5     4    0    -1.91 0.71
+</pre>
 	
 So now I have a bunch of descriptive statistics thanks to the `describe()` of the `psych` package. It's worth noting that once you have loaded the package, you don't need to load it again until you have started a new R session (that is, you have closed R and opened it again). 
 
@@ -217,10 +212,9 @@ In this example, the only argument I have provided to `describe()` is a numeric 
 ```r
 describe(numVector, skew=FALSE)
 ```
-```text
-##    vars n mean   sd min max range   se
-## X1    1 5    3 1.58   1   5     4 0.71
-```
+<pre>   vars n mean   sd min max range   se
+X1    1 5    3 1.58   1   5     4 0.71
+</pre>
 
 Now how would I know I could put this argument and get that result? Every function is documented. If I enter `?describe`, I am shown the official documentation for that function, which includes a list of all the potential arguments I can provide along with brief explanations of what they do. The way this works is that the person who writes the function will specify the default for each argument and if you don't enter anything else, the default will go in. So my first call to the `describe()` function didn't mention the "skew" argument, so it assumed I wanted that information since that is the default. However, there is no default value for the data vector that I want descriptive statistics for, so I *have* to provide that or there will be an error. 
 
@@ -241,9 +235,9 @@ This dataset is 30 observations of 7 psychological variables. Type `?attitude` t
 ```r
 dim(att.data)
 ```
-```text
-## [1] 30  7
-```
+
+<pre>[1] 30  7
+</pre>
 	
 This means there are 30 rows and 7 columns in `att.data`. 
 
@@ -251,12 +245,12 @@ What are these columns called, though? There are two ways to get acquainted. In 
 
 ```r
 names(att.data)
-```	
-```text
-## [1] "rating"     "complaints" "privileges" "learning"   "raises"    
-## [6] "critical"   "advance"   
 ```
-	
+
+<pre>[1] "rating"     "complaints" "privileges" "learning"   "raises"    
+[6] "critical"   "advance"   
+</pre>
+
 This can be handy for more than data frames too, but we'll set that aside for the moment. R has printed out a list of all the names in their order. Note the numbers surrounded by brackets. This refers to the index of the value that follows it. So `"rating"` comes after `[1]`, meaning `"rating"` is the first variable name for this data frame. `"critical"` comes after `[6]`, meaning `"critical"` is the sixth variable name. As the lists get longer, this can be very helpful.
 
 ### Referring to variables in a data frame
@@ -268,10 +262,10 @@ If I want to find the mean of `complaints`, I need to use the `mean()` function 
 ```r
 mean(att.data$complaints)
 ```
-```text	
-## [1] 66.6
-```
-	
+
+<pre>[1] 66.6
+</pre>
+
 By providing `mean()` with `att.data$complaints` as an argument, it knew to look in the `att.data` data frame for a variable named `complaints`. This is quite different than SPSS because in SPSS, there is only one dataset so it would be redundant to be constantly referring to it in your code or in the point-and-click interface. We'll get to why R's way of doing things can be useful in a bit. What is important, though, is that you can have an object called `complaints` that has nothing to do with the `att.data` data frame. You're only referring to that variable when you write `att.data$complaints`. This can be especially helpful when you have a variable that shares a name with another R object or function. Imagine one of your variables was called `mean` or `sum`, for instance.
 
 #### Using matrix indexing
@@ -283,23 +277,21 @@ To do this, you use a format like this: `dataframe[row,column]`. So if I want th
 ```r
 att.data[1,1]
 ```
-```text
-## [1] 43
-```
+<pre>[1] 43
+</pre>
 	
 Okay, but we rarely want something so specific. To do the near-equivalent of `att.data$rating`, we can do this:
 	
 ```r
 att.data[1]
 ```
-```text	
-##    rating
-## 1      43
-## 2      63
-## 3      71
-## 4      61
-## 5      81
-```
+<pre>   rating
+1      43
+2      63
+3      71
+4      61
+5      81
+</pre>
 
 I've cut off the output, but it goes on for 30 rows. When you enter just one digit in brackets after the dataframe, R generally assumes you want it to return the dataframe with only the 1st column.
 	
@@ -308,20 +300,18 @@ What if I want *all* the variables, but just the first observation?
 ```r
 att.data[1,]
 ```
-```text	
-##   rating complaints privileges learning raises critical advance
-## 1     43         51         30       39     61       92      45
-```
+<pre>  rating complaints privileges learning raises critical advance
+1     43         51         30       39     61       92      45
+</pre>
 
 By adding a comma after the row index but then not adding a column index, R assumes that means I want everything for the specified row. The inverse applies as well; I can put just a comma and then the column index and get a list of the observations for a single column.
 
 ```r
 att.data[,1]
 ```
-```text	
-##  [1] 43 63 71 61 81 43 58 71 72 67 64 67 69 68 77 81 74 65 65 50 50 64 53 40 63
-## [26] 66 78 48 85 82
-```
+<pre>[1] 43 63 71 61 81 43 58 71 72 67 64 67 69 68 77 81 74 65 65 50 50 64 53 40 63
+[26] 66 78 48 85 82
+</pre>
 	
 This is numerically equivalent to `att.data[1]` but it is returned as a numeric vector without any labels. 
 
@@ -330,14 +320,13 @@ Additionally, you can specify a range of values for both rows and columns. Suppo
 ```r
 att.data[6:10,]
 ```
-```text	
-##    rating complaints privileges learning raises critical advance
-## 6      43         55         49       44     54       49      34
-## 7      58         67         42       56     66       68      35
-## 8      71         75         50       55     70       66      41
-## 9      72         82         72       67     71       83      31
-## 10     67         61         45       47     62       80      41
-```
+<pre>   rating complaints privileges learning raises critical advance
+6      43         55         49       44     54       49      34
+7      58         67         42       56     66       68      35
+8      71         75         50       55     70       66      41
+9      72         82         72       67     71       83      31
+10     67         61         45       47     62       80      41
+</pre>
 	
 The colon operator means I want everything between 6 and 10. I won't go into this level of detail in this post, but this indexing logic can be essential for efficiently subsetting data. You can specify, for instance, that you want to include only observations which have a certain level of `att.data$complaints` or some similar constraint and analyze those data separately.
 

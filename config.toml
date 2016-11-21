@@ -4,9 +4,6 @@ copyright = "&copy; 2016 Jacob Long"
 languageCode = "en-us"
 theme = "academic"
 
-# My CSS customizations
-custom_css = ["custom.css"]
-
 # Enable comments by entering your Disqus shortname
 disqusShortname = "jacob-long"
 
@@ -28,6 +25,9 @@ pygmentsUseClasses = false
   address = "154 N Oval Mall, Columbus, OH, 43210"
   phone = ""
 
+    # My CSS customizations
+    custom_css = ["custom.css"]
+
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
 
@@ -41,12 +41,6 @@ pygmentsUseClasses = false
 
   # Enable native social sharing buttons?
   sharing = true
-
-  # Link custom CSS and JS assets
-  #   (relative to /static/css and /static/js respectively)
-  custom_css = []
-  custom_js  = []
-
 
   # Social/Academic Networking
   #
