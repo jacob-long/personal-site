@@ -4,12 +4,18 @@ copyright = "&copy; 2016 Jacob Long"
 languageCode = "en-us"
 theme = "academic"
 
+
 # Enable comments by entering your Disqus shortname
 disqusShortname = "jacob-long"
 
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = "UA-85962705-1"
 
+# Jacob add
+pygmentscodefences = true
+pygmentsCodeFencesGuessSyntax = false
+pygmentsStyle = "monokai"
+pygmentsUseClasses = false
 
 [params]
   name = "Jacob Long"
@@ -29,7 +35,7 @@ googleAnalytics = "UA-85962705-1"
 
   # Enable global LaTeX math rendering?
   #   If false, you can enable it locally on a per page basis.
-  math = true
+  math = false
 
   # Enable native social sharing buttons?
   sharing = true
@@ -111,3 +117,4 @@ googleAnalytics = "UA-85962705-1"
   name = "Contact"
   url = "#contact"
   weight = 5
+
