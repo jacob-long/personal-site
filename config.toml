@@ -3,6 +3,8 @@ title = "Jacob Long"
 copyright = "&copy; 2016 Jacob Long"
 languageCode = "en-us"
 theme = "academic"
+enableEmoji = true
+footnotereturnlinkcontents = "<sup>^</sup>"
 
 # Enable comments by entering your Disqus shortname
 disqusShortname = "jacob-long"
