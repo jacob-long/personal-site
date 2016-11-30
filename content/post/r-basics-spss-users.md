@@ -118,7 +118,7 @@ Before going too much further, there is something I should mention about R synta
 
 For longer object names, some prefer to use "camel case" with the first segment lowercase, but with each other segment capitalized. For example, `myTextObject` is more readable than `mytextobject`. 
 
-You can use numbers, periods, and underscores in variable names, but only after the first letter. The first character **must be a letter**, but after that numbers are fine. Sometimes you may have an initial object called `data` or some such, but you tweak it and save the tweaked version as `data2` or `data_alt` or `data.alt`. There are no minimum number of characters for an object name, so it is fine to call an object `a` or `b`, just remember that you'll have to be able to remember what's in there and sometimes a single letter isn't expressive enough to remind you. 
+You can use numbers, periods, and underscores in variable names, but only after the first letter. The first character **must be a letter**, but after that numbers are fine. Sometimes you may have an initial object called `data` or some such, but you tweak it and save the tweaked version as `data2` or `data_alt` or `data.alt`. There is no minimum number of characters for an object name, so it is fine to call an object `a` or `b`, just remember that you'll have to be able to remember what's in there and sometimes a single letter isn't expressive enough to remind you. 
 
 ### Vectors
 
@@ -205,7 +205,7 @@ describe(numVector)
 X1    1 5    3 1.58      3       3 1.48   1   5     4    0    -1.91 0.71
 </pre>
 	
-So now I have a bunch of descriptive statistics thanks to the `describe()` of the `psych` package. It's worth noting that once you have loaded the package, you don't need to load it again until you have started a new R session (that is, you have closed R and opened it again). 
+So now I have a bunch of descriptive statistics thanks to the `describe()` function of the `psych` package. It's worth noting that once you have loaded the package, you don't need to load it again until you have started a new R session (that is, you have closed R and opened it again). 
 
 In this example, the only argument I have provided to `describe()` is a numeric vector (`numVector`). However, there are other arguments I could provide. For instance, I might not want the calculation of skew and kurtosis. I can add an argument to eliminate that part of the output.
 
@@ -255,7 +255,7 @@ This can be handy for more than data frames too, but we'll set that aside for th
 
 ### Referring to variables in a data frame
 
-R has a particular way of accessing variables in a data frame object. By this I mean, from what I've told you thus far it isn't obvious what you would do to perform an operation on just the `complaints` variable in the `att.data` data frame. There are two main ways to do this, but I'll focus first on the most common and convenient way.
+R has a particular way of accessing variables in a data frame object. From what I've told you thus far it isn't obvious what you would do to perform an operation on just the `complaints` variable in the `att.data` data frame. There are two main ways to do this, but I'll focus first on the most common and convenient way.
 
 If I want to find the mean of `complaints`, I need to use the `mean()` function and give that function an argument that refers to `complaints`. To do that last part, we use the `$` symbol. You start with the name of the data frame, then the dollar sign, then the variable name. Take a look:
 

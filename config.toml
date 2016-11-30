@@ -28,7 +28,7 @@ pygmentsUseClasses = false
   phone = ""
 
     # My CSS customizations
-    custom_css = ["custom.css"]
+    custom_css = ["custombrief.css"]
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""

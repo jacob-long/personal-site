@@ -1,0 +1,199 @@
+/*************************************************
+ *  MIscellaneous
+ **************************************************/
+ 
+/* For formatting output with a different background from code blocks */
+pre {
+    background-color: #eeeeee;   
+}
+
+.highlight pre {
+  color: #dddddd ;
+  background-color: #333333;
+}
+
+/* Makes space for TOC */
+.article-metadata {
+  margin-bottom: 35px;
+  line-height: 30px; /* Match share bar line height. */
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  color: #888;
+}
+
+
+/*************************************************
+ *  Table of Contents
+ **************************************************/
+ 
+ #toc ul { 
+  list-style-type: none; 
+  margin: 0 auto;
+}
+
+#toc ul ul { 
+  list-style-type: disc; 
+}
+
+#toc {
+	margin-left: 5px;
+	float: right;
+	padding-left: 1.5rem; 
+	padding-bottom: 1rem;
+	padding-top: 1.2rem;
+	padding-right: 1.5rem;
+	border-left: 0px solid #eee;
+	font-size: 0.8rem;
+}
+
+#toc li ul {
+	padding-bottom: 0rem;
+	padding-top:0rem;
+}
+
+#toc li li {
+	padding-bottom: 0.1rem;
+	padding-top:0rem;
+}
+
+nav#TableOfContents ul:first-child {
+    padding-left: 5px;
+}
+
+#toc-title {
+    margin-left: -.5rem;
+    font-size: 1.1rem;    
+}
+
+/*************************************************
+ *  Based on example green theme
+ **************************************************/
+
+/* Adding a little red to the navbar */
+.navbar-fixed-top{
+	top:0;
+	border-width:0 0 2px
+}
+
+.navbar-default{
+	background-color:#f8f8f8;
+	border-color: rgb(170,0,0);
+}
+
+.navbar-default .navbar-nav li a, .navbar-default .navbar-nav li a:visited {
+	white-space: nowrap;
+	-webkit-transition: 0.2s ease;
+	transition: 0.2s ease;
+	color: rgb(150,0,0);
+}
+
+.navbar-default .navbar-nav li a:hover {
+	white-space: nowrap;
+	-webkit-transition: 0.2s ease;
+	transition: 0.2s ease;
+	color: rgb(255,0,0);
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:visited {
+	color: #efefef;
+	background-color: rgb(170,0,0);
+}
+
+.navbar-default .navbar-brand {
+	color: rgb(130,0,0);
+	background-color: transparent;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: rgb(210,0,0);
+	background-color: transparent;
+}
+
+/* Add shadow under navbar, old version of theme had this */
+.navbar-default {
+	box-shadow: 0 0.15rem 0.25rem 0 rgba(0,0,0,.11);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: rgb(130,0,0);
+}
+
+a,
+a:visited,
+h3.article-title a:hover {
+    color: rgb(170,0,0);
+}
+
+a:hover {
+    color: rgb(255,0,0);
+}
+
+.navbar-default .navbar-nav li a:hover,
+.btn-primary,
+.btn-primary.btn-outline {
+    color: rgb(170,0,0);
+}
+
+/* Articles */
+
+.article-title a {
+    color: #151515;
+}
+
+.article-metadata a {
+    color: #888;
+}
+
+.article-metadata a:hover {
+    color: rgb(170,0,0);
+}
+
+/* My own change to social icons */
+ul.share li a {
+  background-color: rgb(170,0,0);
+  display: block;
+  border-radius: 50%;
+  text-decoration: none !important;
+  margin: 0;
+  opacity: 0.5;
+}
+
+ul.share li:hover a {
+  opacity: 1;
+}
+
+ul.share li:hover .fa {
+  transform: scale(1.2);
+}
+
+/* Standard buttons */
+
+.btn-primary,
+.btn-primary.btn-outline {
+    border-color: rgb(170,0,0);
+}
+
+/* Hover buttons */
+
+.btn-primary.btn-outline:hover {
+    border-color: rgb(170,0,0);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:visited,
+.btn-primary.btn-outline:active {
+    background-color: rgb(170,0,0);
+    
+/* egri-nagy addition */
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
+  color: rgb(170,0,0);
+  font-weight: 700;
+  background-color: transparent !important; /* Override Bootstrap. */
+}
+
+

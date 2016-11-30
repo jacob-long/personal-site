@@ -15,10 +15,14 @@
     <div class="article-style" itemprop="articleBody">
         {{ if .Params.tableofcontents }}
             <div id="toc" class="well col-md-4 col-sm-6">
+                <div id="toc-title">
+                    Contents
+                </div>
             {{.TableOfContents }}
             </div>
-         {{end}}
-      {{ .Content }}
+        {{end}}
+             
+             {{ .Content }}
     </div>
 
   </article>
