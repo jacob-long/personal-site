@@ -21,6 +21,11 @@ pre {
   color: #888;
 }
 
+/* I want correct case on the projects cards */
+.card h4 {
+	text-transform: none;
+}
+
 
 /*************************************************
  *  Table of Contents
