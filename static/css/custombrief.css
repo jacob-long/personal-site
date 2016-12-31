@@ -26,6 +26,12 @@ pre {
 	text-transform: none;
 }
 
+/* Used to be green for who knows what reason */
+.talk-event {
+	color: rgb(170,0,0);
+	font-size: 1rem;
+}
+
 
 /*************************************************
  *  Table of Contents

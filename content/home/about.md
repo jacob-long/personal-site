@@ -37,4 +37,4 @@ weight = 0
 
 # Biography
 
-I am a PhD student at the School of Communication at <font size="2">The</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, moral psychology, and communication technology. I'm interested in how and why people think about politics and the social world the way that they do.
+I am a PhD student at the School of Communication at <font size="2">The</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, moral psychology, and communication technology. I'm interested in why people think about politics and the social world the way that they do.
