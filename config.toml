@@ -1,4 +1,4 @@
-baseurl = "http://jacob-long.com"
+baseurl = "http://jacob-long.com/"
 title = "Jacob Long"
 copyright = "&copy; 2016 Jacob Long"
 languageCode = "en-us"
@@ -20,7 +20,7 @@ pygmentsUseClasses = false
 
 [params]
   name = "Jacob A. Long"
-  role = "PhD Student"
+  role = "PhD Student, Communication"
   organization = "Ohio State University"
 #  avatar = "portrait.jpg"
   email = "long.1377@osu.edu"
