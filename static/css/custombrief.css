@@ -28,10 +28,14 @@ pre {
 
 /* Used to be green for who knows what reason */
 .talk-event {
-	color: rgb(170,0,0);
-	font-size: 1rem;
+	color: rgb(110,110,110);
+	font-size: 0.85rem;
 }
 
+span[itemprop="name"] {
+	color: rgb(0,0,0);
+	font-size: 1rem;
+}
 
 /*************************************************
  *  Table of Contents
