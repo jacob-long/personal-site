@@ -1,6 +1,7 @@
 +++
 math = false
 tags = ["r","rstudio","spss","stats"]
+categories = ["r"]
 date = "2016-11-20T10:46:01-05:00"
 title = "Some R Basics for SPSS Users"
 image = ""
