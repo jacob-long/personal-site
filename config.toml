@@ -19,7 +19,7 @@ pygmentsStyle = "monokai"
 pygmentsUseClasses = false
 
 [params]
-  name = "Jacob Long"
+  name = "Jacob A. Long"
   role = "PhD Student"
   organization = "Ohio State University"
 #  avatar = "portrait.jpg"
