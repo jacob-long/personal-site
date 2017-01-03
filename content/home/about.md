@@ -7,7 +7,7 @@ draft = false
 widget = "about"
 
 # Order that this section will appear in.
-weight = 0
+weight = 1
 
 # List your academic interests.
 [interests]
@@ -29,7 +29,7 @@ weight = 0
   year = 2019
 
 [[education.courses]]
-  course = "BA in Political Science"
+  course = "BA with Honors in Political Science"
   institution = "Rhodes College"
   year = 2014
  
@@ -37,4 +37,4 @@ weight = 0
 
 # Biography
 
-I am a PhD student at the School of Communication at <font size="2">The</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, moral psychology, and communication technology. I'm interested in why people think about politics and the social world the way that they do.
+I am a PhD student at the School of Communication at <font size="1">[The]</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, moral psychology, and communication technology. I'm interested in why people think about politics and the social world the way that they do.
