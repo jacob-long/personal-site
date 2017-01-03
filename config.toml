@@ -83,6 +83,25 @@ pygmentsUseClasses = false
     icon_pack = "fa"
     link = "//github.com/jacob-long"
 
+# Recommend sites links ####
+
+  [[params.links]]
+    name = "Andrew Gelman"
+    url = "//andrewgelman.com"
+    
+  [[params.links]]
+    name = "Data Colada"
+    url = "//datacolada.org/"
+
+  [[params.links]]    
+    name = "UCLA IDRE Stats Resources"
+    url = "//www.ats.ucla.edu/stat/"
+  
+  [[params.links]]
+    name = "R-Bloggers"
+    url = "//r-bloggers.com"
+
+######
 
 # Navigation Links
 #   The weight parameter defines the order that the links will appear in.
@@ -116,4 +135,3 @@ pygmentsUseClasses = false
   name = "Contact"
   url = "#contact"
   weight = 6
-

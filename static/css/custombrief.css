@@ -103,6 +103,52 @@ nav#TableOfContents ul:first-child {
 }
 
 /*************************************************
+ *  Dropdown links menu
+ **************************************************/
+
+/* Style The Dropdown Button */
+.dropbtn {
+/* 	I set the button to inherit from various "btn" classes */
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    float: left;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    padding: 5px 5px;
+    display: block;
+    font-size: 0.7rem;
+}
+
+/* Change color of dropdown links on hover */
+/* .dropdown-content a:hover {background-color: #f1f1f1} */
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: rgb(170,0,0);
+    color: white;
+}
+
+/*************************************************
  *  Based on example green theme
  **************************************************/
 
