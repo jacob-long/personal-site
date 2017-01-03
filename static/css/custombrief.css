@@ -179,7 +179,7 @@ nav#TableOfContents ul:first-child {
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:visited {
 	color: #efefef;
-	background-color: rgb(170,0,0);
+	background-color: rgb(170,0,0) !important;
 }
 
 .navbar-default .navbar-brand {
