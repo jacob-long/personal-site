@@ -1,0 +1,32 @@
+{{ if and .Site.DisqusShortname (not (or .Site.Params.disable_comments .Params.disable_comments)) }}
+<section id="comments">
+  <div id="disqus_thread">
+    {{ with .Site.DisqusShortname }}
+        <h2>COMMENTS</h2>
+        <p id="error"></p>
+        <script type = "text/javascript">
+        var disqus_loaded = false;
+        function disqus() {
+        	document.getElementById("comment-button").style.display="none";
+        	if (window.location.hostname == "localhost") {
+        		document.getElementById("error").innerHTML = "Disqus comments are unavailable while serving on localhost or 127.0.0.1";
+        		return;
+        	}
+        	if (!disqus_loaded) {
+        			disqus_loaded = true;
+        			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        			var disqus_shortname = '{{ . }}';
+        			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        	}
+        }
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        <div id="disqus_thread_click" href="#comments">
+        <button class="btn btn-custom" id="comment-button" onclick="disqus();return false;"> Show comments </button>
+        </div>
+        </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
