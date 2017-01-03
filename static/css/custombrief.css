@@ -32,9 +32,15 @@ pre {
 	font-size: 0.85rem;
 }
 
+/* Ultimately didn't change this, but it's the title of teaching/talks list objects */
 span[itemprop="name"] {
 	color: rgb(0,0,0);
 	font-size: 1rem;
+}
+
+/* Name of degree fields (was 0.9rem) */
+ul.ul-edu li .description p.course {
+	font-size: 0.85rem;
 }
 
 /*************************************************
