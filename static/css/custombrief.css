@@ -43,6 +43,7 @@ ul.ul-edu li .description p.course {
 	font-size: 0.85rem;
 }
 
+/* Final changes to comment button */
 button#comment-button {
 	display: block;
     text-transform: uppercase;
@@ -51,8 +52,6 @@ button#comment-button {
     margin-right: auto;
     margin-left: auto;
 	width: 50%;
-/*     margin-top: 30px; */
-/*     float: center; */
 }
 
 button#comment-button:focus {
@@ -125,6 +124,7 @@ nav#TableOfContents ul:first-child {
     background-color: #f9f9f9;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;	
 }
 
 /* Links inside the dropdown */
