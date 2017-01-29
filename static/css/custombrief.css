@@ -165,20 +165,20 @@ nav#TableOfContents ul:first-child {
 
 .navbar-default .navbar-nav li a, .navbar-default .navbar-nav li a:visited {
 	white-space: nowrap;
-	-webkit-transition: 0.2s ease;
-	transition: 0.2s ease;
-	color: rgb(150,0,0);
+/* 	-webkit-transition: 0.2s ease; */
+/* 	transition: 0.2s ease; */
+	color: rgb(130,0,0);
 }
 
 .navbar-default .navbar-nav li a:hover {
 	white-space: nowrap;
 	-webkit-transition: 0.2s ease;
 	transition: 0.2s ease;
-	color: rgb(255,0,0);
+	color: rgb(210,0,0);
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:visited {
-	color: #efefef;
+	color: #efefef !important;
 	background-color: rgb(170,0,0) !important;
 }
 
@@ -265,18 +265,38 @@ ul.share li:hover .fa {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
-.btn-primary.active,
 .btn-primary:visited,
-.btn-primary.btn-outline:active {
-    background-color: rgb(170,0,0);
-    
+.btn-primary.btn-outline:active,
+.nav-item:active {
+    background-color: rgb(170,0,0) !important;
+}
+
 /* egri-nagy addition */
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
   color: rgb(170,0,0);
   font-weight: 700;
-  background-color: transparent !important; /* Override Bootstrap. */
+/*   background-color: transparent !important; /* Override Bootstrap. */  
+}
+
+.btn-large.active {
+	background-color: rgba(170,0,0,1) !important;
+}
+
+.btn-large {
+	background-color: rgba(170,0,0, 0.6) !important;
+	color: #FFF;
+}
+
+.btn-large:hover {
+	background-color: rgba(170,0,0,0.3) !important; 
+	transition: color 0.6s ease !important;
+}
+
+a.btn-large {
+	color: #FFF;	
+	background-color: rgba(170,0,0, 0.6) !important;
 }
 
 
