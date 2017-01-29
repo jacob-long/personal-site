@@ -9,9 +9,9 @@ title = "APA LaTeX Template"
 summary = "A template for writing reports in APA format using the LaTeX typesetting engine. The heavy lifting is done by the `apa6` package, but this saves the user some time writing out code to get started."
 
 # Optional image to display on homepage (relative to `static/img/` folder).
-image_preview = "APArefpic.png"
+image_preview = "APArefpic_wide.png"
 
-tags = ["LaTeX", "APA"]
+tags = ["LaTeX", "APA", "Research"]
 
 # Optional external URL for project (replaces project detail page).
 external_link = "//github.com/jacob-long/APA-LaTeX-Template"

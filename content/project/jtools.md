@@ -9,7 +9,7 @@ title = "jtools"
 summary = "An expanding collection of functions I've created for use in R. They are thus far focused on presenting and interpreting the results of regression models with a focus on two-way interactions."
 
 # Optional image to display on homepage (relative to `static/img/` folder).
-image_preview = "jtools_explot.png"
+image_preview = "jtools_explot_wide.png"
 
 tags = ["R"]
 
