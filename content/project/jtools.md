@@ -19,17 +19,28 @@ tags = ["R", "Research"]
 # Does the project detail page use math formatting?
 math = false
 
+tableofcontents = true
+
 weight=1
 
 +++
 
-<span style="clear:both;display:table;padding-bottom:0;padding-top:0">
-<a href="https://travis-ci.org/jacob-long/jtools"><img style="float:left;margin-bottom:0;margin-top:0" src="https://travis-ci.org/jacob-long/jtools.svg?branch=master" /></a><a href="https://ci.appveyor.com/project/jacob-long/JTools"><img style="float:left;margin-bottom:0;margin-top:0" src="https://ci.appveyor.com/api/projects/status/github/jacob-long/JTools?branch=master&svg=true" /></a><a href="https://codecov.io/gh/jacob-long/jtools">
-  <img style="float:left;margin-bottom:0;margin-top:0" src="https://codecov.io/gh/jacob-long/jtools/branch/master/graph/badge.svg" alt="Codecov" />
-</a><a href="https://opensource.org/licenses/MIT"><img style="float:left;margin-bottom:0;margin-top:0" src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" /></a> 
-</span>
+<!--<span style="clear:both;display:table;padding-bottom:0;padding-top:0">-->
+<a href="https://travis-ci.org/jacob-long/jtools">
+	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="https://travis-ci.org/jacob-long/jtools.svg?branch=master" />
+</a>
+<a href="https://ci.appveyor.com/project/jacob-long/JTools">
+	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="https://ci.appveyor.com/api/projects/status/github/jacob-long/JTools?branch=master&svg=true" />
+</a>
+<a href="https://codecov.io/gh/jacob-long/jtools">
+	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="https://codecov.io/gh/jacob-long/jtools/branch/master/graph/badge.svg" alt="Codecov" />
+</a>
+<a href="https://opensource.org/licenses/MIT">
+	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" />
+</a> 
+<!--</span>--><br />
 
-This package consists of a series of functions created by the author (Jacob) to automate otherwise tedious research tasks. At this juncture, the unifying theme is the more efficient presentation of regression analyses, including those with interactions. Support for the `survey` package's `svyglm` objects is a common theme throughout.
+This package (source, support [on Github](https://github.com/jacob-long/jtools)) consists of a series of functions I created to automate otherwise tedious research tasks. At this juncture, the unifying theme is the more efficient presentation of regression analyses, including those with interactions. Support for the `survey` package's `svyglm` objects is a common theme throughout.
 
 Installation
 ------------
@@ -51,7 +62,7 @@ Usage
 
 Here's a brief synopsis of the current functions in the package:
 
-#### `j_summ()`
+### `j_summ()`
 
 This is a replacement for `summary.lm` that provides the user several options for formatting regression summaries. Supports `glm` and `svyglm` objects as input as well, but it is not tested with nonlinear models. It supports calculation and reporting of robust standard errors via the `sandwich` and `lmtest` packages.
 
@@ -79,7 +90,7 @@ j_summ(fit)
 #> hp:wt       0.028  0.007 3.753  0.001 ***
 </pre>
 
-#### `sim_slopes()`
+### `sim_slopes()`
 
 This is an interface for simple slopes analysis for 2-way interactions. User can specify values of the moderator to test or use the default +/- 1 SD values.
 
@@ -100,7 +111,7 @@ sim_slopes(fit, pred="wt", modx = "hp")
 #> -6.041  0.780  0.000
 </pre>
 
-#### `interact_plot()`
+### `interact_plot()`
 
 This function plots two-way interactions using `ggplot2` with a similar interface to the aforementioned `sim_slopes()` function. Users can customize the appearance with familiar `ggplot2` commands. It supports several customizations, like confidence intervals.
 
@@ -119,7 +130,7 @@ interact_plot(fitiris, pred = "Petal.Width", modx = "Species", plot.points = TRU
 
 ![](/img/README-interact_plot_factor-1.png)
 
-#### `svycor()`
+### `svycor()`
 
 This function extends the `survey` package by calculating correlations with complex survey designs, a feature absent from `survey`. Users may request significance tests, which are calculated via bootstrap by calling the `weights` package.
 
@@ -138,7 +149,7 @@ svycor(~api00+api99+dnum, design = dstrat, digits = 3, sig.stats = T, bootn = 20
 #> dnum  0.254* 0.244* 1</pre>
 
 
-#### `theme_apa()`
+### `theme_apa()`
 
 This will format your `ggplot2` graphics to make them (mostly) appropriate for APA style publications. There's no drop-in, perfect way to get plots into APA format sight unseen, but this gets you close and returns a `ggplot` object that can be further tweaked to your specification.
 
