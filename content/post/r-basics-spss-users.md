@@ -14,7 +14,7 @@ There are a lot of reasons to use R instead of my field's standby software, SPSS
 If you're moving from SPSS and are just a social scientist with no particular training in things like programming, here's what you should know about R:
 	
 * There's no point-and-click interface; virtually everything you need to do will be done via written code.
-* Don't expect to sit down one day with no experience in R and be running analyses within a few minutes. Quick learners and those with some programming experience will pick it up fairly quickly, but give yourself some time to learn how things work. You will inevitably get stuck on a seemingly simple problem and take way too much time trying to sort it out.
+* Don't expect to sit down one day with no experience in R and be running production-quality analyses within a few minutes. Quick learners and those with some programming experience will pick it up fairly quickly, but give yourself some time to learn how things work. You will inevitably get stuck on a seemingly simple problem and take way too much time trying to sort it out.
 *  R will likely change the way you think about data analysis. When you have to write code to make things happen *and* that code is in R, you're likely to think about the data and what you can do with it in a different way than you do if you have only used SPSS. This is good!
 	
 Before we get started here, I should mention that I will **not** write about **how to install R**. I have nothing to add beyond the many resources on this topic on the web. 
@@ -132,7 +132,7 @@ For instance, a 2x2 matrix is like this:
 1 2
 ```
 	
-We can say that the 2x2 matrix consists of two 2x1 column vectors, [1,1] and [2,2]. Generally speaking, an easy way to think of vectors are as ordered lists of values. Keep in mind, however, that there is a specific data type known as a list, so use the word "vector" to refer to vectors. 
+We can say that the 2x2 matrix consists of two 2x1 column vectors, [1,1] and [2,2]. Generally speaking, an easy way to think of vectors is as ordered lists of values. Keep in mind, however, that there is a specific data type known as a list, so use the word "vector" to refer to vectors. 
 
 ## Step 3: Know your functions
 
@@ -362,6 +362,7 @@ My analyses live in R Markdown files nowadays, but that's beyond the scope of th
 I don't mean for this to be a comprehensive guide, but rather something to (comparatively) efficiently fill the gaps in many of the resources I used back when I had to learn R. Here are some other good places to go to get yourself going:
 
 * The [Personality Project's documentation](http://www.personality-project.org/r/r.guide.html) for getting started with R for psychological research is excellent and very detailed. I highly recommend it. These are the developers of the `psych` package.
+* [DataCamp](https://www.datacamp.com) has several free courses (like [this one](https://www.datacamp.com/courses/free-introduction-to-r)) that give you an interactive tutorial that doesn't even require you to download R right away.
 * [Quick-R](http://www.statmethods.net/) is filled with code examples organized by the specific tasks you might want to do, like linear regression, data cleaning, and so on.
 * Roel Hogervost has a nice series on making the switch with many detailed examples. Here's a link to [part 1](http://rmhogervorst.nl/cleancode/blog/2016/02/20/from-spss-to-r-part1.html).
 * RStudio has created [several cheatsheets](https://www.rstudio.com/resources/cheatsheets/) to act as a quick reference to frequently used syntax.
