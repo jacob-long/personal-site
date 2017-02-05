@@ -65,6 +65,15 @@ button#comment-button:focus {
 	display: none;
 }
 
+/* Get rid of redundant highlight background */
+div.highlight {
+	background: transparent !important;
+}
+
+.hljs {
+	background: transparent !important; 
+}
+
 /*************************************************
  *  Table of Contents
  **************************************************/
