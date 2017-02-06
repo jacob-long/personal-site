@@ -1,4 +1,4 @@
-baseurl = "http://jacob-long.com/"
+baseurl = "https://www.jacob-long.com/"
 title = "Jacob Long"
 copyright = "&copy; 2016 Jacob Long"
 languageCode = "en-us"
@@ -14,7 +14,7 @@ googleAnalytics = "UA-85962705-1"
 
 # Jacob add
 pygmentscodefences = true
-pygmentsCodeFencesGuessSyntax = false
+pygmentsCodeFencesGuessSyntax = true
 pygmentsStyle = "monokai"
 pygmentsUseClasses = false
 
