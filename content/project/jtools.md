@@ -1,6 +1,6 @@
 +++
 # Date this page was created.
-date = "2016-12-27"
+date = "2017-2-22"
 
 # Project title.
 title = "jtools"
@@ -26,6 +26,8 @@ weight=1
 +++
 
 <!--<span style="clear:both;display:table;padding-bottom:0;padding-top:0">-->
+<a href="http://www.repostatus.org/badges/latest/active.svg">
+	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="http://www.repostatus.org/badges/latest/active.svg" alt = "Project Status: Active - The project has reached a stable, usable state and is being actively developed."/>
 <a href="https://travis-ci.org/jacob-long/jtools">
 	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="https://travis-ci.org/jacob-long/jtools.svg?branch=master" />
 </a>
@@ -91,7 +93,10 @@ j_summ(fit)
 #> hp:wt       0.028  0.007 3.753  0.001 ***
 </pre>
 
-It has some other conveniences as well, like re-fitting your model with standardized variables. I'm a fan of Andrew Gelman's 2 SD standardization method. You can also get a couple diagnostic checks for linear models along with multicollinearity information.
+It has some other conveniences as well, like re-fitting your model with standardized
+variables. I'm a fan of Andrew Gelman's 2 SD standardization method. You can also
+get a couple diagnostic checks for linear models along with multicollinearity
+information.
 
 ``` r
 fit2 <- lm(Murder ~ Assault + UrbanPop, data = USArrests)
@@ -125,24 +130,40 @@ j_summ(fit2, standardize = TRUE, n.sd = 2, vifs = TRUE, robust = TRUE,
 
 ### `sim_slopes()`
 
-This is an interface for simple slopes analysis for 2- and 3-way interactions. Users can specify values of the moderator to test or use the default +/- 1 SD values.
+This is an interface for simple slopes analysis for 2- and 3-way interactions.
+Users can specify values of the moderator to test or use the default +/- 1 SD values.
+Johnson-Neyman intervals are also calculated and, if requested, Johnson-Neyman
+plots are returned.
 
 ``` r
-sim_slopes(fit, pred="wt", modx = "hp")
+fiti <- lm(Murder ~ Assault*UrbanPop, data = USArrests)
+sim_slopes(fiti, pred = UrbanPop, modx = Assault, jnplot = TRUE)
 ```
 
 <pre>
-#> Slope of wt when hp = 215.25 (+1 SD): 
-#>   Est.   S.E.      p 
-#> -2.222  0.686  0.003 
+#> JOHNSON-NEYMAN INTERVAL
 #> 
-#> Slope of wt when hp = 146.688 (Mean): 
-#>   Est.   S.E.      p 
-#> -4.132  0.530  0.000 
+#> The slope of UrbanPop is p < .05 when Assault is INSIDE this interval:
+#> [193.5072, 363.9215]
+#> Note: The range of observed values of Assault is [45, 337]
+</pre>
+
+![plot of chunk j-n plot](README-j-n plot-1.png)
+
+<pre>
+#> SIMPLE SLOPES ANALYSIS
 #> 
-#> Slope of wt when hp = 78.125 (-1 SD): 
+#> Slope of UrbanPop when Assault = 254.098 (+1 SD): 
 #>   Est.   S.E.      p 
-#> -6.041  0.780  0.000
+#> -0.075  0.035  0.035 
+#> 
+#> Slope of UrbanPop when Assault = 170.76 (Mean): 
+#>   Est.   S.E.      p 
+#> -0.044  0.026  0.100 
+#> 
+#> Slope of UrbanPop when Assault = 87.422 (-1 SD): 
+#>   Est.   S.E.      p 
+#> -0.012  0.035  0.730
 </pre>
 
 ### `interact_plot()`
@@ -175,8 +196,12 @@ probe_interaction(fita3, pred = critical, modx = learning, mod2 = privileges)
 
 <pre>
 #> #######################################################
-#> While privileges (2nd moderator) = 65.36876 (+1 SD)
+#> While privileges (2nd moderator) = 65.369 (+1 SD)
 #> #######################################################
+#> 
+#> The Johnson-Neyman interval could not be found. Is your interaction term significant?
+#> 
+#> SIMPLE SLOPES ANALYSIS
 #> 
 #> Slope of critical when learning = 68.104 (+1 SD): 
 #>   Est.   S.E.      p 
@@ -191,8 +216,12 @@ probe_interaction(fita3, pred = critical, modx = learning, mod2 = privileges)
 #> -0.057  0.614  0.927 
 #> 
 #> #######################################################
-#> While privileges (2nd moderator) = 53.13333 (Mean)
+#> While privileges (2nd moderator) = 53.133 (Mean)
 #> #######################################################
+#> 
+#> The Johnson-Neyman interval could not be found. Is your interaction term significant?
+#> 
+#> SIMPLE SLOPES ANALYSIS
 #> 
 #> Slope of critical when learning = 68.104 (+1 SD): 
 #>  Est.  S.E.     p 
@@ -207,8 +236,16 @@ probe_interaction(fita3, pred = critical, modx = learning, mod2 = privileges)
 #> 0.093 0.340 0.788 
 #> 
 #> #######################################################
-#> While privileges (2nd moderator) = 40.8979 (-1 SD)
+#> While privileges (2nd moderator) = 40.898 (-1 SD)
 #> #######################################################
+#> 
+#> JOHNSON-NEYMAN INTERVAL
+#> 
+#> The slope of critical is p < .05 when learning is INSIDE this interval:
+#> [52.8623, 73.5881]
+#> Note: The range of observed values of learning is [34, 75]
+#> 
+#> SIMPLE SLOPES ANALYSIS
 #> 
 #> Slope of critical when learning = 68.104 (+1 SD): 
 #>  Est.  S.E.     p 
