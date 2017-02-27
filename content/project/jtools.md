@@ -1,6 +1,6 @@
 +++
 # Date this page was created.
-date = "2017-2-22"
+date = "2017-02-22"
 
 # Project title.
 title = "jtools"
@@ -26,8 +26,8 @@ weight=1
 +++
 
 <!--<span style="clear:both;display:table;padding-bottom:0;padding-top:0">-->
-<a href="http://www.repostatus.org/badges/latest/active.svg">
-	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="http://www.repostatus.org/badges/latest/active.svg" alt = "Project Status: Active - The project has reached a stable, usable state and is being actively developed."/>
+<a href="https://cran.r-project.org/package=jtools">
+	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="http://www.r-pkg.org/badges/version/jtools" alt = "CRAN status badge"/>
 <a href="https://travis-ci.org/jacob-long/jtools">
 	<img style="float:left;margin-bottom:0;margin-top:0;padding-right:7px;padding-bottom:0" src="https://travis-ci.org/jacob-long/jtools.svg?branch=master" />
 </a>
@@ -42,19 +42,26 @@ weight=1
 </a> 
 <!--</span>--><br />
 
-This package (source, support [on Github](https://github.com/jacob-long/jtools)) consists of a series of functions I created to automate otherwise tedious research tasks. At this juncture, the unifying theme is the more efficient presentation of regression analyses, including those with interactions. Support for the `survey` package's `svyglm` objects is a common theme throughout.
+This package (source, support [on Github](https://github.com/jacob-long/jtools) and [CRAN](https://cran.r-project.org/package=jtools)) consists of a series of functions I created to automate otherwise tedious research tasks. At this juncture, the unifying theme is the more efficient presentation of regression analyses, including those with interactions. Support for the `survey` package's `svyglm` objects is a common theme throughout.
 
 **Note**: This is beta software. Bugs are possible, both in terms of code-breaking errors and more pernicious errors of mistaken computation.
 
-## Installation
+Installation
+------------
 
-If you don't have `devtools` installed, first install it.
+For the most stable version, simply install from CRAN.
+
+``` r
+install.packages("jtools")
+```
+
+If you want the latest features and bug fixes (and perhaps the latest bugs, too) then you can download from Github. To do that you will need to have `devtools` installed if you don't already:
 
 ``` r
 install.packages("devtools")
 ```
 
-Then install the package from Github--it is not yet available from CRAN as it is in its early stages of development.
+Then install the package from Github.
 
 ``` r
 devtools::install_github("jacob-long/jtools")
