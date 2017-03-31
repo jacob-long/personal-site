@@ -20,6 +20,8 @@ math = false
 
 weight=5
 
+photoswipe = false
+
 +++
 
 <iframe src="https://jacob-long.shinyapps.io/group_differences/" style="width: 100%; height:800px; border: none;"></iframe>

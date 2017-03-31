@@ -21,4 +21,6 @@ math = false
 
 weight=2
 
+photoswipe = false
+
 +++

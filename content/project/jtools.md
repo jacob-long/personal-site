@@ -23,6 +23,8 @@ tableofcontents = true
 
 weight=1
 
+photoswipe = true
+
 +++
 
 <!--<span style="clear:both;display:table;padding-bottom:0;padding-top:0">-->
@@ -155,7 +157,7 @@ sim_slopes(fiti, pred = UrbanPop, modx = Assault, jnplot = TRUE)
 #> Note: The range of observed values of Assault is [45, 337]
 </pre>
 
-![plot of chunk j-n plot](/img/README-j-n plot-1.png)
+{{< figure src = "/img/README-j-n plot-1.png" >}}
 
 <pre>
 #> SIMPLE SLOPES ANALYSIS
@@ -181,7 +183,7 @@ This function plots two-way interactions using `ggplot2` with a similar interfac
 interact_plot(fit, pred="wt", modx = "hp", interval = T, int.width = .95)
 ```
 
-![](/img/README-interact_plot_continuous-1.png)
+{{< figure src = "/img/README-interact_plot_continuous-1.png" >}}
 
 The function also supports categorical moderators and plotting observed data points alongside best-fitting lines.
 
@@ -190,7 +192,7 @@ fitiris <- lm(Petal.Length ~ Petal.Width*Species, data = iris)
 interact_plot(fitiris, pred = "Petal.Width", modx = "Species", plot.points = TRUE)
 ```
 
-![](/img/README-interact_plot_factor-1.png)
+{{< figure src = "/img/README-interact_plot_factor-1.png" >}}
 
 ### `probe_interaction()`
 
@@ -267,7 +269,7 @@ probe_interaction(fita3, pred = critical, modx = learning, mod2 = privileges)
 #> 0.242 0.237 0.318
 </pre>
 
-![](/img/README-probe_interaction_ex-1.png)
+{{< figure src = "/img/README-probe_interaction_ex-1.png" >}}
 
 ### `svycor()`
 
@@ -299,7 +301,7 @@ p <- interact_plot(fitiris, pred = "Petal.Width", modx = "Species", plot.points 
 p + theme_apa(legend.pos = "topleft")
 ```
 
-![](/img/README-theme_apa_ex-1.png)
+{{< figure src = "/img/README-theme_apa_ex-1.png" >}}
 
 Facet grids like those produced by `interact_plot` for 3-way interactions are also supported, though APA guidance on these kinds of constructions is less than clear. The embedded legend has a nice space-saving quality, though some trial and error may be needed before finding the ideal `legend.pos` argument.
 
@@ -309,7 +311,7 @@ p2 <- p2$interactplot
 p2 + theme_apa(legend.pos = "topmiddle") 
 ```
 
-![](/img/README-theme_apa_facet_ex-1.png)
+{{< figure src = "/img/README-theme_apa_facet_ex-1.png" >}}
 
 You may need to make further changes to please your publisher, of course. Since these are regular `ggplot` theme changes, it shouldn't be a problem.
 

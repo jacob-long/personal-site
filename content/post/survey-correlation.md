@@ -6,6 +6,7 @@ categories = ["r"]
 highlight = true
 math = false
 image = ""
+photoswipe = false
 
 +++
 

@@ -6,6 +6,7 @@ date = "2016-11-20T10:46:01-05:00"
 title = "Some R basics for SPSS users"
 image = ""
 tableofcontents = true
+photoswipe = true
 
 +++
 
@@ -27,7 +28,7 @@ SPSS and other statistical software packages are, more or less, interactive deve
 
 RStudio is an IDE that I consider essential for a typical R user, especially one who wants to avoid needing to learn more about their computer and programming concepts than what is absolutely necessary. Below is a screenshot of my own setup with RStudio:
 
-![RStudio screenshot](/img/RStudioShot.png)
+{{< figure src = "/img/RStudioShot.png" >}}
 
 There are several customizations with my own setup compared to the default, but the basics are all there. In the 4 quadrants, going from left to right, top to bottom, you have:
 	
@@ -38,7 +39,7 @@ There are several customizations with my own setup compared to the default, but 
 
 This is somewhat similar to the various views available in SPSS, but all in one window (which I find easier to keep track of). Below is another screen capture with a couple of the quadrants showing alternative versions of themselves (the data view on the top left and the plot view on the bottom right).
 
-![RStudio screenshot](/img/RStudioShot2.png)
+{{< figure src = "/img/RStudioShot2.png" >}}
 
 ## Step 2: Everything's an object
 
@@ -339,11 +340,11 @@ In RStudio, you can actually do this with a point-and-click interface. In the la
 
 In the File menu, find "Import Dataset" and choose the relevant variant.
 
-![RStudio-import-dropdown](/img/RStudio-import-dropdown.png)
+{{< figure src = "/img/RStudio-import-dropdown.png" >}}
 
 Using the window that appears next, find the file you're looking for and it will show you a preview to help you make sure that it is reading the data correctly. You can choose from here what to name the data frame object. Take note of—and preferably save—the code preview so that you can reproduce the import in the future even if you don't have RStudio handy or the options change.
 
-![RStudio-import-window](/img/RStudio-import-window.png)
+{{< figure src = "/img/RStudio-import-window.png" >}}
 
 From there, you're pretty much ready to go! 
 
