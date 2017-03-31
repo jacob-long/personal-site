@@ -35,5 +35,9 @@
   {{ partial "comments.html" . }}
 </div>
 
+{{ if .Params.photoswipe }}
+  {{ partial "load-photoswipe.html" . }}
+{{ end }}
+
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}
