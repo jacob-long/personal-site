@@ -15,6 +15,7 @@ weight = 1
   interests = [
     "Political communication",
     "Entertainment media",
+    "Social identity",
     "Moral psychology",
     "Communication technology"
   ]
@@ -26,7 +27,7 @@ weight = 1
 [[education.courses]]
   course = "PhD in Communication (expected)"
   institution = "Ohio State University"
-  year = 2019
+  year = 2020
 
 [[education.courses]]
   course = "BA with Honors in Political Science"
@@ -37,4 +38,4 @@ weight = 1
 
 # Biography
 
-I am a PhD student at the School of Communication at <font size="1">[The]</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, moral psychology, and communication technology. I'm interested in why people think about politics and the social world the way that they do.
+I am a PhD student at the School of Communication at <font size="1">[The]</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, social identity, moral psychology, and communication technology. I'm interested in why people think about politics and the social world the way that they do.
