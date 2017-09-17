@@ -94,18 +94,26 @@ pygmentsUseClasses = false
   [[params.links]]
     name = "Andrew Gelman"
     url = "//andrewgelman.com"
-    
+
   [[params.links]]
     name = "Data Colada"
     url = "//datacolada.org/"
 
-  [[params.links]]    
+  [[params.links]]
     name = "UCLA IDRE Stats Resources"
     url = "//www.ats.ucla.edu/stat/"
-  
+
   [[params.links]]
     name = "R-Bloggers"
     url = "//r-bloggers.com"
+
+  [[params.links]]
+    name = "Elements of Evolutionary Anthropology (Richard McElreath)"
+    url = "http://elevanth.org/blog/"
+
+  [[params.links]]
+    name = "Biased and Inefficient (Thomas Lumley)"
+    url = "http://notstatschat.tumblr.com"
 
 ######
 
