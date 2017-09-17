@@ -19,6 +19,10 @@ pre {
   background-color: #333333;
 }
 
+code {
+ color: #9b2f0a;   
+}
+
 /* Makes space for TOC */
 .article-metadata {
   margin-bottom: 35px;
