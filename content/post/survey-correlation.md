@@ -28,7 +28,7 @@ should be attributed to me (Jacob).
 With that said, let's look at an example. First, we need to get a
 `survey.design` object. This one is built into the `survey` package.
 
-``` r
+```r
 library(survey)
 data(api)
 dstrat <- svydesign(id = ~1,strata = ~stype, weights = ~pw, data = apistrat, fpc=~fpc)
@@ -46,10 +46,10 @@ on.
 svycor(~api00 + api99, design = dstrat)
 ```
 
-<pre>    
-##       api00 api99
-## api00  1.00  0.98
-## api99  0.98  1.00
+<pre>
+       api00 api99
+ api00  1.00  0.98
+ api99  0.98  1.00
 </pre>
 
 You can specify with the `digits =` argument how many digits past the
@@ -59,9 +59,9 @@ decimal point should be printed.
 svycor(~api00 + api99, design = dstrat, digits = 4)
 ```
 <pre>
-##        api00  api99
-## api00 1.0000 0.9759
-## api99 0.9759 1.0000
+        api00  api99
+ api00 1.0000 0.9759
+ api99 0.9759 1.0000
 </pre>
 
 Any other arguments that you would normally pass to `svyvar` will be
@@ -95,9 +95,9 @@ svycor(~api00 + api99, design = dstrat, digits = 4, sig.stats = TRUE, bootn = 20
 ```
 
 <pre>
-##       api00   api99  
-## api00 1       0.9759*
-## api99 0.9759* 1
+       api00   api99
+ api00 1       0.9759*
+ api99 0.9759* 1
 </pre>
 
 When using `sig.stats = TRUE`, the correlation parameter estimates come
@@ -114,9 +114,9 @@ c$cors
 ```
 
 <pre>
-##           api00     api99
-## api00 1.0000000 0.9759047
-## api99 0.9759047 1.0000000
+           api00     api99
+ api00 1.0000000 0.9759047
+ api99 0.9759047 1.0000000
 </pre>
 
 ```r
@@ -124,9 +124,9 @@ c$p.values
 ```
 
 <pre>
-##       api00 api99
-## api00     0     0
-## api99     0     0
+       api00 api99
+ api00     0     0
+ api99     0     0
 </pre>
 
 ```r
@@ -134,9 +134,9 @@ c$std.err
 ```
 
 <pre>
-##             api00       api99
-## api00 0.000000000 0.003467371
-## api99 0.003467371 0.000000000
+             api00       api99
+ api00 0.000000000 0.003467371
+ api99 0.003467371 0.000000000
 </pre>
 
 Technical details
@@ -150,9 +150,9 @@ svyvar(~api00 + api99, design = dstrat)
 ```
 
 <pre>
-##       variance     SE
-## api00    15191 1255.7
-## api99    16518 1318.4
+       variance     SE
+ api00    15191 1255.7
+ api99    16518 1318.4
 </pre>
 
 But if you save the `svyvar` object, you can see that there's more than
@@ -165,17 +165,17 @@ var
 ```
 
 <pre>
-##          api00    api99
-## api00 15190.59 15458.83
-## api99 15458.83 16518.24
-## attr(,"var")
-##         api00   api00   api99   api99
-## api00 1576883 1580654 1580654 1561998
-## api00 1580654 1630856 1630856 1657352
-## api99 1580654 1630856 1630856 1657352
-## api99 1561998 1657352 1657352 1738266
-## attr(,"statistic")
-## [1] "variance"
+          api00    api99
+ api00 15190.59 15458.83
+ api99 15458.83 16518.24
+ attr(,"var")
+         api00   api00   api99   api99
+ api00 1576883 1580654 1580654 1561998
+ api00 1580654 1630856 1630856 1657352
+ api99 1580654 1630856 1630856 1657352
+ api99 1561998 1657352 1657352 1738266
+ attr(,"statistic")
+ [1] "variance"
 </pre>
 
 Once we know that, it's just a matter of using R's `cov2cor` function
@@ -187,17 +187,17 @@ cor
 ```
 
 <pre>
-##           api00     api99
-## api00 1.0000000 0.9759047
-## api99 0.9759047 1.0000000
-## attr(,"var")
-##         api00   api00   api99   api99
-## api00 1576883 1580654 1580654 1561998
-## api00 1580654 1630856 1630856 1657352
-## api99 1580654 1630856 1630856 1657352
-## api99 1561998 1657352 1657352 1738266
-## attr(,"statistic")
-## [1] "variance"
+           api00     api99
+ api00 1.0000000 0.9759047
+ api99 0.9759047 1.0000000
+ attr(,"var")
+         api00   api00   api99   api99
+ api00 1576883 1580654 1580654 1561998
+ api00 1580654 1630856 1630856 1657352
+ api99 1580654 1630856 1630856 1657352
+ api99 1561998 1657352 1657352 1738266
+ attr(,"statistic")
+ [1] "variance"
 </pre>
 
 Now to get rid of that covariance matrix...
@@ -205,12 +205,12 @@ Now to get rid of that covariance matrix...
 ```r
 cor <- cor[1:nrow(cor), 1:nrow(cor)]
 cor
-```    
+```
 
 <pre>
-##           api00     api99
-## api00 1.0000000 0.9759047
-## api99 0.9759047 1.0000000
+           api00     api99
+ api00 1.0000000 0.9759047
+ api99 0.9759047 1.0000000
 </pre>
 
 `svycor` has its own print method, so you won't see so many digits past
@@ -222,9 +222,9 @@ out$cors
 ```
 
 <pre>
-##           api99     api00
-## api99 1.0000000 0.9759047
-## api00 0.9759047 1.0000000
+           api99     api00
+ api99 1.0000000 0.9759047
+ api00 0.9759047 1.0000000
 </pre>
 
 Suggestions welcome
