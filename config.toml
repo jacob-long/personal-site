@@ -13,7 +13,7 @@ disqusShortname = "jacob-long"
 googleAnalytics = "UA-85962705-1"
 
 # Jacob add
-pygmentscodefences = true
+pygmentscodefences = false
 pygmentsCodeFencesGuessSyntax = true
 pygmentsStyle = "monokai"
 pygmentsUseClasses = false
@@ -28,8 +28,11 @@ pygmentsUseClasses = false
   twitter = "jacobandrewlong"
   phone = ""
 
-    # My CSS customizations
-    custom_css = ["custombrief.css"]
+  # My CSS customizations
+  custom_css = ["prismjs.css",
+  "prism.tomorrownight80s.css",
+  "prism_line_nos.css",
+  "custombrief.css"]
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
@@ -44,6 +47,9 @@ pygmentsUseClasses = false
 
   # Enable native social sharing buttons?
   sharing = true
+
+
+  highlight = false
 
   # Social/Academic Networking
   #
@@ -125,7 +131,7 @@ pygmentsUseClasses = false
   name = "Teaching"
   url = "#teach"
   weight = 4
-  
+
 [[menu.main]]
   name = "Projects"
   url = "#projects"

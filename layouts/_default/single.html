@@ -19,9 +19,9 @@
             {{.TableOfContents }}
             </div>
         {{end}}
-        
+
       {{ .Content }}
-      
+
     </div>
   </div>
 
@@ -34,6 +34,8 @@
 <div class="article-container">
   {{ partial "comments.html" . }}
 </div>
+
+{{ partial "prismjs.html" }}
 
 {{ if .Params.photoswipe }}
   {{ partial "load-photoswipe.html" . }}
