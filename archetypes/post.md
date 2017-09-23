@@ -1,4 +1,8 @@
 +++
+title = "{{ replace .TranslationBaseName "-" " " | title }}"
+date = {{ .Date }}
+draft = true
+
 math = false
 highlight = true
 tags = []
