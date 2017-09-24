@@ -1,7 +1,7 @@
 +++
 title = "Here's how to use APA style in Zotero without issue numbers"
 date = 2017-09-23T16:10:13-04:00
-draft = true
+draft = false
 
 math = false
 highlight = true
