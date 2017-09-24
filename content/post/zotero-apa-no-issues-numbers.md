@@ -1,5 +1,5 @@
 +++
-title = "Here's how to use APA style in Zotero without issue numbers"
+title = "Here's how to use APA style without issue numbers in Zotero"
 date = 2017-09-23T16:10:13-04:00
 draft = false
 
