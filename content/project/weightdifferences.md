@@ -11,14 +11,14 @@ summary = "This is a Shiny app to demonstrate to students how much randomly assi
 # Optional image to display on homepage (relative to `static/img/` folder).
 image_preview = "groupdiffs-wide.png"
 
-tags = ["Shiny-Apps", "R", "Teaching"]
+tags = ["Shiny-Apps", "R", "Teaching", "Other"]
 
 # Optional external URL for project (replaces project detail page).
 
 # Does the project detail page use math formatting?
 math = false
 
-weight=5
+weight = 11
 
 photoswipe = false
 
