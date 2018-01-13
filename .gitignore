@@ -1,2 +1,9 @@
 Junk/
 .vscode/launch.json
+.Rproj.user
+
+\.Rhistory
+
+\.RData
+
+Website\.Rproj
