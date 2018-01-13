@@ -10,12 +10,12 @@ subtitle = ""
 widget = "projects"
 
 # Order that this section will appear in.
-weight = 50
+weight = 4
 
 # View.
 # Customize how projects are displayed.
 # Legend: 0 = list, 1 = cards.
-view = 1
+view = 0
 
 # Filter toolbar.
 # Add or remove as many filters (`[[filter]]` instances) as you like.
@@ -23,12 +23,12 @@ view = 1
 # To remove toolbar, delete/comment all instances of `[[filter]]` below.
 
 [[filter]]
-name = "Research"
-tag = ".Research"
+name = "R Packages"
+tag = ".RPackages"
 
 [[filter]]
-name = "Teaching"
-tag = ".Teaching"
+name = "Other"
+tag = ".Other"
 
 #[[filter]]
 #name = "All"
