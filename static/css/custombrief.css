@@ -3,11 +3,10 @@
  **************************************************/
 
 .article-container {
-	max-width: 950px !important;
+	max-width: 800px !important;
 	padding: 1rem 20px 0 20px;
 	margin: 0 auto 0 auto;
 }
- 
  
 /* For formatting output with a different background from code blocks */
 pre {
@@ -21,6 +20,10 @@ pre {
 
 code {
  color: #9b2f0a;   
+}
+
+pre > code {
+ color: #000000;   
 }
 
 /* Makes space for TOC */
@@ -141,9 +144,9 @@ nav#TableOfContents ul:first-child {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9 !important;
     min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
     z-index: 1000;	
 }
 
@@ -164,8 +167,8 @@ nav#TableOfContents ul:first-child {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: rgb(170,0,0);
-    color: white;
+    background-color: rgb(170,0,0) !important; 
+    color: white !important;
 }
 
 /*************************************************
@@ -234,7 +237,7 @@ a:hover {
 .navbar-default .navbar-nav li a:hover,
 .btn-primary,
 .btn-primary.btn-outline {
-    color: rgb(170,0,0);
+    color: rgb(170,0,0) !important;
 }
 
 /* Articles */
@@ -273,13 +276,13 @@ ul.share li:hover .fa {
 
 .btn-primary,
 .btn-primary.btn-outline {
-    border-color: rgb(170,0,0);
+    border-color: rgb(170,0,0) !important;
 }
 
 /* Hover buttons */
 
 .btn-primary.btn-outline:hover {
-    border-color: rgb(170,0,0);
+    border-color: rgb(170,0,0) !important;
 }
 
 .btn-primary:hover,
@@ -287,8 +290,21 @@ ul.share li:hover .fa {
 .btn-primary:active,
 .btn-primary:visited,
 .btn-primary.btn-outline:active,
-.nav-item:active {
+.nav-item:active, .btn-toolbar .btn.btn-primary.active {
     background-color: rgb(170,0,0) !important;
+}
+
+.btn-toolbar .btn.btn-primary.active {
+  color: #FFF !important;
+}
+
+.btn .btn-primary .btn-large {
+  color: #FFF !important;
+}
+
+.btn-toolbar .btn.btn-primary:hover {
+  color: #FFF !important;
+  background-color: rgba(170, 0, 0, .5) !important;
 }
 
 /* egri-nagy addition */
@@ -315,7 +331,7 @@ ul.share li:hover .fa {
 }
 
 a.btn-large {
-	color: #FFF;	
+	color: #FFF !important;	
 	background-color: rgba(170,0,0, 0.6) !important;
 }
 
