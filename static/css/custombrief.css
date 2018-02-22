@@ -11,6 +11,7 @@
 /* For formatting output with a different background from code blocks */
 pre {
     background-color: #eeeeee;   
+    color: #333333;
 }
 
 .highlight pre {
