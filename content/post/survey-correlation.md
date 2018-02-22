@@ -14,7 +14,8 @@ The `survey` package is one of R's best tools for those working in the
 social sciences. For many, it saves you from needing to use commercial
 software for research that uses survey data. However, it lacks one
 function that many academic researchers often need to report in
-publications: correlations. The `svycor` function in `jtools` ([more info](/project/jtools)) helps to
+publications: correlations. The `svycor` function in `jtools` 
+([more info](//jtools.jacob-long.com)) helps to
 fill that gap. <!--more-->
 
 An initial note, however, is necessary. The basic method behind this
