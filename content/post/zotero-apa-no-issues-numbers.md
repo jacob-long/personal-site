@@ -20,7 +20,8 @@ caption = ""
 Zotero is a major part of my workflow from gathering research to the final,
 written output. One major annoyance, though, is its interpretation of APA
 reference style. It's all correct, of course, with one exception: It adds
-the issue number to every journal citation.
+the issue number to every journal citation.<!--more-->
+
 
 APA style holds that you should not include the issue numbers. The sole
 exception to this rule, which is admittedly asinine, are journals which
