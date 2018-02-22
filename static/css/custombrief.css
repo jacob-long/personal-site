@@ -28,12 +28,16 @@ pre > code {
 }
 
 /* Makes space for TOC */
-.article-metadata {
-  margin-bottom: 35px;
-  line-height: 30px; /* Match share bar line height. */
-  font-size: 14px;
-  letter-spacing: 0.03em;
-  color: #888;
+/*.article-metadata {
+/*  margin-bottom: 35px;
+/*  line-height: 30px; /* Match share bar line height. */
+/*  font-size: 14px;
+/*  letter-spacing: 0.03em;
+/*  color: #888;
+/*} */
+
+h3.article-title {
+  margin-top: 0rem;
 }
 
 /* I want correct case on the projects cards */
