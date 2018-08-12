@@ -296,6 +296,7 @@ ul.share li:hover .fa {
 .btn-primary:visited,
 .btn-primary.btn-outline:active,
 .nav-item:active, .btn-toolbar .btn.btn-primary.active {
+    background: rgba(170,0,0,1) !important;
     background-color: rgb(170,0,0) !important;
 }
 
@@ -321,9 +322,14 @@ ul.share li:hover .fa {
 /*   background-color: transparent !important; /* Override Bootstrap. */  
 }
 
-.btn-large.active {
+.btn-large.active, .btn-primary:active, .btn-primary:hover,
+.btn-primary:focus, .btn-primary.focus, .btn-large:focus, 
+.bton-large.focus, 
+ .btn-primary.active, .btn-primary:visited, .open > .dropdown-toggle.btn-primary {
+    background: rgba(170,0,0,1) !important;
 	background-color: rgba(170,0,0,1) !important;
 }
+
 
 .btn-large {
 	background-color: rgba(170,0,0, 0.6) !important;
