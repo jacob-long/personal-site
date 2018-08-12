@@ -1,4 +1,5 @@
-baseurl = "https://www.jacob-long.com/"
+# baseurl = "https://www.jacob-long.com/"
+baseurl = "/"
 title = "Jacob Long"
 copyright = "&copy; 2018 Jacob Long"
 languageCode = "en-us"
@@ -25,19 +26,40 @@ paginate = 10
 # Default language to use (if you setup multilingual support)
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+hasCJKLanguage = false  # Set `true` for Chinese/Japanese/Korean languages.
+
+# Get last modified date for content from Git?
+enableGitInfo = false
 
 [outputs]
-  home = [ "HTML", "CSS" ]
+  home = [ "HTML", "CSS", "RSS" ]
+  section = [ "HTML", "RSS" ]
+
+# Configure BlackFriday Markdown rendering.
+#   See: https://gohugo.io/readfiles/bfconfig/
+[blackfriday]
+  hrefTargetBlank = true  # `true` opens external links in a new tab.
+  fractions = true  # `false` disables smart fractions (e.g. 5/12 formatted as a fraction).
+  smartypants = true  # `false` disables all smart punctuation substitutions (e.g. smart quotes, dashes, fractions).
+
+[outputFormats.search]
+  baseName = "search"
+  isPlainText = true
+  mediaType = "application/json"
+  notAlternative = true
 
 [params]
   name = "Jacob A. Long"
   role = "PhD Student, Communication"
-  organization = "Ohio State University"
-#  avatar = "portrait.jpg"
+  organizations = [{name = "Ohio State University", url = ""}]
+  avatar = ""
   email = "long.1377@osu.edu"
   address = "154 N Oval Mall, Columbus, OH, 43210"
   twitter = "jacobandrewlong"
   phone = ""
+  office_hours = ""
+  telegram = ""
+  logo = ""
 
   # Color theme.
   #   Choose from `default`, `ocean`, `forest`, or `coffee`.
@@ -51,6 +73,23 @@ defaultContentLanguageInSubdir = false
   "prism.tomorrownight80s.css",
   "prism_line_nos.css",
   "custombrief.css"]
+  custom_js = []
+  
+  # Publication types.
+  #   Used to categorize publications.
+  #   The index of the publication type in the list is used as its unique numerical identifier.
+  #   The numeric ID is used in a publication's frontmatter to categorize it.
+  #   The language can be edited below.
+  #   For multi-lingual sites, copy this block to each language section at the end of this file.
+  publication_types = [
+    'Uncategorized',  # 0
+    'Conference paper',  # 1
+    'Journal article',  # 2
+    'Manuscript',  # 3
+    'Report',  # 4
+    'Book',  # 5
+    'Book section'  # 6
+  ]
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
@@ -58,6 +97,29 @@ defaultContentLanguageInSubdir = false
   # Date format (refer to Go's date format: http://flippinggodateformat.com )
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
   date_format = "Mon, Jan 2, 2006"
+  #   Examples: "3:04 pm" or "15:04"
+  time_format = "3:04 PM"
+  
+  # Enable/disable map in Contact widget.
+  # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
+  # a map provider below.
+  # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
+  #   https://developers.google.com/maps/documentation/javascript/get-api-key
+  # To use OpenStreetMap tiles, set `map = 2`.
+  # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+  #
+  # Map provider:
+  #   0: No map
+  #   1: Google Maps
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
+  map = 0
+  map_api_key = ""
+  latitude = "37.4275"
+  longitude = "-122.1697"
+  zoom = 15
 
   # Enable global LaTeX math rendering?
   #   If false, you can enable it locally on a per page basis.
@@ -67,12 +129,18 @@ defaultContentLanguageInSubdir = false
   sharing = true
 
   highlight = false
+  highlight_languages = []
   
   # Show estimated reading time for posts?
   reading_time = true
 
   # Display comment count? Requires commenting to be enabled.
   comment_count = true
+  
+  privacy_pack = false
+
+  # Display next/previous section pager?
+  section_pager = false
 
   # Social/Academic Networking
   #
@@ -102,15 +170,20 @@ defaultContentLanguageInSubdir = false
     icon_pack = "fa"
     link = "//twitter.com/jacobandrewlong"
 
-#  [[params.social]]
-#   icon = "google-scholar"
-#   icon_pack = "ai"
-#    link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
+  [[params.social]]
+   icon = "google-scholar"
+   icon_pack = "ai"
+    link = "https://scholar.google.com/citations?hl=en&user=fi-oVkIAAAAJ"
 
   [[params.social]]
     icon = "github"
     icon_pack = "fa"
     link = "//github.com/jacob-long"
+    
+  [[params.social]]
+   icon = "orcid"
+   icon_pack = "ai"
+   link = "https://orcid.org/0000-0002-1582-6214"
 
 # Recommend sites links ####
 
@@ -137,46 +210,56 @@ defaultContentLanguageInSubdir = false
   [[params.links]]
     name = "Biased and Inefficient (Thomas Lumley)"
     url = "http://notstatschat.tumblr.com"
+  
+  # Configuration of talk pages.
+  [params.talks]
+    # Show talk time?
+    time = true
 
-  # Publication types.
-  #   Used to categorize publications.
-  #   The index of the publication type in the list is used as its unique numerical identifier.
-  #   The numeric ID is used in a publication's frontmatter to categorize it.
-  #   The language can be edited below.
-  #   For multi-lingual sites, copy this block to each language section at the end of this file.
-  publication_types = [
-    'Uncategorized',  # 0
-    'Conference proceedings',  # 1
-    'Journal',  # 2
-    'Work in progress',  # 3
-    'Technical report',  # 4
-    'Book',  # 5
-    'Book chapter'  # 6
-  ]
+  # Configuration of publication pages.
+  [params.publications]
+    # Date format (refer to Go's date format: http://fuckinggodateformat.com )
+    #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+    date_format = "2006"
+
+  # Configuration of project pages.
+  [params.projects]
+    # List publications and talks related to the project?
+    list_children = true
+
+    # Publication list format.
+    #   0 = Simple
+    #   1 = Detailed
+    #   2 = APA
+    #   3 = MLA
+    publication_format = 2
 
 ######
 
 # Navigation Links
 #   The weight parameter defines the order that the links will appear in.
-
+[params.menus]
+  # Align the main menu to the right of the page? (true/false)
+  align_right = true
+  
 [[menu.main]]
   name = "Home"
   url = "#top"
   weight = 1
 
-#[[menu.main]]
-#  name = "Publications"
-#  url = "#publications"
-#  weight = 2
-
 [[menu.main]]
-  name = "Posts"
-  url = "#posts"
-  weight = 3
+  name = "Publications"
+  url = "#publications"
+  weight = 2
   
 [[menu.main]]
-  name = "Projects"
+  name = "Software"
   url = "#projects"
+  weight = 3
+
+[[menu.main]]
+  name = "Blog"
+  url = "#posts"
   weight = 4
 
 [[menu.main]]
@@ -199,3 +282,17 @@ defaultContentLanguageInSubdir = false
 [Languages.en]
   languageCode = "en-us"
 
+# Search.
+[params.search]
+  # Search provider:
+  #   0: No search engine
+  #   1: Algolia (https://www.algolia.com)
+  engine = 0
+
+  # Configuration of Algolia search engine.
+  # Paste the values from your Algolia dashboard.
+  [params.search.algolia]
+    app_id = ""
+    api_key = ""
+    index_name = ""
+    show_logo = false
