@@ -3,19 +3,22 @@
 # Note: this widget will only display if `content/project/` contains projects.
 
 date = "2016-12-28"
-draft = false
+active = true
 
-title = "Projects"
+title = "Software"
 subtitle = ""
 widget = "projects"
+folder = "project"
 
 # Order that this section will appear in.
-weight = 4
+weight = 3
 
 # View.
 # Customize how projects are displayed.
 # Legend: 0 = list, 1 = cards.
 view = 0
+
+filter_default = 0
 
 # Filter toolbar.
 # Add or remove as many filters (`[[filter]]` instances) as you like.
@@ -23,15 +26,15 @@ view = 0
 # To remove toolbar, delete/comment all instances of `[[filter]]` below.
 
 [[filter]]
-name = "R Packages"
-tag = ".RPackages"
+  name = "R Packages"
+  tag = ".RPackages"
 
 [[filter]]
-name = "Other"
-tag = ".Other"
+  name = "Other"
+  tag = ".Other"
 
-#[[filter]]
-#name = "All"
-#tag = "*"
+[[filter]]
+  name = "All"
+  tag = "*"
 
 +++

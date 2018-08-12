@@ -19,11 +19,11 @@ external_link = "//jtools.jacob-long.com"
 # Does the project detail page use math formatting?
 math = false
 
-tableofcontents = true
+tableofcontents = false
 
-weight=1
+weight = 1
 
-photoswipe = true
+photoswipe = false
 
 slug = "jtools"
 

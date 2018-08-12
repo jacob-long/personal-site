@@ -19,11 +19,11 @@ external_link = "//panelr.jacob-long.com"
 # Does the project detail page use math formatting?
 math = false
 
-tableofcontents = true
+tableofcontents = false
 
 weight = 2
 
-photoswipe = true
+photoswipe = false
 
 slug = "panelr"
 
