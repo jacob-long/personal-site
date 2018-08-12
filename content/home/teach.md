@@ -4,6 +4,7 @@
 
 date = "2016-04-20T00:00:00"
 draft = false
+tags = ""
 
 title = "Teaching"
 subtitle = ""
@@ -16,7 +17,7 @@ weight = 5
 count = 10
 
 # Show talk details (such as abstract)? (true/false)
-detailed_list = false
+list_format = 0
 
 +++
 
