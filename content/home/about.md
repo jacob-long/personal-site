@@ -14,8 +14,8 @@ weight = 1
   title = "Interests"
   interests = [
     "Political communication",
-    "Entertainment media",
     "Social identity",
+    "Statistical and computational methods",
     "Moral psychology",
     "Communication technology"
   ]
@@ -38,4 +38,9 @@ weight = 1
 
 # Biography
 
-I am a PhD student at the School of Communication at <font size="1">[The]</font> Ohio State University. My research interests are broadly in the area of political communication, with particular foci in entertainment media, social identity, moral psychology, and communication technology. I'm interested in why people think about politics and the social world the way that they do.
+I am a PhD student at the School of Communication at <font size="1">[The]</font> 
+Ohio State University. My research interests are broadly in the area of 
+political communication, with special interests in social identity, social 
+environments, and the maintenance thereof. I also spend a good deal of my time
+thinking about the research designs and analytic methods we can use to learn
+more about these things.
