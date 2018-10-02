@@ -1,16 +1,25 @@
-<li itemscope itemtype="http://schema.org/CreativeWork">
+<div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/Event">
     {{ if .Params.online }}
-        <i class="fa-li fa fa-desktop pub-icon" aria-hidden="true"></i>
+        <i class="fas fa-desktop pub-icon" aria-hidden="true"></i>
     {{ else }}
-        <i class="fa-li fa fa-university pub-icon" aria-hidden="true"></i>
+        <i class="fas fa-university pub-icon" aria-hidden="true"></i>
     {{ end }}
-  <span itemprop="name">{{ .Title }}</span>
-  <div class="talk-event">
-    {{ if .Params.event_short }}
-        {{ .Params.event_short | markdownify }}
-    {{ else if .Params.event }}
-            {{ .Params.event | markdownify }}
-    {{ end }}
+    <span itemprop="name">{{ .Title }}</span>
+    <!-- <div itemprop="startDate">
+      {{ $date := .Params.time_start | default .Date }}
+      {{ (time $date).Format $.Site.Params.date_format }}
+      {{ if $.Site.Params.talks.time }}
+        {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+      {{ end }}
+    </div> -->
+    <div class="talk-metadata">
+      {{ if .Params.event_short }}
+          {{ .Params.event_short | markdownify }}
+      {{ else if .Params.event }}
+              {{ .Params.event | markdownify }}
+      {{ end }}
+    </div>
+    <div class="talk-links">
+      {{ partial "teach_links" (dict "content" . "is_list" 1) }}
+    </div>
   </div>
-  <p>{{ partial "teach_links" (dict "content" . "is_list" 1) }}</p>
-</li>
