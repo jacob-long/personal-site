@@ -11,7 +11,7 @@ widget = "projects"
 folder = "project"
 
 # Order that this section will appear in.
-weight = 3
+weight = 4
 
 # View.
 # Customize how projects are displayed.
@@ -27,11 +27,11 @@ filter_default = 0
 
 [[filter]]
   name = "R Packages"
-  tag = ".RPackages"
+  tag = "RPackages"
 
 [[filter]]
   name = "Other"
-  tag = ".Other"
+  tag = "Other"
 
 [[filter]]
   name = "All"
