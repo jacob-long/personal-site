@@ -22,6 +22,8 @@ Before we get started here, I should mention that I will **not** write about **h
 
 * Download R for your platform (Windows/Mac/Linux) at [R's official website](https://www.r-project.org/).
 * Download RStudio, a third-party piece of software to make your life easier, which I discuss in more detail below. Get it [from RStudio](https://www.rstudio.com/products/rstudio/download/). *Note: Choose your platform under "installers."*
+
+{{% toc %}}
 	
 ## Step 1: Use RStudio
 SPSS and other statistical software packages are, more or less, interactive development environments (IDEs). That is, you manage files, write code, and view output in the same program. R is like other programming languages in that you can use it with an IDE or not. At its most basic level, R can be used in a terminal (the command line) without any saved input or output. But this is a pain! 
