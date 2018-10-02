@@ -23,4 +23,5 @@ weight = 9
 
 photoswipe = false
 
+custom_icon = ""
 +++

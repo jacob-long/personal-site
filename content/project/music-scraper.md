@@ -27,4 +27,6 @@ photoswipe = false
 
 slug = "Song-Lyric-Data-Scraper"
 
+custom_icon = "far fa-gem"
+
 +++

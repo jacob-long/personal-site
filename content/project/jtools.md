@@ -27,4 +27,6 @@ photoswipe = false
 
 slug = "jtools"
 
+custom_icon = "fab fa-r-project"
+
 +++

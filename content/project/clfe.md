@@ -27,4 +27,6 @@ photoswipe = false
 
 slug = "dpm"
 
+custom_icon = "fab fa-r-project"
+
 +++

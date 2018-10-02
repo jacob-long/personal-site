@@ -27,4 +27,6 @@ photoswipe = false
 
 slug = "panelr"
 
+custom_icon = "fab fa-r-project"
+
 +++
