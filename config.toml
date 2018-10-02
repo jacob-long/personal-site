@@ -16,9 +16,9 @@ googleAnalytics = "UA-85962705-1"
 
 # Jacob add
 pygmentscodefences = false
-pygmentsCodeFencesGuessSyntax = true
+pygmentsCodeFencesGuessSyntax = false
 pygmentsStyle = "monokai"
-pygmentsUseClasses = false
+pygmentsUseClasses = true
 
 preserveTaxonomyNames = true
 paginate = 10
@@ -162,28 +162,33 @@ enableGitInfo = false
 
   [[params.social]]
     icon = "envelope"
-    icon_pack = "fa"
+    icon_pack = "fas"
     link = "mailto:long.1377@osu.edu"
 
   [[params.social]]
     icon = "twitter"
-    icon_pack = "fa"
+    icon_pack = "fab"
     link = "//twitter.com/jacobandrewlong"
 
   [[params.social]]
    icon = "google-scholar"
    icon_pack = "ai"
     link = "https://scholar.google.com/citations?hl=en&user=fi-oVkIAAAAJ"
-
-  [[params.social]]
-    icon = "github"
-    icon_pack = "fa"
-    link = "//github.com/jacob-long"
     
+  [[params.social]]
+   icon = "osf"
+   icon_pack = "ai"
+   link = "https://osf.io/afqty/"
+
   [[params.social]]
    icon = "orcid"
    icon_pack = "ai"
    link = "https://orcid.org/0000-0002-1582-6214"
+
+  [[params.social]]
+    icon = "github"
+    icon_pack = "fab"
+    link = "//github.com/jacob-long"
 
 # Recommend sites links ####
 
@@ -214,7 +219,7 @@ enableGitInfo = false
   # Configuration of talk pages.
   [params.talks]
     # Show talk time?
-    time = true
+    time = false
 
   # Configuration of publication pages.
   [params.publications]
@@ -251,16 +256,21 @@ enableGitInfo = false
   name = "Publications"
   url = "#publications"
   weight = 2
+
+[[menu.main]]
+  name = "Talks"
+  url = "#talks"
+  weight = 3
   
 [[menu.main]]
   name = "Software"
   url = "#projects"
-  weight = 3
+  weight = 4
 
 [[menu.main]]
   name = "Blog"
   url = "#posts"
-  weight = 4
+  weight = 6
 
 [[menu.main]]
   name = "Teaching"
@@ -270,7 +280,7 @@ enableGitInfo = false
 [[menu.main]]
   name = "Contact"
   url = "#contact"
-  weight = 6
+  weight = 10
   
 # Taxonomies.
 [taxonomies]
