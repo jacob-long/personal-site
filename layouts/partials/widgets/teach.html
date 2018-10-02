@@ -1,35 +1,28 @@
 {{ $ := .root }}
 {{ $page := .page }}
-{{ $talks_len := len (where $.Data.Pages "Type" "teach") }}
+{{ $talks_len := len (where $.Site.RegularPages "Type" "teach") }}
 
 <!-- Teaching widget -->
 <div class="row">
-  <div class="col-xs-12 col-md-4 section-heading">
+  <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
     {{ if gt $talks_len $page.Params.count }}
     <p class="view-all">
-      <a href="{{ $.Site.BaseURL }}teach/">
-        {{ i18n "more_teaching" | markdownify }}
-        <i class="fa fa-angle-double-right"></i>
+      <a href="{{ ($.Site.GetPage "section" "teach").RelPermalink }}">
+        {{ i18n "more_talks" | markdownify }}
+        <i class="fas fa-angle-double-right"></i>
       </a>
     </p>
     {{ end }}
   </div>
-  <div class="col-xs-12 col-md-8">
+  <div class="col-12 col-lg-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ if $page.Params.detailed_list }}
-    {{ range first $page.Params.count (where $.Data.Pages "Type" "teach") }}
-    {{ partial "teach_li_detailed" . }}
-    {{ end }}
-    {{ else }}
-    <ul class="fa-ul">
-      {{ range first $page.Params.count (where $.Data.Pages "Type" "teach") }}
-      {{ partial "teach_li_simple" . }}
-      {{ end }}
-    </ul>
-    {{ end }}
+    {{ $.Scratch.Set "teach" (where $.Site.RegularPages "Type" "teach") }}
 
+    {{ range first $page.Params.count (sort ($.Scratch.Get "teach") ".Params.weight") }}
+      {{ partial "teach_li_simple" . }}
+    {{ end }}
   </div>
 </div>
