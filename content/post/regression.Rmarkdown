@@ -1,0 +1,154 @@
+---
+title: 'Understanding OLS regression via matrix operations: A walkthrough in R'
+author: Jacob
+date: '2018-01-12'
+categories:
+  - R
+tags:
+  - R
+  - statistics
+slug: understanding-ols-regression-via-matrix-operations-a-walkthrough-in-r
+math: true
+draft: true
+---
+
+There is more than one way to express the underlying mathematics behind linear
+regression. The way you would want to do that depends on what the goal is. 
+When you want to teach social scientists to do applied statistics, you want to
+describe the "black box" only to the extent that the user understands what their
+software is doing for them. 
+
+When I was introduced to linear regression, I was given lots of summations.
+
+You start with the fact you're going to have an equation, like
+
+$\hat{Y} = \alpha + \beta_1 x_1 + ... + \beta_p x_p + e$
+
+Where Y is the dependent variable, each x is a predictor, alpha ($\alpha$) is
+the intercept, e is the error, and p is the number of predictors. Our problem,
+then, is we don't know what the betas ($\beta$) are.
+
+We're told that we will find out the betas by minimizing this sum:
+
+$\sum{(Y_i-\hat{Y_i})^2}$
+
+
+
+```{r}
+head(mtcars)
+```
+
+```{r}
+y <- mtcars$qsec
+x1 <- mtcars$hp
+x0 <- rep(1, nrow(mtcars))
+
+x <- cbind(x0,x1)
+```
+
+
+
+```{r}
+t(x) %*% x
+```
+
+```{r}
+solve(t(x) %*% x) %*% t(x) %*% y
+```
+
+
+```{r}
+lm(qsec ~ hp, data = mtcars)
+```
+
+
+```{r}
+x2 <- mtcars$wt
+x1 <- mtcars$hp
+x0 <- rep(1, nrow(mtcars))
+
+x <- cbind(x0,x1,x2)
+```
+
+
+
+```{r}
+t(x) %*% x
+```
+
+```{r}
+b <- solve(t(x) %*% x) %*% t(x) %*% y
+b
+```
+
+
+
+```{r}
+yhat <- x %*% b
+head(yhat)
+```
+
+```{r}
+resids <- y - yhat
+```
+
+
+```{r}
+n <- nrow(x)
+k <- ncol(x)
+
+sigma2e <- as.numeric(t(resids) %*% resids)/(n-k)
+varbetas <- sigma2e * solve(t(x) %*% x)
+```
+
+```{r}
+round(varbetas, 3)
+
+round(vcov(lm(y ~ 0 + x0 + x1 + x2)),3)
+```
+
+
+```{r}
+sqrt(diag(varbetas))
+
+sum <- summary(lm(y ~ 0 + x0 + x1 + x2))
+coef(sum)[,"Std. Error"]
+```
+
+## Huber-White SE
+
+```{r}
+resids <- as.vector(resids)
+
+eeprime <- diag(resids^2)
+
+xprimexinv <- solve(t(x) %*% x)
+
+vcov_robust <- xprimexinv %*% t(x) %*% eeprime %*% x %*% xprimexinv
+round(vcov_robust,3)
+hc0_ses <- sqrt(diag(vcov_robust))
+
+hc1_ses <- sqrt(nrow(x))/sqrt(nrow(x) - ncol(x)) * hc0_ses
+
+
+sigma2e_I <- sigma2e * diag(length(resids))
+vcov_std <- xprimexinv %*% t(x) %*% sigma2e_I %*% x %*% xprimexinv
+round(vcov_std, 3)
+std_ses <- sqrt(diag(vcov_std))
+
+hc0_ses
+std_ses
+```
+
+```{r}
+library(jtools)
+j_summ(lm(y ~ 0 + x0 + x1 + x2))
+j_summ(lm(y ~ 0 + x0 + x1 + x2), robust = T, robust.type = "HC1")
+```
+
+
+
+
+
+
+

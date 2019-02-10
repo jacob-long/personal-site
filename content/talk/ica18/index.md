@@ -8,6 +8,7 @@ authors = ["**Jacob A. Long**", "Min Seon Jeong (presenter)", "Simon M. Lavis"]
 #   End time can optionally be hidden by prefixing the line with `#`.
 time_start = 2018-05-28
 #time_end = 2018-09-30T15:38:21-04:00
+all_day = true
 
 # Abstract and optional shortened version.
 abstract = "For two decades, researchers have investigated the impacts of entertainment media that frequently feature political content. In spite of a great deal of empirical research, much about these effects remains uncertain. One particularly promising line of work has focused on increased internal political efficacy — the sense that one is competent to understand and participate in politics — as a potential outcome of exposure to political comedy programs. This study uses a nationally representative, three-wave panel survey to show strong support for this relationship, providing evidence of an indirect causal relationship between political entertainment consumption and political participation with internal efficacy serving as mediator. We then extend this model by considering the role of political comedy’s “gateway” effect in encouraging further political media consumption, which in turn can promote further efficacy and participation increases. The data suggest the cumulative effects of political comedy consumption on participation, both direct and indirect, are substantial."
@@ -21,7 +22,7 @@ event_url = ""
 location = "Prague, Czech Republic"
 
 # Is this a selected talk? (true/false)
-selected = true
+featured = true
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.

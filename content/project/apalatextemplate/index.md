@@ -9,7 +9,7 @@ title = "APA LaTeX Template"
 summary = "A template for writing reports in APA format using the LaTeX typesetting engine. The heavy lifting is done by the `apa6` package, but this saves the user some time writing out code to get started."
 
 # Optional image to display on homepage (relative to `static/img/` folder).
-image_preview = "APArefpic_wide.png"
+#image_preview = "APArefpic_wide.png"
 
 tags = ["LaTeX", "APA", "Research", "Other"]
 
@@ -24,4 +24,6 @@ weight = 9
 photoswipe = false
 
 custom_icon = ""
+
+badges = "[![](https://img.shields.io/github/stars/jacob-long/APA-LaTeX-Template.svg?logo=github&style=flat)](https://github.com/jacob-long/APA-LaTeX-Template)"
 +++

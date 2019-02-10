@@ -6,7 +6,7 @@
 title = "Song and Lyric Data Scraper"
 
 # Project summary to display on homepage.
-summary = "This is the Ruby-based command line tool I wrote to collect the music-related data that were content-analyzed in Long & Eveland (2018)."
+summary = "This is the Ruby-based command line tool I wrote to collect the music-related data that were content-analyzed in Long & Eveland (2019)."
 
 # Optional image to display on homepage (relative to `static/img/` folder).
 #image_preview = "panelr-preview.png"
@@ -28,5 +28,7 @@ photoswipe = false
 slug = "Song-Lyric-Data-Scraper"
 
 custom_icon = "far fa-gem"
+
+badges = "[![DOI](https://zenodo.org/badge/120316016.svg)](https://zenodo.org/badge/latestdoi/120316016)"
 
 +++

@@ -1,6 +1,7 @@
 +++
 title = "Here's how to use APA style without issue numbers in Zotero"
 date = 2017-09-23T16:10:13-04:00
+lastmod = 2017-09-23T16:10:13-04:00
 draft = false
 
 math = false
@@ -10,10 +11,15 @@ categories = ["Tools"]
 
 photoswipe = false
 
-# Optional featured image (relative to `static/img/` folder).
-[header]
-image = ""
-caption = ""
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder. 
+[image]
+  # Caption (optional)
+  caption = ""
+
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = ""
 
 +++
 

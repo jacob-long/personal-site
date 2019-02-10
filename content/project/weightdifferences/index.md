@@ -9,7 +9,7 @@ title = "Group Mean Differences"
 summary = "This is a Shiny app to demonstrate to students how much randomly assigned groups can differ on some measure without it actually being a significant difference."
 
 # Optional image to display on homepage (relative to `static/img/` folder).
-image_preview = "groupdiffs-wide.png"
+#image_preview = "groupdiffs-wide.png"
 
 tags = ["Shiny-Apps", "R", "Teaching", "Other"]
 

@@ -8,6 +8,7 @@ authors = ["**Jacob A. Long** (presenter)", "William P. Eveland, Jr.", "Michael 
 #   End time can optionally be hidden by prefixing the line with `#`.
 time_start = 2017-05-26
 #time_end = 2018-09-30T15:38:21-04:00
+all_day = true
 
 # Abstract and optional shortened version.
 abstract = "While concerns abound regarding the ability for citizens to choose sources of political information that comport with their own views, many questions remain about the antecedents of these choices. This study conceptualizes partisanship as a social identity and the decision to selectively use likeminded political media as a method for maintenance of that identity. Using the logic of the Reinforcing Spirals Model (Slater, 2007, 2014), we investigated partisan media selectivity as a response to identity threat. We predict that the partisan composition of one’s locale and the presence of disagreement in one’s social network are common causes of identity threat which will be associated with compensatory use of partisan media. Results from nationally representative survey data generally provide support for the assertion that greater partisan media selectivity is associated with the presence of identity threat."
@@ -21,7 +22,7 @@ event_url = ""
 location = "San Diego, CA"
 
 # Is this a selected talk? (true/false)
-selected = true
+featured = true
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.

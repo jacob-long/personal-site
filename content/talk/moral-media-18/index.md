@@ -8,6 +8,7 @@ draft = false
 #   End time can optionally be hidden by prefixing the line with `#`.
 time_start = 2018-09-29
 #time_end = 2018-09-30T15:38:21-04:00
+all_day = true
 
 # Abstract and optional shortened version.
 abstract = "Research on the content of popular music tends to be cross-sectional, focused on single genres, and forced by practical constraints to analyze only a small set of exemplars. Recent research efforts on the moral content of music (Long & Eveland, 2018) have expanded to include more genres at once and using a more comprehensive corpus for analysis. Previous work has failed to examine the temporal dynamics of music content over time in the American context, with few exceptions (e.g., Van Sickel, 2005).  The present study draws on a vast dataset of approximately 100,000 songs (or songs from albums) that reached the Billboard music charts in the genres Billboard tracks as well as lyrics for those songs. Data for some genres are available going back as early as 1992, with more complete data beginning around 2000. Moral content is analyzed initially via word counts, using the Moral Foundations Dictionary (Graham, Haidt, & Nosek, 2009), while political content is assessed using an ad hoc supplemental dictionary. Follow-up analyses quantify moral and political content using distributed dictionary representations (DDR; Garten, Hoover, Johnson, Boghrati, Iskiwitch, & Dehghani, 2017) to avoid some pitfalls of word-counting methods. In both cases, the (in)stability of the rank order of genres over time is explored."
@@ -21,7 +22,7 @@ event_url = ""
 location = "Columbus, OH"
 
 # Is this a selected talk? (true/false)
-selected = true
+featured = true
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.

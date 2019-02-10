@@ -4,10 +4,11 @@ date = 2017-01-01T00:00:00
 math = false
 highlight = false
 
-# List format.
-#   0 = Simple
-#   1 = Detailed
-list_format = 0
+# View.
+#   1 = List
+#   2 = Compact
+#   3 = Card
+view = 2
 
 # Optional featured image (relative to `static/img/` folder).
 [header]

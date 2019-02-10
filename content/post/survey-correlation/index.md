@@ -1,12 +1,22 @@
 +++
 date = "2017-02-06T00:57:01-05:00"
+lastmod = "2017-02-06T00:57:01-05:00"
 title = "Generate correlation matrices with complex survey data in R"
 tags = ["complex surveys", "r", "stats", "jtools"]
 categories = ["r"]
 highlight = true
 math = false
-image = ""
 photoswipe = false
+
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder. 
+[image]
+  # Caption (optional)
+  caption = ""
+
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = ""
 
 +++
 

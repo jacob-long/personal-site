@@ -1,6 +1,6 @@
 +++
 title = "Partisan media selectivity and partisan identity threat: The role of social and geographic context"
-date = 2018-05-02T17:44:52-04:00
+date = 2019-01-02
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
