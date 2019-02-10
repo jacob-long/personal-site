@@ -2,6 +2,72 @@
  *  Miscellaneous
  **************************************************/
 
+ /* Aligning my name/title in the bio area flush to the top and left */
+
+ #profile {
+	text-align: left;
+	padding: 0px 10px;
+	position: relative;
+}
+
+.portrait-title > h2 {
+    margin-top: 0px !important
+}
+
+/* Make mini buttons more legible and spaced right */
+
+.btn.btn-sm {
+    font-size: 0.7rem;
+    line-height: 8px;
+    padding: 6px;
+}
+
+/* Make interests list a little bigger */
+ul.ul-interests li {
+	font-size: .95rem;
+}
+/* Make interests/education title semi-bold */
+.col-md-5 > h3, .col-md-7 > h3 {
+    font-weight: 500;
+    margin-top: 10px
+}
+/* Make post titles semi-bold */
+.article-title {
+    font-weight:500
+}
+
+/* Make contact icons line up with the text */
+.col-lg-8 > ul.fa-ul > li {
+    padding-top: 22px
+}
+
+/* Reduce inter-item spacing, shrink description text in projects section */
+p.project-summary {
+    margin-bottom: 0px;
+    font-size: 0.85rem
+}
+
+/* Make project category buttons line up with section title better */
+.btn-group {
+    margin-top: 15px;
+    margin-bottom: 0px
+}
+/* Reduce spacing between button row and first item */
+.project-toolbar {
+    margin-bottom: 30px
+}
+
+/* Reduce wasted vertical space */
+.home-section {
+    padding-bottom: 55px;
+    padding-top: 100px
+}
+
+/* Make author names black instead of red in pubs list */
+div.pub-list-item span[itemprop="author"] a {
+    color: #000000 !important
+}
+
 .article-container {
 	max-width: 800px !important;
 	padding: 1rem 20px 0 20px;
@@ -79,7 +145,7 @@ span[itemprop="name"] {
 
 /* Name of degree fields (was 0.9rem) */
 ul.ul-edu li .description p.course {
-	font-size: 0.85rem;
+	font-size: 0.95rem;
 }
 
 /* Final changes to comment button */
@@ -104,6 +170,45 @@ div.highlight {
 
 .hljs {
 	background: transparent !important; 
+}
+
+/********************
+* Talk customizations 
+*********************/
+
+.talk-metadata {
+    padding-top: .5rem
+}
+
+.talk-start, .talk-metadata {
+    font-size: .9rem
+}
+
+.talk-author {
+    font-size: .9rem;
+    padding-top: .01rem
+}
+
+/********************
+* Teach customizations 
+*********************/
+
+.teach-metadata {
+    font-size: 1rem;
+    font-style: italic
+}
+
+/*******************
+* Project
+*******************/
+
+.project-title img {
+    display: inline !important;
+    padding-bottom: 3px !important;
+}
+
+span.badges {
+    padding-left: 10px;
 }
 
 /*************************************************
@@ -154,47 +259,46 @@ nav#TableOfContents ul:first-child {
  **************************************************/
 
 /* Style The Dropdown Button */
-.dropbtn {
-/* 	I set the button to inherit from various "btn" classes */
-}
+/* .dropbtn {
+} */
 
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
+/* .dropdown {
     position: relative;
     float: left;
     display: inline-block;
-}
+} */
 
 /* Dropdown Content (Hidden by Default) */
-.dropdown-content {
+/* .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9 !important;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
     z-index: 1000;	
-}
+} */
 
 /* Links inside the dropdown */
-.dropdown-content a {
+/* .dropdown-content a {
     padding: 5px 5px;
     display: block;
     font-size: 0.7rem;
-}
+} */
 
 /* Change color of dropdown links on hover */
 /* .dropdown-content a:hover {background-color: #f1f1f1} */
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+/* .dropdown:hover .dropdown-content {
     display: block;
-}
+} */
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+/* .dropdown:hover .dropbtn {
     background-color: rgb(170,0,0) !important; 
     color: white !important;
-}
+}  */
 
 /*************************************************
  *  Based on example green theme
@@ -311,9 +415,11 @@ ul.share li:hover .fa {
     border-color: rgb(170,0,0) !important;
 }
 
+
+
 /* Hover buttons */
 
-.btn.btn-outline-primary:hover {
+.btn.btn-outline-primary:hover, .btn.btn-outline-primary:active {
     border-color: rgb(170,0,0) !important;
 }
 
@@ -329,6 +435,13 @@ ul.share li:hover .fa {
 .nav-item:active, .btn-toolbar .btn.btn-primary.active {
     background: rgba(170,0,0,1) !important;
     background-color: rgb(170,0,0) !important;
+}
+
+/* Fixes wrongly colored shadow on click of buttons */
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 0px 0px 2px 2px rgb(255, 103, 103)  !important;
 }
 
 .btn-toolbar .btn-outline-primary.active, .btn-outline-primary:active,
@@ -355,9 +468,25 @@ a.btn-outline-primary:visited:active,
 .navbar-light .navbar-nav>.active>a:focus,
 .navbar-light .navbar-nav>.active>a:hover {
   color: rgb(170,0,0);
-  font-weight: 700;
+  font-weight: 400 !important;
 /*   background-color: transparent !important; /* Override Bootstrap. */  
 }
+
+/* These removed the bolding from nav items */
+
+.navbar-light .navbar-nav > .nav-item > .nav-link {
+    font-weight: 400 !important
+}
+
+.navbar-light .navbar-nav li.nav-item a.active {
+    font-weight: 700 !important
+}
+
+.navbar-brand, .navbar-light {
+    font-weight: 500 !important
+}
+
+/*  */
 
 .btn-large.active, .btn-outline-primary:active, .btn-outline-primary:hover,
 .btn-outline-primary:focus, .btn-outline-primary.focus, .btn-large:focus, 
