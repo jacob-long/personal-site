@@ -1,7 +1,7 @@
 # baseurl = "https://www.jacob-long.com/"
 baseurl = "/"
 title = "Jacob Long"
-copyright = "&copy; 2018 Jacob Long"
+copyright = "&copy; 2019 Jacob Long"
 languageCode = "en-us"
 theme = "academic"
 enableEmoji = true
