@@ -1,23 +1,34 @@
 +++
 # Projects widget.
 # Note: this widget will only display if `content/project/` contains projects.
-
-date = "2016-12-28"
+widget = "projects"
 active = true
 
 title = "Software"
 subtitle = ""
-widget = "projects"
-folder = "project"
 
 # Order that this section will appear in.
 weight = 4
 
-# View.
-# Customize how projects are displayed.
-# Legend: 0 = list, 1 = cards.
-view = 0
+# Content.
+# Display content from the following folder.
+# For example, `folder = "project"` displays content from `content/project/`.
+folder = "project"
 
+# View.
+#   1 = List
+#   3 = Card
+#   5 = Showcase
+view = 1
+
+# Widget layout
+# Legend: 0 = two columns (default), 1 = single column
+widget_layout = 0
+
+# For Showcase view, flip alternate rows?
+flip_alt_rows = false
+
+# Default filter index (e.g. 0 corresponds to the first `[[filter]]` instance below).
 filter_default = 0
 
 # Filter toolbar.
