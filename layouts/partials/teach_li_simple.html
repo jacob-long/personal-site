@@ -12,14 +12,14 @@
         {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
       {{ end }}
     </div> -->
-    <div class="talk-metadata">
+    <div class="teach-metadata">
       {{ if .Params.event_short }}
           {{ .Params.event_short | markdownify }}
       {{ else if .Params.event }}
               {{ .Params.event | markdownify }}
       {{ end }}
     </div>
-    <div class="talk-links">
+    <div class="teach-links">
       {{ partial "teach_links" (dict "content" . "is_list" 1) }}
     </div>
   </div>
