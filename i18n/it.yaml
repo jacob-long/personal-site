@@ -1,33 +1,33 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Toggle navigation
+  translation: Attiva la navigazione
 
 - id: table_of_contents
-  translation: Table of Contents
+  translation: Indice dei Contenuti
 
 - id: on_this_page
-  translation: On this page
+  translation: In questa pagina
 
 - id: back_to_top
-  translation: Back to top
+  translation: Torna su
 
 # General
 
 - id: related
-  translation: Related
+  translation: Correlato
 
 - id: minute_read
-  translation: min read
+  translation: minuti
 
 - id: previous
-  translation: Previous
+  translation: Precedente
 
 - id: next
-  translation: Next
+  translation: Prossimo
 
 - id: figure
-  translation: "Figure %d:"
+  translation: "Immagine %d:"
 
 # Buttons
 
@@ -38,7 +38,7 @@
   translation: PDF
 
 - id: btn_cite
-  translation: Cite
+  translation: Citazione
 
 - id: btn_slides
   translation: Slides
@@ -47,44 +47,38 @@
   translation: Video
 
 - id: btn_code
-  translation: Code
+  translation: Codice
 
 - id: btn_dataset
   translation: Dataset
 
 - id: btn_project
-  translation: Project
+  translation: Progetti
 
 - id: btn_poster
   translation: Poster
 
 - id: btn_source
-  translation: Source Document
+  translation: Sorgente
 
 - id: btn_copy
-  translation: Copy
+  translation: Copia
 
 - id: btn_download
   translation: Download
 
-- id: btn_syllabus
-  translation: Syllabus
-
 # About widget
 
 - id: interests
-  translation: Interests
+  translation: Interessi
 
 - id: education
-  translation: Education
-
-- id: user_profile_latest
-  translation: Latest
+  translation: Formazione
 
 # Accomplishments widget
 
 - id: see_certificate
-  translation: See certificate
+  translation: Guarda il certificato
 
 # Experience widget
 
@@ -94,37 +88,37 @@
 # Publications widget
 
 - id: more_publications
-  translation: See all publications
+  translation: Altre pubblicazioni
 
 # Posts widget
 
 - id: continue_reading
-  translation: CONTINUE READING
+  translation: LEGGI TUTTO
 
 - id: more_posts
-  translation: See all posts
+  translation: Altri Post
 
 # Talks widget
 
 - id: more_talks
-  translation: See all talks
+  translation: Altre Conferenze
 
 # Contact widget
 
 - id: contact_name
-  translation: Name
+  translation: Nome
 
 - id: contact_email
   translation: Email
 
 - id: contact_message
-  translation: Message
+  translation: Messaggio
 
 - id: contact_send
-  translation: Send
+  translation: Invio
 
 - id: book_appointment
-  translation: Book an appointment
+  translation: Richiedi un appuntamento
 
 # Publication/Talk details
 
@@ -132,22 +126,22 @@
   translation: Abstract
 
 - id: publication
-  translation: Publication
+  translation: Publicazione
 
 - id: publication_type
-  translation: Type
+  translation: Tipo
 
 - id: date
-  translation: Date
+  translation: Data
 
 - id: last_updated
-  translation: Last updated on
+  translation: Aggiornato il
 
 - id: event
-  translation: Event
+  translation: Evento
 
 - id: location
-  translation: Location
+  translation: Luogo
 
 - id: pub_uncat
   translation: Uncategorized
@@ -159,73 +153,73 @@
   translation: Journal article
 
 - id: pub_manuscript
-  translation: Manuscript
+  translation: Manoscritto
 
 - id: pub_report
   translation: Report
 
 - id: pub_book
-  translation: Book
+  translation: Libro
 
 - id: pub_book_section
-  translation: Book section
+  translation: Sezione Libro
 
 # Filtering
 
 - id: filter_by_type
-  translation: Filter by type
+  translation: Filtra per tipo
 
 - id: filter_all
-  translation: All
+  translation: Tutto
 
 # Project details
 
 - id: open_project_site
-  translation: Go to Project Site
+  translation: Apri il sito del Progetto
 
 # Default node titles
 
 - id: posts
-  translation: Posts
+  translation: Post
 
 - id: publications
-  translation: Publications
+  translation: Pubblicazioni
 
 - id: talks
-  translation: Talks
+  translation: Conferenze
 
 - id: projects
-  translation: Projects
+  translation: Progetti
 
 # Search
 
 - id: search
-  translation: Search
+  translation: Cerca
 
 - id: search_placeholder
-  translation: Search...
+  translation: Cerca...
 
 - id: search_results
-  translation: results found
+  translation: Risultati della ricerca
 
 - id: search_no_results
-  translation: No results found
+  translation: Nessun risultato
 
 # Error 404
 
 - id: page_not_found
-  translation: Page not found
+  translation: Pagina non trovata
 
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Forse stavate carcando uno di questi?
 
 # Cookie consent
 
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Questo sito usa i cookies per garantire la migliore esperienza di navigazione.
 
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Ok!
 
 - id: cookie_learn
-  translation: Learn more
+  translation: Leggi i dettagli
