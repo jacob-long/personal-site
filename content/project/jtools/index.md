@@ -29,6 +29,6 @@ slug = "jtools"
 
 custom_icon = "fab fa-r-project"
 
-badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/jtools)](https://cran.r-project.org/package=jtools) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/jtools)](https://cran.r-project.org/package=jtools) [![](https://img.shields.io/github/stars/jacob-long/jtools.svg?logo=github&style=flat)](https://github.com/jacob-long/jtools)"
+badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/jtools)](https://cran.r-project.org/package=jtools) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/jtools)](https://cran.r-project.org/package=jtools) [![](https://img.shields.io/github/stars/jacob-long/jtools.svg?logo=github&style=flat)](https://github.com/jacob-long/jtools) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2527/badge)](https://bestpractices.coreinfrastructure.org/projects/2527)"
 
 +++
