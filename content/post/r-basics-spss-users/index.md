@@ -1,7 +1,7 @@
 +++
 math = false
-tags = ["r","rstudio","spss","stats"]
-categories = ["r"]
+tags = ["R","RStudio","SPSS","stats"]
+categories = ["R"]
 date = "2016-11-20T10:46:01-05:00"
 lastmod = "2016-11-20T10:46:01-05:00"
 title = "Some R basics for SPSS users"
