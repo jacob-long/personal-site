@@ -1,0 +1,328 @@
+---
+title: A new package for panel data analysis in R
+date: '2019-05-19'
+# slug: a-new-package-for-panel-data-analysis-in-r
+categories:
+  - R
+tags:
+  - R
+  - statistics
+  - panelr
+  - panel data
+draft: no
+image:
+  caption: ''
+  focal_point: ''
+photoswipe: true
+tableofcontents: true
+---
+
+It has been a long time coming, but my R package 
+[`panelr`](//panelr.jacob-long.com) is now on 
+[CRAN](https://cran.r-project.org/package=panelr). Since I started work on it
+well over a year ago, it has become essential to my own workflow and I hope
+it can be useful for others. 
+
+```{r echo = FALSE}
+# Global things sourced in each blogpost
+source(rprojroot::find_rstudio_root_file("helpers.R"))
+# 
+# #### Plot output ####
+# 
+# # Set hook defined in helpers.R  
+knitr::knit_hooks$set(plot = hook)
+knitr::opts_chunk$set(comment = '', message = FALSE)
+```
+
+## `panel_data` object class
+
+One key contribution, that I hope can help other developers, is the creation of
+a `panel_data` object class. It is a modified `tibble`, which is itself a 
+modified `data.frame`. `panel_data` frames are grouped by entity, so many 
+operations (e.g., `mean()`, `cumsum()`) performed by `dplyr`'s `mutate()` 
+are groupwise operations. The `panel_data` frame also works very hard to 
+stay in sequential order to ensure that lag and lead operations within 
+`mutate()` make sense.
+
+`panel_data` frames are in "long" format, in which each row is a unique 
+combination of entity and time point. Let's run through a quick example. First,
+the package includes the example "raw' dataset called `WageData`, which comes
+from the Panel Study of Income Dynamics. This is what it looks like:
+
+```{r message = FALSE}
+library(panelr)
+data("WageData")
+head(WageData)
+```
+
+The key columns are `id` and `t`. They tell you which respondent and which
+time point the row refers to, respectively. Let's convert it into a `panel_data`
+frame.
+
+```{r}
+wages <- panel_data(WageData, id = id, wave = t)
+wages
+```
+
+`panel_data()` needs to now the ID and wave columns so that it can protect them
+(and you) against accidentally being dropped, re-ordered, and so on. It also
+allows other panel data functions in the package to know this information 
+without you having to respecify every time.
+
+Note that the `wages` data are grouped by `id` and sorted by `t` within each
+`id`. That means when you want to do things like calculate group means and
+create lagged variables, everything works correctly. A warning, though: this is
+only true within `mutate()` and `transmute()` from the `dplyr` package.
+
+```{r}
+library(dplyr)
+wages %>% 
+  mutate(
+    wks_mean = mean(wks), # this is the person-level mean
+    wks_lag = lag(wks), # this will have a value of NA when t = 1
+    cumu_wages = cumsum(exp(lwage)) # cumulative summation works within person
+  ) %>%
+  select(wks, wks_mean, wks_lag, lwage, cumu_wages) 
+```
+
+Notice also that when you use `select`, the `id` and `t` columns ride along 
+even though you didn't explicitly ask for them. The idea here is that it 
+isn't `panel_data` frame without them. It works the same way using base R
+subsetting:
+
+```{r}
+wages["wks"]
+```
+
+You can get just the one column using double brackets or the `$` subsetting 
+method. But note that using base R sub-assignment, you don't need to sweat those 
+extra columns:
+
+```{r}
+wages["wage"] <- exp(wages[["lwage"]]) # note double brackets 
+```
+
+### Describing panel data
+
+I'm also working on building out some descriptive functionality just for 
+panel data. `panel_data` objects have a `summary()` method, which works best
+when you have the `skimr` package installed. By default, it will provide
+descriptive statistics for each column in each wave. To shorten the output, 
+you can choose columns using `dplyr::select()` style syntax. 
+
+```{r cache = TRUE}
+summary(wages, union, lwage)
+```
+
+You can stop getting per-wave statistics by setting `by.wave = FALSE`. For 
+panels with many fewer entities, you might also want per-entity statistics. You
+can achieve this by setting `by.wave = FALSE` and `by.id = TRUE`.
+
+You can also visualize trends in your data using `line_plot()`.
+
+```{r}
+line_plot(wages, lwage)
+```
+
+Each line is an individual `id` in the data. 
+
+Let's see what the mean trend 
+looks like. While we're at it, let's make the individual lines a little more
+transparent using the `alpha` argument.
+
+```{r}
+line_plot(wages, lwage, add.mean = TRUE, alpha = 0.2)
+```
+
+The blue line is the mean trend and we can see that nearly everyone increases
+over time.
+
+Sometimes it is useful to isolate specific entities from your data. I'll use 
+a different example to illustrate. These data come from the Penn World Table
+and contain data about countries, their exchange rates, purchasing power
+parity, and related data. It is provided by Stata and discussed in its manual.
+
+```{r}
+library(haven)
+penn <- read_dta("http://www.stata-press.com/data/r13/pennxrate.dta")
+penn <- panel_data(penn, id = country, wave = year)
+penn
+```
+
+We'll look at trends in the real exchange rate with the United States 
+(`realxrate`).
+
+```{r}
+line_plot(penn, realxrate)
+```
+
+We can also look at each country separately by setting `overlay = FALSE`. 
+Since there are so many, we will want to look at just a subset. I'll look at
+members of the "G7" countries, minus the USA.
+
+```{r}
+line_plot(penn, realxrate, overlay = FALSE, 
+          subset.ids = filter(penn, g7 == 1)$country, add.mean = TRUE)
+```
+
+We can see some heterogeneity in the trends. You may also want to fit a 
+trend line that isn't strictly linear, which is doable via the `mean.function`
+argument.
+
+```{r}
+line_plot(penn, realxrate, overlay = FALSE, 
+          subset.ids = filter(penn, g7 == 1)$country,
+          add.mean = TRUE, mean.function = "loess")
+```
+
+### Tools for reshaping data
+
+Although you can get a much more detailed walk-through in the package's
+[tutorial vignette](//panelr.jacob-long.com/articles/reshape.html), 
+I also want to mention some tools I created to help people
+get their data *into* the long format demanded by `panel_data()` (and most 
+methods of analysis) as well as *out* of long format into a wide format in 
+which there is just 1 row per entity. 
+
+There are a number of tools that can do this, most notably base R's `reshape()`
+function. The problem with `reshape()` is that it can be a real pain to use,
+especially if you have a lot of time-varying variables and/or they aren't 
+labeled in a way congenial to what the function is looking for. The `tidyr` 
+package is also designed to help with problems like these, but I (and
+apparently [many](https://twitter.com/hrbrmstr/status/1108108426167635968)
+[others](https://twitter.com/hadleywickham/status/1108108595210657794)) 
+struggle with the featured `spread()` and `gather()` functions, which in the
+case of panel data have a tendency to make the data longer than you actually
+want it unless you're careful. They are great general tools, but my goal was
+to make a specific tool to make life easier in this particular situation.
+
+Going from long to wide format is fairly straightforward. Let's take our
+`wages` data. As a reminder, it looks like this:
+
+```{r}
+wages
+```
+
+Let's *widen* it, which will leave us with one row for each `id`.
+
+```{r}
+widen_panel(wages)
+```
+
+Notice that for variables that vary over time, there is now a column for each
+wave.
+
+Going from wide to long is a bit more complicated because you need to automate
+the process of knowing how many waves there are, which variables change over
+time, and how the time-varying variables are labeled to reflect the time of 
+the measurement. We'll use another example dataset from this package, called
+`teen_poverty`, that starts in the wide format.
+
+```{r}
+data("teen_poverty")
+teen_poverty
+```
+
+We have some variables that don't change over time (like whether the respondent
+is black) and a number that do, like whether the respondent is married 
+(`spouse`).
+
+`long_panel()` needs to know what the waves are called (1, 2, 3, ...), 
+where the wave label is in the variable name (beginning or end), and whether
+the label has prefixes or suffixes (e.g., "W1\_variable" has a "W" prefix and
+"\_" suffix). In this case, we have no prefix/suffix, the label is at the end,
+and the labels go from 1 to 5.
+
+```{r}
+long_panel(teen_poverty, label_location = "end", periods = 1:5)
+```
+
+Perfect! As a note, `long_panel()` does fairly well in more complicated 
+situations, like when time-varying variables are only measured in some waves
+and not others. See the 
+[vignette](//panelr.jacob-long.com/articles/reshape.html) for more details.
+
+## Regression models
+
+The other main contribution of the `panelr` package is that it provides 
+a straightforward way to fit some panel data regression models. These are,
+by and large, doable via other common packages. The reason for implementing
+them in `panelr` is that they typically require some programming that would
+be difficult for novice and maybe even intermediate R users and even for the 
+best of us, can be error-prone.
+
+The first and most important of these is what is often called the 
+"within-between" or sometimes "between-within" and "hybrid" model, which 
+separates within-entity and between-entity variance. The within-entity portion
+is equivalent to what econometricians called the "fixed effects" model. People
+like these models because they are robust to confounding by individual 
+differences. You don't have to measure income, or personality, or whatever
+it may be and it is automatically controlled for because each person serves
+as their own control. Unlike fixed effects models, however, you can still
+include stable variables if you're interested in their effects.
+
+And because the models are estimated via multilevel models, you can take 
+advantage of the specification flexibility afforded by them with random slopes
+and so on.
+
+You can learn in more detail what these models are all about in the package's
+[introductory vignette](//panelr.jacob-long.com/articles/wbm.html).
+
+These models are implemented via the `wbm()` function 
+(***w***ithin-***b***etween ***m***odel). Let's run through an example with
+the `teen_poverty` data. First we'll transform it to long format like in 
+the earlier example, then we'll predict hours worked (`hours`) using indicators
+of whether the respondent's marital status changed (`spouse`), they 
+became a mother (`mother`), or have enrolled in school (`inschool`).
+
+```{r}
+teen <- long_panel(teen_poverty, label_location = "end", periods = 1:5)
+model <- wbm(hours ~ spouse + mother + inschool, data = teen)
+summary(model)
+```
+
+We have within- and between-subject effects here. The within effects can be 
+interpreted as the effects of *changes* in `spouse`, `mother`, and `inschool`
+on hours worked. The between effects (which are the individual-level means, 
+hence `imean()`) reflect how the overall level of the variables correspond
+with the overall level of hours worked, but don't tell us much about change
+in either one.
+
+From the output, we can see the within and between effects are quite similar.
+Unsurprisingly, starting school corresponds with a substantial decrease in 
+hours worked as does becoming a mother. 
+
+What if we want to know about the effect of race? `wbm()` uses a multi-part
+formula to allow you to explicitly specify stable variables. You separate
+the within- and between-entity variables with a bar (`|`). For example:
+
+```{r}
+model <- wbm(hours ~ spouse + mother + inschool | black, data = teen)
+summary(model)
+```
+
+There does not seem to be a difference in hours worked between black and 
+non-black respondents, at least after accounting for these other factors.
+
+You can use a third part of the formula as well, where you can specify 
+cross-level interactions (i.e., within by between interactions) as well as 
+use the `lme4` syntax for random effects (by default, `(1 | id)` is included
+without you putting it into the formula). Here's we will see if the effect
+of becoming a mother is different for black and non-black respondents.
+
+```{r}
+model <- wbm(hours ~ spouse + mother + inschool | black | black * mother, data = teen)
+summary(model)
+```
+
+Indeed, there seems to be.
+
+There are a number of other things available for regression modeling of panel
+data that I will not cover in detail here --- see the 
+[introductory vignette](//panelr.jacob-long.com/articles/wbm.html) for more
+info. These include detrending variables in the within-between model, estimating
+within-between models with generalized estimating equations (GEE), 
+first differences models, and asymmetric effects models in which increases and
+decreases over time are expected to have different effects.
+
+
