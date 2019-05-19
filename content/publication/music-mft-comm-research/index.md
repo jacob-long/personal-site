@@ -26,7 +26,7 @@ publication_short = "*Communication Research*"
 # Abstract and optional shortened version.
 abstract = "This study integrates and builds upon research on moral psychology, entertainment media selection, and political communication that has established a link between political ideology and moral sentiments. An automated content analysis of the lyrics of 37,309 songs across 10 genres assessed the extent of appeals to five different moral domains defined by Moral Foundations Theory. The results of the content analysis are integrated with nationally-representative survey data (N = 1000) by linking lyrical content with self-reported preference for and exposure to musical genres. We then correlate the content of preferred genres with self-reported moral sentiments and political ideology. We find the moral content of music lyrics in the genres used by respondents is associated with their moral preferences and political ideology."
 
-abstract_short = ""
+summary = ""
 
 # Featured image thumbnail (optional)
 image_preview = ""
@@ -52,7 +52,7 @@ url_source = ""
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
-url_custom = [{name = "Publisher Link", url = "http://journals.sagepub.com/doi/full/10.1177/0093650218791011"}, {name = "Software", url = "https://github.com/jacob-long/Song-and-Lyric-Data-Scraper"}]
+links = [{name = "Publisher Link", url = "http://journals.sagepub.com/doi/full/10.1177/0093650218791011"}, {name = "Software", url = "https://github.com/jacob-long/Song-and-Lyric-Data-Scraper"}]
 # url_custom = [{name = "Custom Link", url = "http://example.org"}]
 
 # Does the content use math formatting?

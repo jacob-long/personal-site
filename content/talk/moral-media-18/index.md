@@ -1,12 +1,12 @@
 +++
 title = "Short- and long-term trends in the moral and political content of popular music"
-date = 2018-09-28 # Schedule page publish date.
+publishDate = 2018-09-28 # Schedule page publish date.
 authors = ["**Jacob A. Long**"]
 draft = false
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-time_start = 2018-09-29
+date = 2018-09-29
 #time_end = 2018-09-30T15:38:21-04:00
 all_day = true
 
@@ -40,7 +40,7 @@ url_slides = "/slides/MM18-slides.html"
 url_video = ""
 url_code = ""
 
- url_custom = [{name = "Data and Code", url = "https://osf.io/acx89/"}]
+links = [{name = "Data and Code", url = "https://osf.io/acx89/"}]
 
 # Does the content use math formatting?
 math = false

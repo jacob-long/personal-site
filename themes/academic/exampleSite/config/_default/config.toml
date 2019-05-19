@@ -12,7 +12,7 @@ title = "Academic"
 baseurl = "/"
 
 # Enter a copyright notice to display in the site footer.
-# To display a copyright symbol, type `&copy;`.
+# To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
 copyright = ""
 
 # Enable analytics by entering your Google Analytics tracking ID
@@ -40,7 +40,6 @@ paginate = 10  # Number of items per page in paginated lists.
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
 ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-preserveTaxonomyNames = true
 
 [outputs]
   home = [ "HTML", "CSS", "RSS", "JSON" ]
@@ -53,6 +52,11 @@ preserveTaxonomyNames = true
 	angledQuotes = false
 	latexDashes = true
   extensions = ["backslashLineBreak"]
+
+[imaging]
+  resampleFilter = "lanczos"
+  quality = 90
+  anchor = "smart"  # Anchor for cropping. Options include Smart and Center.
 
 # Taxonomies.
 [taxonomies]

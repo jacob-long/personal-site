@@ -20,4 +20,6 @@ view = 2
 
 # Exclude talks that are shown in the Selected Talks widget?
 exclude_selected = false
+
+headless = true
 +++

@@ -1,12 +1,12 @@
 +++
 title = "Sharing and discussing politics on Facebook: A user and network-centric approach"
-date = 2018-09-28 # Schedule page publish date.
+publishDate = 2018-09-28 # Schedule page publish date.
 draft = false
 authors = ["Min Seon Jeong","**Jacob A. Long** (presenter)"]
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-time_start = 2016-11-12
+date = 2016-11-12
 #time_end = 2018-09-30T15:38:21-04:00
 all_day = true
 

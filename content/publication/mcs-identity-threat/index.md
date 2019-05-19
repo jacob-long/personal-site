@@ -24,7 +24,7 @@ publication_short = ""
 
 # Abstract and optional shortened version.
 abstract = "There is growing concern about the polarizing impact of citizens primarily choosing sources of political information consistent with their existing partisan perspective. While research has begun providing answers about the consequences, questions remain about what factors drive such selective use of political media. This study conceptualizes partisanship as a social identity and the decision to selectively use likeminded political media as a method for maintenance of that identity. Using the logic of the Reinforcing Spirals Model (Slater, 2007, 2015), we investigated partisan media selectivity as a response to identity threat. We argue the partisan composition of one’s geographic locale and the presence of partisan difference in one’s interpersonal network are common causes of identity threat, which we predict will be associated with compensatory use of partisan media. Results from national survey data generally provide support for the assertion that greater partisan media selectivity is associated with the presence of various forms of identity threat, especially for strong partisans."
-abstract_short = ""
+summary = ""
 
 # Featured image thumbnail (optional)
 image_preview = ""
@@ -55,7 +55,7 @@ url_source = ""
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
- url_custom = [{name = "Publisher Link", url = "https://www.tandfonline.com/doi/full/10.1080/15205436.2018.1504302"}]
+links = [{name = "Publisher Link", url = "https://www.tandfonline.com/doi/full/10.1080/15205436.2018.1504302"}]
 
 # Does this page contain LaTeX math? (true/false)
 math = false

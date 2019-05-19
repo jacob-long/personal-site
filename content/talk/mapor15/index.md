@@ -1,12 +1,12 @@
 +++
 title = "The political and moral relevance of popular music: Matching worldviews with lyrical content"
-date = 2018-09-28 # Schedule page publish date.
+publishDate = 2018-09-28 # Schedule page publish date.
 draft = false
 authors = ["**Jacob A. Long** (presenter)", "William P. Eveland, Jr."]
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-time_start = 2015-11-20
+date = 2015-11-20
 #time_end = 2018-09-30T15:38:21-04:00
 all_day = true
 

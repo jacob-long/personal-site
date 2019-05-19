@@ -1,12 +1,12 @@
 +++
 title = "Does political entertainment produce efficacious, engaged citizens? A mediation analysis using three-wave panel data"
-date = 2018-09-28 # Schedule page publish date.
+publishDate = 2018-09-28 # Schedule page publish date.
 draft = false
 authors = ["**Jacob A. Long**", "Min Seon Jeong (presenter)", "Simon M. Lavis"]
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-time_start = 2018-05-28
+date = 2018-05-28
 #time_end = 2018-09-30T15:38:21-04:00
 all_day = true
 

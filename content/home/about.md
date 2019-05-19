@@ -6,4 +6,6 @@ widget = "about"
 weight = 1
 
 author = "jacob"
+
+headless = true
 +++

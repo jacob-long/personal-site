@@ -14,5 +14,6 @@ weight = 60
 # Automatically link email and phone?
 autolink = true
 
+headless = true
 +++
 
