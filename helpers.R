@@ -10,8 +10,11 @@ hook <- function(x, options) {
     height <- sprintf(' height = "%s" ', options$out.height)
   
   basename <- paste(x, collapse = '.')
-  basename <- unlist(regmatches(x, regexec("[^\\/]+$", x)))
-  filename <- paste0("/img/", basename)
+  # cat(basename, " \n")
+  # basename <- unlist(regmatches(x, regexec("[^\\/]+$", x)))
+  # cat(basename, " \n")
+  # paste(x, collapse = '.')
+  # filename <- paste0("/img/", basename)
   
   if (!is.null(options$fig.cap)) {
     caption <- options$fig.cap
@@ -22,7 +25,9 @@ hook <- function(x, options) {
   #convert_plots(basename)
   
   #paste0("<figure>", imglink, "<figcaption>", caption, "</figcaption></figure>")
-  glue("{{< figure src=\"", "[filename]", "caption = ", "[caption]", "\" >}}",
+  glue("{{< figure src=\"", "[basename]", "\"",
+       # " caption = \"", "[caption]", "\" >}}",
+       ">}}",
        .open = "[", .close = "]")
   
 }
