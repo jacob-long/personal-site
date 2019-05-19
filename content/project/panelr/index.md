@@ -29,6 +29,6 @@ slug = "panelr"
 
 custom_icon = "fab fa-r-project"
 
-badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/panelr)](https://cran.r-project.org/package=panelr) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/panelr)](https://cran.r-project.org/package=panelr) [![](https://img.shields.io/github/stars/jacob-long/panelr.svg?logo=github&style=flat)](https://github.com/jacob-long/panelr)"
+badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/panelr)](https://cran.r-project.org/package=panelr) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/panelr)](https://cran.r-project.org/package=panelr) [![](https://img.shields.io/github/stars/jacob-long/panelr.svg?logo=github&style=flat)](https://github.com/jacob-long/panelr)"
 
 +++

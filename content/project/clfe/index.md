@@ -29,6 +29,6 @@ slug = "dpm"
 
 custom_icon = "fab fa-r-project"
 
-badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/dpm)](https://cran.r-project.org/package=dpm) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dpm)](https://cran.r-project.org/package=dpm) [![](https://img.shields.io/github/stars/jacob-long/dpm.svg?logo=github&style=flat)](https://github.com/jacob-long/dpm)"
+badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/dpm)](https://cran.r-project.org/package=dpm) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/dpm)](https://cran.r-project.org/package=dpm) [![](https://img.shields.io/github/stars/jacob-long/dpm.svg?logo=github&style=flat)](https://github.com/jacob-long/dpm)"
 
 +++

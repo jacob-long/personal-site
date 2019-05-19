@@ -30,7 +30,7 @@ url_poster = ""
 slug = "interactions"
 weight = 2
 custom_icon = "fab fa-r-project"
-badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-ago/interactions)](https://cran.r-project.org/package=interactions) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/interactions)](https://cran.r-project.org/package=interactions) [![](https://img.shields.io/github/stars/jacob-long/interactions.svg?logo=github&style=flat)](https://github.com/jacob-long/interactions)"
+badges = "[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/interactions)](https://cran.r-project.org/package=interactions) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/interactions)](https://cran.r-project.org/package=interactions) [![](https://img.shields.io/github/stars/jacob-long/interactions.svg?logo=github&style=flat)](https://github.com/jacob-long/interactions)"
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
