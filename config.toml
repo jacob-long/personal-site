@@ -1,5 +1,5 @@
-# baseurl = "https://www.jacob-long.com/"
-baseurl = "/"
+baseurl = "https://jacob-long.com/"
+#baseurl = "/"
 title = "Jacob Long"
 copyright = "&copy; 2019 Jacob Long"
 languageCode = "en-us"
