@@ -86,7 +86,7 @@ wages
 # ... with 4,155 more rows, and 2 more variables: blk <dbl>, lwage <dbl>
 ```
 
-`panel_data()` needs to now the ID and wave columns so that it can protect them
+`panel_data()` needs to know the ID and wave columns so that it can protect them
 (and you) against accidentally being dropped, re-ordered, and so on. It also
 allows other panel data functions in the package to know this information 
 without you having to respecify every time.
@@ -129,7 +129,7 @@ wages %>%
 
 Notice also that when you use `select`, the `id` and `t` columns ride along 
 even though you didn't explicitly ask for them. The idea here is that it 
-isn't `panel_data` frame without them. It works the same way using base R
+isn't a `panel_data` frame without them. It works the same way using base R
 subsetting:
 
 
