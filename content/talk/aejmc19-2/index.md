@@ -41,7 +41,8 @@ url_video = ""
 url_code = ""
 
 links = [{name = "Paper", url = "https://osf.io/puhgj/download?view_only=1c050304d2e24fc8bfd65f6facba9f54"},
-{name = "Data and Code", url = "https://osf.io/dvfwt/?view_only=1c050304d2e24fc8bfd65f6facba9f54"}]
+{name = "Data and Code", url = "https://osf.io/dvfwt/?view_only=1c050304d2e24fc8bfd65f6facba9f54"}, 
+{name = "Slides", url = "/slides/AEJ19.html"}]
 
 # Does the content use math formatting?
 math = false
