@@ -673,8 +673,7 @@ which the models in `dpm` were meant to replace --- they are both unbiased,
 but Arellano-Bond models tend to be inefficient. In other words, this method
 is more conservative.
 
-[blundell]: Actually, I'll use the Blundell-Bond estimator, which is a 
-tweaked version that is a bit more efficient.
+[^blundell]: Actually, I'll use the Blundell-Bond estimator, which is a tweaked version that is a bit more efficient.
 
 For this, I need the `plm` package and its `pgmm()` function. I'll skip the
 technicalities and just say the interpretations will be similar to what I just
