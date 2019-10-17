@@ -52,7 +52,7 @@ url_source = ""
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
-links = [{name = "Publisher Link", url = "http://journals.sagepub.com/doi/full/10.1177/0093650218791011"}, {name = "Software", url = "https://github.com/jacob-long/Song-and-Lyric-Data-Scraper"}]
+links = [{icon = "external-link-alt", icon_pack = "fas", name = "Publisher Link", url = "http://journals.sagepub.com/doi/full/10.1177/0093650218791011"}, {icon = "file-pdf", icon_pack = "far", name = "Post-Print", url = "/pdf/Long_Eveland_CR_Post_Print.pdf"}, {icon = "file-pdf", icon_pack = "far", name = "Appendix", url = "/pdf/Long_Eveland_CR_Online_Appendix.pdf"},  {icon = "github", icon_pack = "fab", name = "Software", url = "https://github.com/jacob-long/Song-and-Lyric-Data-Scraper"}]
 # url_custom = [{name = "Custom Link", url = "http://example.org"}]
 
 # Does the content use math formatting?
@@ -64,7 +64,7 @@ highlight = false
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
 [header]
-image = ""
+# image = "Long_Eveland_CR_header.png"
 caption = ""
 
 +++

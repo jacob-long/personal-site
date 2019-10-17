@@ -36,11 +36,11 @@ tags = []
 
 # Links (optional).
 url_pdf = ""
-url_slides = "/slides/MM18-slides.html"
+url_slides = ""
 url_video = ""
 url_code = ""
 
-links = [{name = "Data and Code", url = "https://osf.io/acx89/"}]
+links = [{icon = "chalkboard-teacher", icon_pack = "fas", name = "Slides", url = "/slides/MM18-slides.html"}, {icon = "osf", icon_pack = "ai", name = "Data and Code", url = "https://osf.io/acx89/"}]
 
 # Does the content use math formatting?
 math = false

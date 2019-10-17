@@ -19,7 +19,7 @@ authors = ["**Jacob A. Long**", "William P. Eveland, Jr.",
 publication_types = ["2"]
 
 # Publication name and optional abbreviated version.
-publication = "*Mass Communication & Society*"
+publication = "*Mass Communication and Society*"
 publication_short = ""
 
 # Abstract and optional shortened version.
@@ -55,7 +55,7 @@ url_source = ""
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
-links = [{name = "Publisher Link", url = "https://www.tandfonline.com/doi/full/10.1080/15205436.2018.1504302"}]
+links = [{icon = "external-link-alt", icon_pack = "fas", name = "Publisher Link (free access)", url = "https://www.tandfonline.com/eprint/Sqp6b5XJadv8fGg3cEyb/full?target=10.1080/15205436.2018.1504302"}, {icon = "file-pdf", icon_pack = "far", name = "Post-Print", url = "/pdf/Long_Eveland_Slater_MCS_Post_Print.pdf"}]
 
 # Does this page contain LaTeX math? (true/false)
 math = false
@@ -66,7 +66,7 @@ highlight = false
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
 [header]
-image = ""
+# image = "Long_Eveland_Slater_MCS_header.png"
 caption = ""
 
 +++

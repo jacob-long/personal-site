@@ -36,9 +36,11 @@ tags = []
 
 # Links (optional).
 url_pdf = ""
-url_slides = "/slides/MAPOR15-slides.pdf"
+url_slides = ""
 url_video = ""
 url_code = ""
+
+links = [{icon = "file-pdf", icon_pack = "far", name = "Slides", url = "/slides/MAPOR15-slides.pdf"}]
 
 # Does the content use math formatting?
 math = false

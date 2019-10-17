@@ -526,4 +526,13 @@ a.btn-lg {
     box-shadow: 0 0 0 .2rem rgba(170,0,0, 0.6) !important;
 }
 
+.btn-sm {
+  line-height: 15px !important;
+  padding: 5px .4rem 5px .4rem !important;
+  font-size: .75rem !important;
+}
+
+.far.mr-1, .fas.mr-1, .fab.mr-1, .ai.mr-1 {
+  margin-right: .15rem !important;
+}
 

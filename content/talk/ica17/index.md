@@ -36,9 +36,11 @@ tags = []
 
 # Links (optional).
 url_pdf = ""
-url_slides = "/slides/ICA-square.html"
+url_slides = ""
 url_video = ""
 url_code = ""
+
+links = [{icon = "chalkboard-teacher", icon_pack = "fas", name = "Slides", url = "/slides/ICA-square.html"}]
 
 # Does the content use math formatting?
 math = false
