@@ -1,5 +1,5 @@
 +++
-title = "New evidence on group polarization from partisan media to misperception: Affective polarization as mediator"
+title = "From partisan media to misperception: Affective polarization as mediator"
 date = 2019-01-03
 draft = false
 
