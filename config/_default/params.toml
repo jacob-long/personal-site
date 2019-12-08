@@ -3,7 +3,7 @@ role = "PhD Candidate, Communication"
 organizations = [{name = "Ohio State University", url = ""}]
 avatar = ""
 email = "long.1377@osu.edu"
-address = "154 N Oval Mall, Columbus, OH, 43210"
+address = {street = "154 N Oval Mall", city = "Columbus", region = "OH", postcode = "43214", country = "United States", country_code = "US"}
 twitter = "jacobandrewlong"
 phone = ""
 office_hours = ""
@@ -55,26 +55,13 @@ date_format = "Jan 2, 2006"
 #   Examples: "3:04 pm" or "15:04"
 time_format = "3:04 PM"
 
-# Enable/disable map in Contact widget.
-# To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
-# a map provider below.
-# To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
-#   https://developers.google.com/maps/documentation/javascript/get-api-key
-# To use OpenStreetMap tiles, set `map = 2`.
-# To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
-#   https://www.mapbox.com/studio/account/tokens
-# To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-#
-# Map provider:
-#   0: No map
-#   1: Google Maps
-#   2: OpenStreetMap (Mapnik)
-#   3: OpenStreetMap (Mapbox)
-map = 0
-map_api_key = ""
-latitude = "37.4275"
-longitude = "-122.1697"
-zoom = 15
+# Address format (choose from the [address_formats] list below or add you own to the list).
+address_format = "en-us"
+
+[address_formats]
+  en-us = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ' ', '']}
+  en-gb = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ', ', '']}
+  zh = {order = ['postcode', 'region', 'city', 'street'], delimiters = [' ', ' ', ' ', '']}
 
 # Enable global LaTeX math rendering?
 #   If false, you can enable it locally on a per page basis.
@@ -85,6 +72,7 @@ sharing = true
 
 highlight = false
 highlight_languages = []
+code_highlighting = false
 
 # Show estimated reading time for posts?
 reading_time = true
@@ -122,10 +110,11 @@ contact_links = [
   # {icon = "osf", icon_pack = "ai", link = "https://osf.io/afqty/"},
   # {icon = "orcid", icon_pack = "ai", link = "https://orcid.org/0000-0002-1582-6214"},
   # {icon = "github", icon_pack = "fab", link = "//github.com/jacob-long"}
-]
+] 
 
-# Align the main menu to the right of the page? (true/false)
-menu_align_right = true
+
+# Main menu alignment (l = left, c = center, r = right) and logo options.
+main_menu = {align = "r", show_logo = false}
 
 # Recommend sites links ####
 
@@ -152,6 +141,9 @@ menu_align_right = true
 # [[params.links]]
 #   name = "Biased and Inefficient (Thomas Lumley)"
 #   url = "http://notstatschat.tumblr.com"
+
+# Link authors to their profile page? (true/false)
+link_authors = false
 
 # Configuration of talk pages.
 [talks]
@@ -198,3 +190,46 @@ menu_align_right = true
     api_key = ""
     index_name = ""
     show_logo = false
+
+# Comments.
+[comments]
+  # Comment provider:
+  #   0: Disabled
+  #   1: Disqus (https://disqus.com)
+  #   2: Commento (https://commento.io)
+  engine = 1
+
+  # Which page types are commentable?
+  commentable = {page = true, post = true, docs = true}
+
+  # Configuration of Disqus.
+  [comments.disqus]
+    shortname = "jacob-long"  # Paste the shortname from your Disqus dashboard.
+    show_count = true  # Show comment count in page header? (true/false)
+
+[marketing]
+  google_analytics = "UA-85962705-1"
+  google_tag_manager = ""
+
+############################
+## Maps
+############################
+[map]
+  # To show your address on a map in the Contact widget, enter your latitude and longitude (above)
+  # and choose a map provider below.
+  #
+  # To use Google Maps, set `engine` to 1 and enter your API key that can be obtained here:
+  #   https://developers.google.com/maps/documentation/javascript/get-api-key
+  # To use OpenStreetMap tiles, set `engine` to 2.
+  # To use OpenStreetMap on a high traffic site, set `engine` to 3 and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  #
+  # Map provider:
+  #   0: No map
+  #   1: Google Maps
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
+  engine = 0
+  api_key = ""
+  zoom = 15
+

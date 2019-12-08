@@ -15,13 +15,16 @@ disqusShortname = "jacob-long"
 googleAnalytics = "UA-85962705-1"
 
 # Jacob add
-pygmentscodefences = false
-pygmentsCodeFencesGuessSyntax = false
-pygmentsStyle = "monokai"
-pygmentsUseClasses = true
-
-preserveTaxonomyNames = true
-paginate = 10
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Enable user to embed HTML snippets in Markdown content.
+  [markup.highlight]
+    codeFences = false  # Disable Hugo's code highlighter as it conflicts with Academic's highligher.
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
 
 # Default language to use (if you setup multilingual support)
 defaultContentLanguage = "en"
@@ -38,8 +41,15 @@ date_format = "Jan 2, 2006"
 time_format = "3:04 PM"
 
 [outputs]
-  home = [ "HTML", "CSS", "RSS", "JSON" ]
+  home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]
   section = [ "HTML", "RSS" ]
+
+[mediaTypes."application/manifest+json"]
+  suffixes = ["webmanifest"]
+
+[outputFormats.WebAppManifest]
+  mediaType = "application/manifest+json"
+  rel = "manifest"
 
 # Configure BlackFriday Markdown rendering.
 #   See: https://gohugo.io/readfiles/bfconfig/
