@@ -2,14 +2,14 @@
 name = "Default"
 
 # Optional Google font URL
-google_fonts = "Cabin:400,700|Raleway:400,400italic,500,700|IBM+Plex+Mono"
+google_fonts = "Fira+Sans:400,700|Raleway:400,400italic,500,700|IBM+Plex+Mono"
 
 # Font families
 heading_font = "Raleway"
-body_font = "Cabin"
+body_font = "Fira Sans"
 nav_font = "Raleway"
 mono_font = "IBM Plex Mono"
 
 # Font size
-font_size = "20"
-font_size_small = "16"
+font_size = "18"
+font_size_small = "14"

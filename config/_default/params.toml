@@ -12,15 +12,14 @@ logo = ""
 
 # Color theme.
 #   Choose from `default`, `ocean`, `forest`, or `coffee`.
-color_theme = "default"
+theme = "Scarlet"
 # Enable users to switch between day and night mode?
-day_night = false
+day_night = true
 # Font style.
 #   Choose from `default`, `classic`, or `playfair`.
 font = "default"
+font_size = "L"
 
-# My CSS customizations
-plugins_css = ["prismjs", "prism.tomorrownight80s", "prism_line_nos", "custombrief"]
 plugins_js = [
   # "load-photoswipe", "prism_r", "prism-line-numbers", "prism"
   ]

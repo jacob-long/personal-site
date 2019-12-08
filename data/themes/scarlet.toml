@@ -1,0 +1,18 @@
+# Theme metadata
+name = "Scarlet"
+
+# Is theme light or dark?
+light = true
+
+# Primary
+primary = "#aa0000"
+
+# Menu
+menu_primary = "#f8f8f8"
+menu_text = "#aa0000"
+menu_text_active = "#aa0000"
+menu_title = "#aa0000"
+
+# Home sections
+home_section_odd = "#fff"
+home_section_even = "#f8f8f8"
