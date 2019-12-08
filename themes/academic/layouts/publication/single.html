@@ -1,6 +1,6 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
-<div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
+{{- define "main" -}}
+
+<div class="pub">
 
   {{ partial "page_header.html" . }}
 
@@ -8,7 +8,7 @@
 
     {{ if .Params.abstract }}
     <h3>{{ i18n "abstract" }}</h3>
-    <p class="pub-abstract" itemprop="text">{{ .Params.abstract | markdownify }}</p>
+    <p class="pub-abstract">{{ .Params.abstract | markdownify }}</p>
     {{ end }}
 
     {{ if (.Params.publication_types) and (ne (index .Params.publication_types 0) "0") }}
@@ -18,8 +18,7 @@
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication_type" }}</div>
           <div class="col-12 col-md-9">
-            {{ partial "pub_types.html" $ }}
-            {{ $pub_types := $.Scratch.Get "pub_types" }}
+            {{ $pub_types := partial "functions/get_pub_types" $ }}
             {{ range $index, $pubtype := .Params.publication_types }}
             <a href="{{ (site.GetPage "section" "publication").RelPermalink }}#{{ . | urlize }}">
               {{ index $pub_types (int .) }}
@@ -51,17 +50,8 @@
 
     <div class="article-style">{{ .Content }}</div>
 
-    {{ partial "tags.html" . }}
-    {{ partial "page_author.html" . }}
+    {{ partial "page_footer" . }}
 
   </div>
 </div>
-
-{{ if .Site.Params.section_pager }}
-<div class="article-container article-widget">
-  {{ partial "section_pager.html" . }}
-</div>
-{{ end }}
-
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+{{- end -}}
