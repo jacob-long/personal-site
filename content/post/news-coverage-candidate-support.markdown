@@ -26,7 +26,7 @@ image:
 
 
 
-[Matt Grossmann] (https://t.co/D7uIwMY83T) noted the close relationship between
+[Matt Grossmann](https://t.co/D7uIwMY83T) noted the close relationship between
 the amount of news coverage candidates in the Democratic primary have been
 receiving and their polling numbers.
 
