@@ -1,0 +1,1103 @@
+---
+title: A better way to evaluate NFL kickers
+author: ''
+date: '2019-12-08'
+slug: evaluating-kickers
+categories:
+  - Data science
+tags:
+  - statistics
+  - NFL
+  - sports
+  - data science
+draft: no
+summary: "When you want to find out who the NFL's best kickers are, the tools available to you tend to be pretty crude, with not much more than a record of makes and misses. We all know from watching the games that some kicks are harder than others, but how do we synthesize that into a few easy to understand statistics?"
+image:
+  caption: ''
+  focal_point: ''
+photoswipe: false
+disable_jquery: true
+math: false
+mathjax: false
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#goals">Goals</a></li>
+<li><a href="#data">Data</a></li>
+<li><a href="#model">Model</a></li>
+<li><a href="#results">Results</a><ul>
+<li><a href="#overall-best-kickers-2009-2019">Overall best kickers, 2009-2019</a></li>
+<li><a href="#best-seasons">Best seasons</a></li>
+<li><a href="#big-legs-and-kick-distance">Big legs and kick distance</a></li>
+<li><a href="#clutch-kicking">Clutch kicking</a></li>
+<li><a href="#odds-and-ends">Odds and ends</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>When you want to find out who the NFL’s best kickers are, the tools available
+to you tend to be pretty crude, with not much more than a record of makes and
+misses.</p>
+<p>Here’s a snippet of statistics from <a href="https://www.pro-football-reference.com/years/2019/kicking.htm">Pro Football Reference</a>:</p>
+<div class="sr_share_wrap" style="overflow:auto">
+<table class="sr_share" id="" data-cols-to-freeze="2" data-non-qual="1" data-qual-text="" data-qual-label="Hide non-qualifiers for rate stats" style="border-collapse: collapse; font-size:.83em; border: 1px sold #aaa; overflow:auto;">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col class="">
+<col>
+<col class="sort_col">
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+0-19
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+0-19
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+20-29
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+20-29
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+30-39
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+30-39
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+40-49
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+40-49
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+50+
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+50+
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+Overall
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+Overall
+</th>
+<th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+Overall
+</th>
+</tr>
+<tr>
+<th scope="col" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+Rk
+</th>
+<th scope="col" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+Player
+</th>
+<th scope="col" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+Tm
+</th>
+<th scope="col" data-over-header="0-19" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGA
+</th>
+<th scope="col" data-over-header="0-19" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGM
+</th>
+<th scope="col" data-over-header="20-29" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGA
+</th>
+<th scope="col" data-over-header="20-29" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGM
+</th>
+<th scope="col" data-over-header="30-39" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGA
+</th>
+<th scope="col" data-over-header="30-39" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGM
+</th>
+<th scope="col" data-over-header="40-49" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGA
+</th>
+<th scope="col" data-over-header="40-49" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGM
+</th>
+<th scope="col" data-over-header="50+" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGA
+</th>
+<th scope="col" data-over-header="50+" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGM
+</th>
+<th scope="col" data-over-header="Scoring" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGA
+</th>
+<th scope="col" data-over-header="Scoring" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">
+FGM
+</th>
+<th scope="col" data-over-header="Scoring" data-filter="1" data-name="Field Goal %" style="background-color: #ffa; border: 1px solid #aaa; padding: 2px;">
+FG%<span class="sorttable_elSortDir1"><br>▼</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row" csk="27" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</th>
+<td csk="Elliott,Jake" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/E/ElliJa03.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Jake Elliott</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/phi/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Philadelphia Eagles">PHI</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+3
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+3
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+14
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+14
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+100.0%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="6" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</th>
+<td csk="Lambo,Josh" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/L/LambJo00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Josh Lambo</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/jax/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Jacksonville Jaguars">JAX</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+9
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+9
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+25
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+24
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+96.0%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="13" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+3
+</th>
+<td csk="Tucker,Justin" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/T/TuckJu00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Justin Tucker</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/rav/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Baltimore Ravens">BAL</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+21
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+20
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+95.2%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="26" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</th>
+<td csk="Crosby,Mason" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/C/CrosMa20.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Mason Crosby</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/gnb/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Green Bay Packers">GNB</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+14
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+13
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+92.9%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="10" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</th>
+<td csk="Boswell,Chris" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/B/BoswCh00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Chris Boswell</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/pit/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Pittsburgh Steelers">PIT</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+23
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+21
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+91.3%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="31" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</th>
+<td csk="Koo,Younghoe" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/K/KooxYo00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Younghoe Koo</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/atl/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Atlanta Falcons">ATL</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+3
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+3
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+11
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+10
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+90.9%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="1" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</th>
+<td csk="Gonzalez,Zane" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/G/GonzZa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Zane Gonzalez</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/crd/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Arizona Cardinals">ARI</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+10
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+10
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+11
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+10
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+29
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+26
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+89.7%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="22" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</th>
+<td csk="Bailey,Dan" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/B/BailDa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Dan Bailey</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/min/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Minnesota Vikings">MIN</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+6
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+3
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+2
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+17
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+15
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+88.2%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="8" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+9
+</th>
+<td csk="Gay,Matt" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/G/GayxMa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Matt Gay</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/tam/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Tampa Bay Buccaneers">TAM</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+9
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+5
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+24
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+21
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+87.5%
+</td>
+</tr>
+<tr>
+<th scope="row" csk="2" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+10
+</th>
+<td csk="Butker,Harrison" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/players/B/ButkHa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Harrison Butker</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+<a href="https://www.pro-football-reference.com/teams/kan/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Kansas City Chiefs">KAN</a>
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+8
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+7
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+9
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+9
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+4
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+1
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+28
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+24
+</td>
+<td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">
+85.7%
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="goals" class="section level2">
+<h2>Goals</h2>
+<p>We want to know who the most accurate kickers are, but as might be somewhat
+apparent from the table, not all kicks are created equally. Zane Gonzalez,
+who at the moment leads the league in made field goals and ranks in the top
+10 in FG%, also seems to have a high number of very short kicks relative to
+the other contenders. In other words, he’s had an easier path to the top of
+these leaderboards than some of the other contenders.</p>
+<p>What would be nice is some way to account for difficulty of kicks when ranking
+the kickers. There’s more than distance to consider as well: wind, temperature,
+elevation, stadium conditions, and game situation are among the factors known
+or speculated to influence the difficulty of kicks. And since most kickers are
+playing half their games at the same stadium, kickers are bound to face quite
+different conditions from one another.</p>
+<p>As far as concrete outputs are concerned, a few things would be nice:</p>
+<ul>
+<li>A rank ordering of kickers from best to worst</li>
+<li>A metric that tells us how a kicker performed compared to some reference level
+(e.g. average or replacement level)</li>
+<li>Some insight into the situational factors that influence whether a kick is
+made.</li>
+</ul>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>The most important thing we need is data on whether field goals are made and
+missed. Thankfully, Ron Yurko has been collecting all of the
+<a href="https://github.com/ryurko/nflscrapR-data">NFL’s play-by-play data</a> via his
+<code>nflscrapR</code> package going back to 2009 and up through this week’s Thursday
+night game.
+I downloaded those files, filtered
+to just get the plays with field goal attempts, and voila, I got the essentials:</p>
+<ul>
+<li>Field goal distance</li>
+<li>Field goal result</li>
+<li>Kicker</li>
+<li>Date of game</li>
+<li>Situation (score, time of game, etc.)</li>
+</ul>
+<p>Using what I knew from the play-by-play data, I scraped more metadata from
+<a href="https://www.pro-football-reference.com/">Pro Football Reference</a> which got
+me:</p>
+<ul>
+<li>Location of game (including the stadium)</li>
+<li>Whether the stadium is outdoors, a dome, closed/open retractable roof</li>
+<li>Temperature and wind speed at kickoff</li>
+</ul>
+<p>In my quest to get a sense of wind direction, I myself figured out the cardinal
+direction of every stadium. Then I scraped the following from
+<a href="http://nflweather.com">NFLWeather.com</a>:</p>
+<ul>
+<li>English-language summary of weather conditions (e.g., “party cloudy”)</li>
+<li>Temperature</li>
+<li>Wind speed</li>
+<li>Wind direction</li>
+<li>Precipitation probability</li>
+</ul>
+<p>And for most recent games, and many others going back to 2009, NFLWeather has
+the data for each quarter of the games (approximately). Unfortunately, there
+is a lot of missing data on wind direction and precipitation probability.
+Using the wind direction data where available and the cardinal direction of the
+stadiums, I can calculate cross-winds. Unfortunately, this was kind of a bust
+and I won’t show you any models with cross-winds since it forces me to drop
+missing data and doesn’t improve model accuracy enough.
+Either due to accuracy issues in the data or because stadiums block/redirect
+the wind, just knowing the wind speed is just as good as knowing the direction.</p>
+<p>Rather than use the oft-missing precipitation data, I used the verbal summaries
+and did some very basic natural language processing to create variables for
+whether it was raining, snowing, or foggy.</p>
+<p>I also made variables to indicate whether the kicker was possibly iced, defined
+as the opposing team calling a timeout before the kick attempt. I also created
+a variable to indicate whether the kick both: 1. occurred in the 4th quarter/OT
+and 2. would tie the game or give the team the lead if made. I further note
+whether the game occurred in the playoffs or regular season.</p>
+<p>Lastly, I made an effort to define a “replacement” kicker. Whether a kicker is
+performing poorly enough to be replaced depends on the likelihood that the
+typical “kicker on the street” would be expected to do in his place. To get a
+sense for the performance of replacement kickers, I tried to automatically
+classify a kicker in a given situation as a replacement. He was classified as
+a replacement if…</p>
+<p>All of the following are true:</p>
+<ul>
+<li>He was not the first kicker the team used that season</li>
+<li>He wasn’t the team’s kicker the previous season (eliminates players coming
+back from a preseason injury)</li>
+<li>He wasn’t retained as the team’s kicker the next season (eliminates guys who
+won and then kept the jobs because they were clearly better than replacement)</li>
+</ul>
+<p>or:</p>
+<ul>
+<li>He was the kicker for most/all of one season but was not retained for a
+second season.</li>
+</ul>
+<p>There will still be some false positives and false negatives, but overall about
+11.6% of kicks were attempted by replacement kickers by this definition. I point
+this out because for their statistics for all positions, Football Outsiders
+sets replacement level as the average performance of the bottom 10% of
+performers.</p>
+</div>
+<div id="model" class="section level2">
+<h2>Model</h2>
+<p>{{% alert note %}}
+I have written a <a href="/post/kickers-methods-notes">separate post</a>
+talking about the statistical background and
+details, including links to the data and code used here.
+{{% / alert %}}</p>
+<p>So what predicts field goal success? Here’s how I put things together. I include
+the following factors:</p>
+<ul>
+<li>Distance</li>
+<li>Wind speed</li>
+<li>Temperature</li>
+<li>Whether it is rainy</li>
+<li>Whether it is snowy</li>
+<li>Whether is is foggy</li>
+<li>Whether the stadium is a dome</li>
+<li>Whether the game is a playoff game</li>
+<li>Whether the kick was game-tying/go-ahead late in the game</li>
+<li>Whether it is both a playoff game and the kick was game-tying/go-ahead late
+in the game</li>
+<li>Whether a timeout was just called by the opponent</li>
+<li>Whether the kick was game-tying/go-ahead late in the game <em>and</em>
+the opponent just called a timeout.</li>
+<li>Whether kicker plays for the home team</li>
+<li>Season (2010, 2011, etc.)</li>
+<li>Whether the kicker is a “replacement” kicker</li>
+<li>Adjustments for kicker ability</li>
+<li>Adjustments for stadium difficulty beyond those other factors</li>
+</ul>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<div id="overall-best-kickers-2009-2019" class="section level3">
+<h3>Overall best kickers, 2009-2019</h3>
+<p>Let’s get down to business. A reminder about our key metrics:</p>
+<ul>
+<li>eFG%: What percentage we would have expected an <em>average</em> kicker to have for
+each kicker’s set of attempts</li>
+<li>rFG%: What percentage we would have expected a <em>replacement-level</em> kicker to
+have for each kicker’s set of attempts.</li>
+<li>PAA: How many more/fewer points the kicker generated than an <em>average</em> one.</li>
+<li>PAR: How many more/fewer points the kicker generated than a
+<em>replacement-level</em> one.</li>
+</ul>
+<p>I’ve sorted the table below such that the kickers with the most PAA are first,
+but you can sort and search through the table however you want.</p>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","data":[["J.Tucker","M.Prater","S.Janikowski","R.Gould","A.Vinatieri","M.Bryant","S.Gostkowski","S.Hauschka","D.Bailey","D.Carpenter","P.Dawson","G.Zuerlein","R.Bironas","R.Succop","J.Brown","C.Boswell","C.Barth","M.Crosby","J.Scobee","W.Lutz","J.Lambo","S.Suisham","J.Myers","H.Butker","J.Feely","G.Gano","B.McManus","J.Elliott","B.Walsh","J.Hanson","N.Novak","D.Hopkins","K.Forbath","J.Kasay","R.Lindell","C.Parkey","K.Fairbairn","N.Rackers","R.Longwell","M.Nugent","S.Graham","R.Bullock","D.Akers","N.Kaeding","N.Folk","M.Gay","C.Santos","C.Catanzaro","M.Badgley","J.Reed","J.Sanders","J.Nedney","A.Rosas","P.Murray","B.Cundiff","D.Carlson","A.Henery","G.Joseph","J.Slye","A.Seibert","T.Coons","C.Sturgis","L.Tynes","G.Tavecchio","D.Rayner","M.Stover","T.Long","E.Pineiro","G.Hartley","D.Buehler","M.Scifres","Z.Gonzalez","C.Stitser","C.McLaughlin","O.Mare","N.Rose","J.Hekker","J.Potter","R.Schmitt","M.McCrane","B.Coutu","K.Vedvik","J.Medlock","Y.Koo","A.Franks","B.Maher","J.Carney","A.Pettrey","S.Ficken","S.Andrus","Z.Hocker","N.Freese","J.Elam","K.Brindza","R.Aguayo","K.Brown"],["2012–2019","2009–2019","2009–2018","2009–2019","2009–2019","2009–2019","2009–2019","2009–2019","2011–2019","2009–2016","2009–2018","2012–2019","2009–2013","2009–2019","2009–2016","2015–2019","2009–2017","2009–2019","2009–2015","2016–2019","2015–2019","2009–2014","2015–2019","2017–2019","2009–2013","2009–2018","2014–2019","2017–2019","2012–2017","2009–2012","2011–2017","2015–2019","2012–2019","2009–2011","2009–2013","2014–2019","2017–2019","2009–2011","2009–2011","2009–2019","2009–2015","2013–2019","2009–2013","2009–2012","2009–2019","2019–2019","2014–2019","2014–2018","2018–2019","2009–2010","2018–2019","2009–2010","2017–2019","2014–2017","2009–2014","2018–2019","2011–2014","2018–2018","2019–2019","2019–2019","2015–2017","2013–2018","2009–2012","2017–2018","2010–2011","2009–2009","2019–2019","2019–2019","2009–2014","2010–2010","2011–2011","2017–2019","2010–2010","2019–2019","2009–2012","2017–2017","2018–2018","2013–2013","2009–2009","2018–2018","2011–2011","2019–2019","2012–2012","2017–2019","2015–2016","2018–2019","2009–2010","2010–2010","2017–2019","2009–2010","2015–2015","2014–2014","2009–2009","2015–2015","2016–2016","2009–2010"],[282,314,274,296,322,299,349,300,252,255,264,235,141,278,197,154,189,331,151,136,127,174,138,88,154,269,172,79,172,109,188,131,141,92,119,122,86,89,76,229,138,158,200,74,257,24,140,135,25,63,34,27,66,48,163,38,91,19,25,21,40,141,123,25,31,18,9,19,99,32,1,60,8,16,84,11,1,4,3,12,1,1,10,20,39,68,23,4,24,5,14,7,18,12,31,37],[0.908,0.863,0.828,0.865,0.857,0.88,0.871,0.863,0.869,0.839,0.848,0.83,0.872,0.827,0.868,0.883,0.836,0.819,0.815,0.875,0.874,0.862,0.833,0.898,0.838,0.818,0.82,0.873,0.82,0.817,0.856,0.847,0.851,0.837,0.824,0.852,0.837,0.854,0.882,0.808,0.841,0.823,0.805,0.824,0.786,0.875,0.814,0.83,0.88,0.81,0.824,0.815,0.833,0.812,0.804,0.763,0.824,0.842,0.72,0.857,0.875,0.794,0.829,0.8,0.742,0.833,0.778,0.842,0.808,0.75,1,0.783,0.875,0.75,0.833,0.818,1,0.75,0.667,0.667,0,0,0.7,0.75,0.795,0.735,0.783,0.5,0.667,0.4,0.714,0.429,0.611,0.5,0.71,0.676],[0.831,0.832,0.804,0.844,0.845,0.857,0.861,0.85,0.855,0.827,0.847,0.823,0.827,0.842,0.853,0.86,0.831,0.841,0.808,0.854,0.849,0.86,0.826,0.846,0.84,0.847,0.832,0.835,0.839,0.817,0.87,0.853,0.859,0.83,0.834,0.869,0.84,0.85,0.867,0.853,0.864,0.86,0.845,0.832,0.84,0.812,0.854,0.868,0.845,0.841,0.835,0.814,0.866,0.843,0.854,0.812,0.865,0.847,0.755,0.857,0.896,0.851,0.875,0.836,0.8,0.857,0.804,0.878,0.865,0.814,0.854,0.849,0.898,0.831,0.886,0.865,0.994,0.88,0.884,0.798,0.769,0.782,0.861,0.868,0.868,0.813,0.895,0.91,0.807,0.828,0.899,0.871,0.839,0.822,0.89,0.841],[0.762,0.765,0.732,0.779,0.778,0.794,0.801,0.787,0.788,0.76,0.785,0.758,0.757,0.773,0.792,0.794,0.764,0.779,0.736,0.788,0.783,0.797,0.753,0.777,0.772,0.78,0.768,0.764,0.771,0.745,0.815,0.79,0.798,0.763,0.768,0.801,0.772,0.791,0.809,0.787,0.807,0.796,0.785,0.772,0.773,0.735,0.793,0.809,0.774,0.77,0.761,0.738,0.807,0.776,0.795,0.727,0.81,0.775,0.67,0.8,0.847,0.787,0.822,0.765,0.721,0.8,0.719,0.816,0.804,0.737,0.669,0.778,0.844,0.736,0.833,0.815,0.995,0.83,0.835,0.71,0.664,0.681,0.788,0.794,0.818,0.751,0.847,0.877,0.74,0.754,0.851,0.816,0.768,0.762,0.827,0.776],[0.077,0.031,0.024,0.02,0.012,0.023,0.01,0.014,0.014,0.012,0.002,0.006,0.046,-0.014,0.015,0.024,0.005,-0.022,0.007,0.021,0.025,0.002,0.008,0.052,-0.003,-0.029,-0.012,0.038,-0.019,-0.001,-0.014,-0.006,-0.008,0.007,-0.011,-0.017,-0.003,0.004,0.015,-0.045,-0.023,-0.038,-0.04,-0.008,-0.054,0.063,-0.04,-0.038,0.035,-0.032,-0.011,0.001,-0.033,-0.03,-0.05,-0.049,-0.041,-0.005,-0.035,-0,-0.021,-0.057,-0.046,-0.036,-0.058,-0.023,-0.026,-0.036,-0.057,-0.064,0.146,-0.066,-0.023,-0.081,-0.053,-0.047,0.006,-0.13,-0.217,-0.131,-0.769,-0.782,-0.161,-0.118,-0.073,-0.078,-0.112,-0.41,-0.14,-0.428,-0.185,-0.443,-0.228,-0.322,-0.181,-0.165],[0.146,0.098,0.097,0.086,0.079,0.085,0.07,0.077,0.081,0.079,0.064,0.071,0.115,0.055,0.076,0.089,0.072,0.039,0.079,0.087,0.091,0.065,0.081,0.121,0.066,0.038,0.051,0.11,0.049,0.072,0.041,0.057,0.053,0.074,0.056,0.051,0.065,0.063,0.072,0.021,0.033,0.026,0.02,0.053,0.013,0.14,0.021,0.02,0.106,0.039,0.063,0.076,0.027,0.036,0.009,0.036,0.014,0.067,0.05,0.057,0.028,0.007,0.008,0.035,0.021,0.033,0.059,0.026,0.004,0.013,0.331,0.006,0.031,0.014,0.001,0.003,0.005,-0.08,-0.168,-0.043,-0.664,-0.681,-0.088,-0.044,-0.023,-0.015,-0.064,-0.377,-0.073,-0.354,-0.137,-0.387,-0.157,-0.262,-0.118,-0.101],[65.311,29.406,19.766,18.165,11.758,20.417,10.386,12.226,10.764,9.269,1.392,4.517,19.332,-11.992,8.634,10.864,2.57,-22.072,3.11,8.662,9.378,1.11,3.225,13.619,-1.177,-23.479,-6.393,9.013,-10.058,-0.299,-7.667,-2.405,-3.363,1.844,-3.793,-6.045,-0.711,1.108,3.308,-30.695,-9.645,-17.858,-23.848,-1.769,-41.545,4.557,-16.819,-15.338,2.624,-5.986,-1.125,0.047,-6.566,-4.342,-24.668,-5.551,-11.242,-0.301,-2.64,-0.017,-2.54,-24.093,-16.809,-2.676,-5.397,-1.254,-0.711,-2.059,-16.84,-6.165,0.439,-11.79,-0.557,-3.887,-13.256,-1.561,0.017,-1.559,-1.953,-4.733,-2.308,-2.347,-4.82,-7.061,-8.582,-15.814,-7.744,-4.924,-10.1,-6.42,-7.762,-9.295,-12.312,-11.605,-16.806,-18.361],[123.547,92.305,79.331,76.487,76.437,76.407,73.756,68.962,61.465,60.817,50.591,50.407,48.845,45.607,45.102,41.032,40.919,39.141,35.787,35.449,34.559,33.795,33.406,31.906,30.556,30.377,26.519,25.991,25.196,23.435,23.248,22.406,22.396,20.303,19.849,18.844,16.846,16.782,16.442,14.273,13.773,12.494,12.221,11.717,10.194,10.104,8.959,8.292,7.924,7.434,6.39,6.188,5.287,5.22,4.45,4.123,3.918,3.807,3.719,3.601,3.41,3.095,2.795,2.606,1.984,1.773,1.598,1.501,1.229,1.204,0.994,0.994,0.753,0.67,0.194,0.091,0.016,-0.963,-1.516,-1.551,-1.992,-2.042,-2.635,-2.645,-2.683,-3.149,-4.426,-4.521,-5.27,-5.314,-5.76,-8.127,-8.464,-9.417,-10.932,-11.171]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Kicker<\/th>\n      <th>Seasons<\/th>\n      <th>Kicks<\/th>\n      <th>FG%<\/th>\n      <th>eFG%<\/th>\n      <th>rFG%<\/th>\n      <th>FG% - eFG%<\/th>\n      <th>FG% - rFG%<\/th>\n      <th>PAA<\/th>\n      <th>PAR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 3, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 4, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 5, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 6, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 7, 1, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<p><br></p>
+<p>The modeling approach I used has some nice properties that deals with things
+like small sample sizes well, but the problem is how to express this information
+when the numbers produced don’t have a clear translation into football terms.</p>
+<p>Here’s what I’ve done: I’ve let the statistical model predict how successful
+each kicker would be in hypothetical kicking situations, which should give us
+some feel for who has really established themselves enough to separate from
+the pack. Just as important, it can give you an idea about how much variance
+there really is in kicker talent. Worth noting is that to some extent, the
+model tends to assume that if there’s not a lot of data for a kicker, it’s
+probably because he is replacement level.</p>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","data":[["J.Tucker","R.Bironas","R.Gould","M.Bryant","A.Vinatieri","H.Butker","C.Boswell","D.Bailey","W.Lutz","P.Dawson","J.Elliott","S.Janikowski","M.Prater","S.Hauschka","G.Zuerlein","D.Hopkins","M.Gay","J.Lambo","S.Gostkowski","J.Feely","K.Fairbairn","J.Hanson","J.Brown","J.Slye","R.Longwell","B.McManus","A.Seibert","E.Pineiro","J.Sanders","S.Suisham","R.Succop","D.Carpenter","K.Forbath","J.Scobee","A.Henery","A.Franks","A.Rosas","G.Hartley","B.Walsh","L.Tynes","Z.Gonzalez","N.Kaeding","G.Gano","D.Carlson","C.Barth","J.Myers","M.Crosby","B.Cundiff","N.Novak","J.Reed","N.Rackers","R.Bullock","C.Sturgis","C.Santos","B.Maher","K.Brown","M.Nugent","J.Kasay","D.Akers","R.Lindell","N.Folk","O.Mare","C.Catanzaro","J.Nedney","S.Graham","C.Parkey","M.Badgley","P.Murray","D.Buehler","G.Joseph","T.Long","C.Stitser","G.Tavecchio","M.Stover","T.Coons","D.Rayner","M.Scifres","J.Hekker","C.McLaughlin","J.Carney","J.Potter","R.Schmitt","N.Rose","M.McCrane","K.Vedvik","J.Medlock","B.Coutu","A.Pettrey","Y.Koo","S.Ficken","Z.Hocker","S.Andrus","J.Elam","K.Brindza","N.Freese","R.Aguayo"],["2012–2019","2009–2013","2009–2019","2009–2019","2009–2019","2017–2019","2015–2019","2011–2019","2016–2019","2009–2018","2017–2019","2009–2018","2009–2019","2009–2019","2012–2019","2015–2019","2019–2019","2015–2019","2009–2019","2009–2013","2017–2019","2009–2012","2009–2016","2019–2019","2009–2011","2014–2019","2019–2019","2019–2019","2018–2019","2009–2014","2009–2019","2009–2016","2012–2019","2009–2015","2011–2014","2015–2016","2017–2019","2009–2014","2012–2017","2009–2012","2017–2019","2009–2012","2009–2018","2018–2019","2009–2017","2015–2019","2009–2019","2009–2014","2011–2017","2009–2010","2009–2011","2013–2019","2013–2018","2014–2019","2018–2019","2009–2010","2009–2019","2009–2011","2009–2013","2009–2013","2009–2019","2009–2012","2014–2018","2009–2010","2009–2015","2014–2019","2018–2019","2014–2017","2010–2010","2018–2018","2019–2019","2010–2010","2017–2018","2009–2009","2015–2017","2010–2011","2011–2011","2018–2018","2019–2019","2009–2010","2013–2013","2009–2009","2017–2017","2018–2018","2019–2019","2012–2012","2011–2011","2010–2010","2017–2019","2017–2019","2015–2015","2009–2010","2009–2009","2015–2015","2014–2014","2016–2016"],[282,141,296,299,322,88,154,252,136,264,79,274,314,300,235,131,24,127,349,154,86,109,197,25,76,172,21,19,34,174,278,255,141,151,91,39,66,99,172,123,60,74,269,38,189,138,331,163,188,63,89,158,141,140,68,37,229,92,200,119,257,84,135,27,138,122,25,48,32,19,9,8,25,18,40,31,1,1,16,23,4,3,11,12,1,10,1,4,20,24,14,5,18,12,7,31],[0.91,0.896,0.898,0.896,0.89,0.901,0.896,0.9,0.898,0.893,0.896,0.899,0.902,0.898,0.894,0.894,0.895,0.899,0.899,0.894,0.894,0.895,0.896,0.892,0.896,0.891,0.894,0.892,0.894,0.89,0.889,0.898,0.887,0.893,0.887,0.889,0.89,0.88,0.884,0.885,0.889,0.887,0.884,0.888,0.888,0.885,0.888,0.876,0.886,0.885,0.89,0.886,0.882,0.881,0.887,0.879,0.878,0.882,0.884,0.878,0.871,0.875,0.879,0.873,0.873,0.868,0.85,0.849,0.843,0.848,0.845,0.844,0.846,0.846,0.849,0.846,0.845,0.844,0.845,0.842,0.844,0.842,0.845,0.844,0.844,0.844,0.843,0.84,0.843,0.841,0.841,0.841,0.837,0.836,0.839,0.839],[0.864,0.845,0.846,0.844,0.839,0.846,0.843,0.846,0.844,0.84,0.841,0.843,0.844,0.843,0.839,0.839,0.838,0.841,0.841,0.837,0.838,0.838,0.838,0.836,0.838,0.835,0.837,0.834,0.836,0.833,0.832,0.837,0.829,0.833,0.83,0.829,0.83,0.823,0.826,0.827,0.828,0.827,0.824,0.827,0.826,0.824,0.826,0.818,0.823,0.822,0.824,0.822,0.818,0.817,0.819,0.814,0.812,0.813,0.815,0.809,0.803,0.806,0.807,0.802,0.797,0.792,0.765,0.763,0.758,0.76,0.757,0.757,0.758,0.758,0.76,0.757,0.756,0.755,0.756,0.753,0.755,0.753,0.755,0.754,0.753,0.754,0.753,0.751,0.752,0.75,0.75,0.75,0.746,0.743,0.745,0.744],[0.807,0.783,0.783,0.782,0.78,0.778,0.777,0.777,0.776,0.776,0.775,0.774,0.774,0.773,0.771,0.77,0.77,0.769,0.769,0.769,0.768,0.768,0.767,0.767,0.767,0.766,0.765,0.764,0.763,0.762,0.761,0.76,0.76,0.759,0.758,0.757,0.757,0.757,0.756,0.756,0.754,0.754,0.753,0.752,0.752,0.751,0.751,0.749,0.747,0.745,0.745,0.743,0.741,0.74,0.739,0.736,0.735,0.732,0.732,0.728,0.724,0.724,0.723,0.721,0.709,0.707,0.673,0.671,0.668,0.666,0.665,0.664,0.664,0.664,0.664,0.663,0.662,0.661,0.66,0.659,0.659,0.659,0.658,0.658,0.657,0.657,0.657,0.656,0.655,0.654,0.653,0.653,0.651,0.647,0.646,0.643],[0.724,0.693,0.692,0.693,0.69,0.684,0.684,0.68,0.679,0.685,0.684,0.681,0.689,0.678,0.679,0.67,0.678,0.673,0.673,0.677,0.669,0.67,0.674,0.67,0.671,0.664,0.668,0.669,0.666,0.662,0.66,0.662,0.662,0.661,0.657,0.659,0.661,0.664,0.659,0.657,0.656,0.655,0.659,0.653,0.656,0.654,0.652,0.645,0.644,0.644,0.646,0.638,0.638,0.637,0.644,0.636,0.635,0.631,0.634,0.625,0.619,0.62,0.624,0.621,0.605,0.608,0.568,0.566,0.565,0.561,0.561,0.56,0.561,0.557,0.557,0.56,0.557,0.557,0.555,0.554,0.553,0.554,0.553,0.551,0.552,0.551,0.552,0.55,0.549,0.547,0.547,0.547,0.547,0.542,0.54,0.536]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Kicker<\/th>\n      <th>Seasons<\/th>\n      <th>Kicks<\/th>\n      <th>Pred. 35yd FG%<\/th>\n      <th>Pred. 40yd FG%<\/th>\n      <th>Pred. 45yd FG%<\/th>\n      <th>Pred. 50yd FG%<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 3, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 4, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 5, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 6, 1, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<p><br></p>
+<p>At 35 yards, the best kicker is predicted to have a 91% success rate while the
+worst is predicted to hit about 84%. Once you get to 50 yards, the
+difference grows to about 28 percentage points (72% vs 54%), which not only
+implies pretty noticeable differences in player value but also significant
+differences in the way coaches would need to adjust their decision-making
+regarding whether to even attempt a kick at that distance versus punting or
+going for it.</p>
+<div id="the-unparalleled-greatness-of-justin-tucker" class="section level4">
+<h4>The unparalleled greatness of Justin Tucker</h4>
+<p><strong>Justin Tucker</strong> is so great that, quite frankly, it doesn’t matter which
+metric you use. PAA, FG% - eFG%, or just plain old FG%, he’s unlike
+anyone else in the past 10 years. Given the well-documented trend of
+increasing kicker accuracy in the NFL, I think Tucker has a solid claim on
+being the greatest kicker of all time.</p>
+<p>Even with fewer seasons than many of his competitors, his PAA are double all
+the others who kicked in the past 10 years. He had a slightly more difficult
+than average set of attempts but made a higher percentage of his attempts than
+anyone who has had more than 22 tries. Good luck trying to find any defect in
+Tucker’s record.</p>
+<p>One way to talk about this is that if the Ravens had been cycling through
+replacement-level kickers since 2012 and letting them try the same field
+goals as they let Tucker attempt, they’d have scored 123 fewer points —
+that’s 17 fewer TD and nothing to sneeze at. And at 65 points better than
+average, even if you had the rare average kicker to replace him, you’d be 9
+touchdowns worse off.</p>
+</div>
+<div id="nick-folk-mr.-replacement-level" class="section level4">
+<h4>Nick Folk: Mr. Replacement Level</h4>
+<p>In my early efforts at creating this model, I did not set a replacement level
+and instead focused on points above <em>average</em>, a metric by which <strong>Nick Folk</strong>
+ranks clearly in last place. An implication of this, you’d think, might be that
+he’s been the worst kicker of the past 10 years. But not quite! Why has Folk
+stuck around so long, despite being so clearly below average? Because he has
+established a very long track record of being almost exactly replacement level.</p>
+<p>His FG% - rFG%, over the course of 253 kicks, is .013, meaning he’s out-kicked
+a replacement kicker by just a single percentage point. He racks up about a
+single PAR per season. Nobody is going to get too excited about that, but you
+can imagine how teams might look at him as a very safe replacement —
+obviously, there’s no
+guarantee that a given replacement kicker won’t be <em>worse</em> than the average
+replacement, but teams tend to gamble on these unproven guys since they might
+also be <em>better</em>. A team can turn to Nick Folk if they’re more risk-averse and
+just want to get a guy who isn’t going to be a disaster.</p>
+<p>Another interesting case in this vein is <strong>Mason Crosby</strong>, who has one of the
+worst PAA over his time in the league but who ranks in the top 20 (out of 96)
+in PAR. This is possible because he has spent a long time in the league and
+has occupied the space between average and replacement level. He’s been clearly
+better than replacement, but clearly worse than average.</p>
+</div>
+</div>
+<div id="best-seasons" class="section level3">
+<h3>Best seasons</h3>
+<p>We often don’t look at multi-year statistics like what I’ve just showed you,
+so it might also be interesting to see each kicker-season separately.</p>
+<div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","data":[["S.Janikowski","J.Tucker","R.Gould","J.Myers","S.Gostkowski","G.Zuerlein","S.Janikowski","J.Tucker","J.Tucker","S.Gostkowski","M.Prater","B.Walsh","S.Hauschka","C.Barth","J.Tucker","C.Boswell","R.Bironas","N.Folk","A.Rosas","B.McManus","S.Janikowski","M.Bryant","R.Bironas","K.Fairbairn","J.Tucker","A.Vinatieri","S.Hauschka","H.Butker","M.Bryant","D.Bailey","J.Hanson","P.Dawson","R.Bironas","D.Carpenter","D.Carpenter","R.Gould","M.Prater","D.Bailey","M.Bryant","C.Barth","M.Bryant","D.Carpenter","W.Lutz","P.Dawson","J.Elliott","D.Hopkins","J.Kasay","M.Prater","R.Succop","C.Boswell","J.Brown","A.Vinatieri","A.Vinatieri","N.Rackers","K.Forbath","J.Tucker","G.Gano","A.Vinatieri","S.Hauschka","S.Suisham","R.Gould","P.Dawson","D.Akers","J.Feely","R.Longwell","C.Boswell","A.Vinatieri","D.Akers","R.Gould","R.Succop","J.Reed","M.Prater","M.Prater","J.Lambo","C.Parkey","M.Bryant","B.McManus","R.Succop","M.Gay","J.Scobee","D.Bailey","J.Lambo","M.Crosby","B.Cundiff","J.Tucker","H.Butker","J.Scobee","R.Lindell","B.Walsh","S.Gostkowski","S.Suisham","M.Bryant","M.Crosby","J.Feely","J.Feely","J.Tucker","D.Bailey","G.Zuerlein","S.Janikowski","G.Gano","C.Parkey","W.Lutz","R.Gould","M.Prater","D.Bailey","J.Lambo","M.Crosby","R.Gould","C.Boswell","C.Santos","W.Lutz","J.Scobee","J.Myers","J.Hanson","H.Butker","P.Dawson","S.Suisham","A.Vinatieri","M.Prater","Josh.Brown","M.Prater","D.Carpenter","G.Zuerlein","D.Hopkins","M.Crosby","J.Lambo","J.Brown","J.Scobee","G.Zuerlein","D.Carpenter","N.Kaeding","D.Bailey","J.Elliott","C.Sturgis","N.Novak","O.Mare","R.Succop","S.Suisham","B.McManus","G.Gano","B.Walsh","J.Elliott","A.Vinatieri","G.Hartley","S.Gostkowski","S.Graham","D.Carlson","M.Nugent","D.Rayner","S.Hauschka","K.Forbath","J.Brown","C.Barth","C.Santos","M.Nugent","S.Hauschka","K.Forbath","J.Brown","M.Bryant","J.Sanders","M.Nugent","S.Graham","R.Succop","C.Barth","S.Hauschka","B.Cundiff","S.Hauschka","W.Lutz","S.Janikowski","R.Gould","N.Novak","J.Kasay","G.Zuerlein","M.Badgley","D.Carpenter","N.Novak","S.Gostkowski","N.Kaeding","D.Carpenter","C.Catanzaro","M.Crosby","R.Bullock","R.Longwell","A.Henery","G.Gano","N.Folk","A.Henery","M.Crosby","Josh.Brown","S.Janikowski","R.Gould","D.Bailey","C.Catanzaro","N.Novak","M.Prater","S.Gostkowski","J.Myers","P.Murray","T.Coons","D.Akers","B.McManus","J.Scobee","S.Janikowski","M.Bryant","S.Gostkowski","G.Tavecchio","C.Barth","R.Lindell","Z.Gonzalez","N.Folk","G.Joseph","J.Slye","A.Vinatieri","J.Hanson","M.Nugent","A.Seibert","R.Lindell","B.Maher","R.Bullock","J.Nedney","M.Crosby","S.Gostkowski","S.Hauschka","G.Gano","P.Dawson","S.Graham","C.Parkey","R.Bironas","R.Bullock","N.Novak","N.Rackers","M.Nugent","J.Kasay","R.Gould","P.Dawson","G.Gano","N.Novak","J.Nedney","K.Forbath","M.Crosby","G.Zuerlein","P.Dawson","G.Gano","M.Badgley","J.Brown","M.Nugent","A.Vinatieri","C.Sturgis","C.Barth","L.Tynes","C.Catanzaro","R.Succop","J.Myers","R.Succop","G.Zuerlein","R.Bullock","N.Rackers","P.Dawson","L.Tynes","P.Murray","S.Gostkowski","L.Tynes","S.Janikowski","R.Bironas","K.Fairbairn","M.Stover","N.Folk","M.Prater","R.Bullock","J.Feely","S.Hauschka","T.Long","Y.Koo","E.Pineiro","G.Hartley","J.Scobee","R.Succop","D.Hopkins","G.Hartley","A.Franks","R.Lindell","S.Ficken","D.Buehler","D.Hopkins","R.Lindell","M.Nugent","M.Scifres","K.Forbath","M.Nugent","S.Suisham","C.Parkey","R.Bullock","N.Folk","A.Vinatieri","C.Stitser","S.Graham","C.Sturgis","S.Gostkowski","C.Santos","C.McLaughlin","R.Longwell","K.Fairbairn","C.Santos","R.Succop","J.Sanders","D.Hopkins","K.Brown","N.Folk","C.Sturgis","G.Gano","S.Gostkowski","K.Forbath","S.Graham","N.Rose","K.Forbath","J.Hekker","Z.Gonzalez","A.Henery","S.Graham","N.Folk","M.Crosby","J.Feely","N.Kaeding","B.Cundiff","C.Catanzaro","M.Bryant","C.Parkey","O.Mare","G.Hartley","P.Dawson","S.Hauschka","J.Potter","Josh.Brown","T.Coons","R.Succop","M.Prater","P.Murray","C.Santos","N.Folk","G.Tavecchio","D.Bailey","J.Carney","R.Schmitt","M.McCrane","B.Cundiff","S.Hauschka","J.Lambo","B.Walsh","S.Andrus","S.Ficken","R.Gould","J.Hanson","M.Crosby","B.Coutu","J.Myers","K.Vedvik","S.Graham","D.Carlson","B.Walsh","S.Suisham","O.Mare","J.Medlock","D.Akers","Z.Gonzalez","J.Carney","G.Zuerlein","C.Catanzaro","J.Reed","B.Cundiff","D.Carpenter","C.Sturgis","O.Mare","M.Bryant","D.Bailey","S.Andrus","C.Barth","M.Nugent","L.Tynes","C.Parkey","C.Barth","R.Bullock","G.Gano","C.Sturgis","A.Franks","M.Bryant","P.Dawson","Y.Koo","A.Vinatieri","A.Rosas","D.Rayner","B.McManus","A.Pettrey","B.Walsh","S.Ficken","N.Novak","M.Nugent","R.Succop","C.Santos","J.Scobee","B.McManus","K.Forbath","A.Rosas","Z.Hocker","A.Henery","B.Cundiff","S.Janikowski","C.Boswell","M.Nugent","B.Maher","G.Gano","N.Folk","G.Hartley","N.Freese","N.Folk","J.Elam","R.Gould","K.Brindza","M.Crosby","R.Aguayo","D.Akers","K.Brown"],[2009,2016,2017,2018,2013,2017,2011,2013,2017,2015,2013,2012,2013,2011,2018,2017,2011,2013,2018,2015,2012,2017,2009,2018,2012,2010,2017,2017,2014,2013,2012,2012,2010,2009,2013,2018,2016,2012,2016,2012,2018,2014,2018,2013,2017,2018,2010,2017,2009,2015,2015,2013,2016,2010,2012,2019,2017,2015,2015,2012,2011,2011,2011,2009,2009,2016,2014,2009,2009,2016,2009,2010,2015,2018,2014,2012,2019,2017,2019,2012,2015,2017,2013,2010,2015,2018,2011,2009,2015,2014,2014,2010,2018,2010,2012,2014,2016,2018,2014,2013,2017,2019,2013,2019,2011,2019,2015,2015,2019,2015,2017,2010,2016,2010,2019,2009,2013,2017,2009,2009,2018,2011,2012,2015,2011,2015,2012,2013,2013,2010,2009,2014,2019,2016,2013,2009,2018,2010,2016,2018,2013,2018,2011,2009,2016,2010,2018,2011,2010,2011,2016,2014,2014,2016,2013,2018,2017,2013,2013,2018,2015,2012,2015,2009,2012,2013,2019,2016,2018,2016,2016,2009,2016,2018,2012,2011,2017,2010,2015,2014,2010,2014,2010,2012,2015,2014,2011,2019,2010,2016,2010,2019,2017,2012,2014,2011,2015,2014,2015,2010,2018,2009,2010,2011,2012,2018,2010,2012,2019,2016,2018,2019,2012,2009,2018,2019,2010,2018,2017,2009,2016,2009,2016,2016,2015,2015,2019,2013,2016,2014,2009,2017,2011,2012,2016,2009,2015,2010,2014,2014,2014,2010,2014,2019,2016,2012,2018,2017,2015,2010,2015,2014,2019,2011,2019,2019,2011,2014,2009,2017,2018,2012,2015,2012,2017,2009,2015,2011,2018,2013,2014,2019,2019,2019,2014,2014,2010,2017,2010,2015,2013,2019,2010,2019,2011,2010,2011,2013,2014,2011,2016,2015,2011,2009,2010,2011,2015,2019,2017,2019,2011,2019,2014,2012,2019,2016,2010,2019,2013,2012,2010,2018,2014,2017,2019,2018,2018,2013,2013,2012,2017,2011,2012,2009,2018,2009,2015,2010,2012,2017,2009,2013,2011,2017,2013,2012,2016,2018,2010,2017,2017,2010,2009,2018,2011,2010,2016,2014,2009,2017,2014,2011,2009,2011,2017,2019,2009,2019,2016,2009,2011,2012,2013,2017,2009,2015,2016,2010,2014,2016,2018,2012,2019,2018,2010,2017,2016,2011,2018,2016,2013,2011,2014,2016,2015,2018,2017,2019,2017,2011,2017,2010,2017,2018,2017,2009,2019,2019,2015,2014,2015,2019,2015,2014,2012,2013,2018,2019,2019,2010,2017,2013,2014,2009,2009,2019,2015,2012,2016,2012,2009],[29,36,40,36,42,34,34,41,34,40,29,39,43,26,39,37,30,36,31,45,34,44,26,42,33,30,34,41,30,30,36,31,25,28,36,31,38,31,40,33,21,38,36,41,33,26,29,35,29,39,32,42,31,30,18,22,35,27,31,31,32,29,55,40,30,33,38,34,26,24,31,18,23,21,33,42,26,42,24,22,28,20,39,33,39,20,21,33,41,33,34,31,37,26,28,38,34,39,21,28,23,31,29,25,37,22,32,39,25,42,39,28,34,14,27,19,30,34,30,24,32,33,30,25,29,32,14,23,28,41,38,26,14,41,40,21,30,20,34,15,30,32,24,16,39,14,21,40,16,29,15,24,18,36,23,28,42,24,26,20,28,44,16,19,27,23,19,30,30,11,46,27,19,18,27,25,41,26,27,33,27,35,18,31,39,38,27,13,39,34,30,18,27,17,25,36,30,23,32,41,22,21,36,26,36,5,28,23,27,28,19,25,35,28,6,21,21,38,20,14,34,28,39,36,26,13,3,29,9,26,19,13,36,24,18,4,21,13,24,34,29,28,33,7,12,23,28,3,27,22,30,22,23,26,27,21,40,24,29,23,33,39,26,31,24,18,16,26,19,36,33,9,14,19,3,26,26,14,28,16,29,16,32,24,13,19,1,21,34,33,25,19,23,8,8,7,18,8,5,16,28,20,30,30,14,42,5,9,33,11,13,5,22,11,1,1,14,30,8,27,19,24,10,26,20,10,4,32,22,40,13,4,28,8,29,33,2,18,41,20,20,6,3,12,40,4,32,24,1,5,12,31,35,1,15,1,30,17,14,26,23,10,24,19,17,29,25,32,29,25,13,8,14,28,4,15,28,33,34,23,35,37,33,23,15,8,6,25,22,15,32,4,24,3,13,8,4,9,10,13,15,13,14,3,12,30,20,7,30,31,11,30,7,28,18,22,12,32,31,46,32],[0.897,0.972,0.95,0.917,0.929,0.971,0.882,0.927,0.941,0.925,0.966,0.923,0.953,0.962,0.897,0.946,0.9,0.917,0.968,0.889,0.912,0.886,0.846,0.881,0.909,0.933,0.882,0.902,0.933,0.933,0.889,0.935,0.96,0.893,0.917,0.968,0.868,0.935,0.925,0.848,0.952,0.895,0.917,0.902,0.848,0.885,0.862,0.857,0.862,0.923,0.938,0.881,0.871,0.9,0.944,0.955,0.943,0.926,0.903,0.903,0.875,0.828,0.855,0.8,0.933,0.879,0.921,0.853,0.846,0.917,0.871,0.889,0.913,0.905,0.939,0.881,0.846,0.833,0.875,0.955,0.929,0.95,0.897,0.909,0.821,0.95,0.905,0.848,0.854,0.939,0.912,0.903,0.811,0.885,0.893,0.868,0.882,0.846,0.857,0.893,0.913,0.871,0.897,0.88,0.865,0.955,0.875,0.846,0.92,0.833,0.846,0.786,0.794,0.857,0.852,0.895,0.933,0.853,0.833,0.792,0.875,0.848,0.733,0.92,0.862,0.812,0.929,0.87,0.929,0.732,0.842,0.846,1,0.854,0.9,0.905,0.867,0.85,0.853,0.867,0.867,0.844,0.875,0.875,0.872,1,0.81,0.85,0.812,0.862,1,0.917,0.944,0.889,0.826,0.786,0.833,0.917,0.885,0.9,0.857,0.841,0.875,0.737,0.889,0.87,0.789,0.867,0.8,1,0.87,0.815,0.895,0.889,0.815,0.84,0.878,0.808,0.852,0.879,0.852,0.857,0.944,0.871,0.821,0.816,0.889,0.923,0.846,0.824,0.833,0.889,0.815,0.882,0.88,0.861,0.867,0.826,0.875,0.805,0.773,0.714,0.778,0.923,0.833,1,0.821,0.87,0.889,0.893,0.842,0.72,0.771,0.75,1,0.857,0.762,0.789,0.9,0.786,0.853,0.786,0.897,0.806,0.885,0.846,1,0.862,0.889,0.846,0.842,0.846,0.833,0.833,0.833,1,0.857,0.846,0.875,0.824,0.828,0.821,0.818,0.857,0.917,0.826,0.821,1,0.852,0.864,0.9,0.864,0.783,0.808,0.778,0.81,0.825,0.792,0.828,0.826,0.818,0.846,0.808,0.806,0.833,0.833,0.812,0.769,0.789,0.833,0.818,0.778,0.857,0.842,1,0.769,0.769,0.857,0.821,0.812,0.793,0.688,0.75,0.792,0.846,0.789,1,0.81,0.794,0.788,0.8,0.842,0.739,0.875,0.875,0.857,0.833,0.875,0.8,0.75,0.786,0.75,0.833,0.8,0.714,0.81,0.8,0.778,0.758,0.818,0.769,0.8,0.864,0.818,1,1,0.643,0.8,0.75,0.778,0.789,0.792,0.8,0.808,0.8,0.7,0.75,0.844,0.818,0.8,0.692,0.75,0.75,0.875,0.793,0.788,0.5,0.778,0.756,0.75,0.75,0.833,0.667,0.667,0.775,0.75,0.812,0.708,0,0.8,0.75,0.774,0.743,0,0.733,0,0.767,0.706,0.714,0.769,0.783,0.7,0.792,0.737,0.765,0.655,0.72,0.75,0.759,0.76,0.692,0.75,0.643,0.75,0.5,0.667,0.786,0.788,0.765,0.783,0.743,0.73,0.758,0.783,0.733,0.625,0.5,0.68,0.727,0.667,0.75,0.5,0.708,0.333,0.692,0.5,0.25,0.444,0.6,0.692,0.667,0.692,0.714,0,0.583,0.7,0.65,0.571,0.667,0.677,0.545,0.733,0.429,0.643,0.611,0.636,0.5,0.625,0.71,0.717,0.656],[0.679,0.81,0.845,0.802,0.847,0.84,0.77,0.842,0.826,0.844,0.826,0.842,0.878,0.817,0.819,0.869,0.793,0.848,0.862,0.848,0.823,0.838,0.755,0.84,0.84,0.851,0.815,0.854,0.848,0.845,0.836,0.85,0.846,0.811,0.852,0.887,0.833,0.865,0.867,0.798,0.819,0.844,0.867,0.856,0.81,0.801,0.805,0.811,0.797,0.877,0.872,0.852,0.818,0.831,0.813,0.856,0.884,0.855,0.849,0.855,0.823,0.779,0.846,0.788,0.867,0.837,0.877,0.818,0.792,0.839,0.838,0.776,0.825,0.81,0.889,0.866,0.789,0.831,0.812,0.862,0.874,0.85,0.861,0.867,0.822,0.849,0.815,0.817,0.843,0.892,0.873,0.868,0.81,0.834,0.851,0.839,0.856,0.83,0.794,0.847,0.859,0.842,0.848,0.824,0.861,0.878,0.848,0.847,0.868,0.828,0.843,0.782,0.795,0.75,0.833,0.818,0.895,0.842,0.821,0.761,0.856,0.834,0.734,0.88,0.836,0.819,0.839,0.824,0.894,0.757,0.834,0.832,0.882,0.861,0.893,0.863,0.857,0.819,0.843,0.791,0.857,0.842,0.847,0.818,0.872,0.886,0.804,0.861,0.778,0.851,0.907,0.88,0.88,0.889,0.822,0.797,0.847,0.887,0.871,0.865,0.858,0.856,0.83,0.732,0.866,0.848,0.763,0.864,0.823,0.889,0.881,0.814,0.858,0.853,0.829,0.83,0.881,0.813,0.85,0.881,0.847,0.866,0.898,0.874,0.852,0.844,0.874,0.861,0.862,0.846,0.839,0.86,0.828,0.843,0.882,0.876,0.877,0.829,0.884,0.833,0.783,0.717,0.813,0.909,0.863,0.803,0.842,0.868,0.889,0.894,0.847,0.755,0.819,0.781,0.853,0.857,0.783,0.828,0.893,0.789,0.88,0.816,0.916,0.844,0.892,0.838,0.766,0.881,0.847,0.87,0.857,0.838,0.863,0.861,0.844,0.829,0.866,0.841,0.896,0.854,0.861,0.848,0.862,0.825,0.896,0.851,0.854,0.82,0.876,0.874,0.916,0.882,0.831,0.843,0.814,0.841,0.86,0.831,0.865,0.86,0.855,0.883,0.852,0.852,0.867,0.857,0.84,0.821,0.836,0.879,0.861,0.804,0.877,0.878,0.89,0.828,0.827,0.879,0.865,0.836,0.847,0.747,0.814,0.846,0.874,0.832,0.854,0.846,0.853,0.849,0.862,0.887,0.801,0.885,0.898,0.875,0.885,0.894,0.817,0.831,0.847,0.807,0.884,0.864,0.791,0.866,0.859,0.834,0.821,0.866,0.835,0.842,0.907,0.865,0.985,0.994,0.766,0.857,0.833,0.851,0.848,0.863,0.875,0.866,0.869,0.789,0.886,0.894,0.88,0.873,0.806,0.88,0.836,0.943,0.864,0.856,0.798,0.868,0.829,0.844,0.839,0.942,0.884,0.798,0.85,0.916,0.885,0.796,0.716,0.948,0.862,0.859,0.816,0.769,0.839,0.782,0.851,0.821,0.844,0.855,0.882,0.861,0.879,0.853,0.878,0.769,0.833,0.844,0.858,0.862,0.839,0.926,0.803,0.854,0.856,0.822,0.883,0.874,0.869,0.883,0.85,0.832,0.858,0.891,0.888,0.871,0.845,0.814,0.862,0.823,0.849,0.91,0.846,0.893,0.879,0.786,0.754,0.736,0.845,0.877,0.856,0.884,0.899,0.786,0.81,0.833,0.834,0.92,0.794,0.826,0.824,0.876,0.871,0.814,0.839,0.826,0.822,0.805,0.89,0.855,0.838],[0.59,0.73,0.768,0.728,0.773,0.781,0.702,0.779,0.762,0.774,0.764,0.776,0.821,0.747,0.761,0.802,0.724,0.773,0.804,0.779,0.766,0.774,0.658,0.766,0.764,0.776,0.744,0.788,0.777,0.779,0.762,0.789,0.778,0.736,0.795,0.827,0.754,0.796,0.817,0.718,0.749,0.783,0.8,0.803,0.725,0.73,0.724,0.743,0.725,0.821,0.815,0.788,0.746,0.771,0.73,0.78,0.834,0.787,0.782,0.783,0.759,0.7,0.788,0.709,0.813,0.77,0.828,0.749,0.71,0.77,0.757,0.695,0.762,0.74,0.835,0.799,0.715,0.753,0.735,0.802,0.81,0.784,0.813,0.809,0.736,0.786,0.749,0.749,0.774,0.843,0.818,0.801,0.727,0.766,0.783,0.787,0.792,0.767,0.713,0.785,0.783,0.775,0.794,0.764,0.787,0.825,0.786,0.773,0.807,0.768,0.776,0.688,0.714,0.667,0.754,0.757,0.846,0.776,0.747,0.686,0.797,0.774,0.651,0.822,0.778,0.737,0.757,0.765,0.844,0.674,0.78,0.756,0.833,0.797,0.842,0.795,0.79,0.736,0.786,0.715,0.791,0.773,0.782,0.737,0.816,0.845,0.707,0.796,0.678,0.789,0.86,0.829,0.829,0.832,0.737,0.713,0.785,0.832,0.807,0.8,0.786,0.796,0.751,0.633,0.817,0.785,0.688,0.803,0.737,0.829,0.829,0.747,0.8,0.789,0.75,0.77,0.836,0.742,0.788,0.827,0.789,0.809,0.852,0.817,0.778,0.773,0.829,0.798,0.805,0.777,0.781,0.803,0.758,0.792,0.819,0.819,0.816,0.761,0.829,0.769,0.707,0.647,0.74,0.871,0.796,0.732,0.774,0.812,0.841,0.847,0.775,0.67,0.736,0.706,0.798,0.8,0.705,0.758,0.841,0.704,0.82,0.747,0.87,0.776,0.845,0.769,0.667,0.828,0.779,0.809,0.791,0.774,0.807,0.794,0.782,0.769,0.813,0.775,0.837,0.797,0.796,0.789,0.792,0.736,0.849,0.791,0.793,0.74,0.823,0.828,0.875,0.829,0.75,0.779,0.75,0.774,0.806,0.762,0.803,0.797,0.798,0.83,0.784,0.787,0.809,0.8,0.777,0.748,0.76,0.818,0.802,0.719,0.82,0.816,0.836,0.751,0.751,0.823,0.805,0.785,0.778,0.662,0.737,0.775,0.816,0.77,0.669,0.794,0.785,0.779,0.789,0.827,0.727,0.842,0.844,0.823,0.82,0.846,0.755,0.736,0.778,0.74,0.829,0.795,0.705,0.806,0.778,0.768,0.755,0.813,0.766,0.793,0.862,0.815,0.984,0.995,0.643,0.801,0.76,0.782,0.796,0.799,0.817,0.815,0.81,0.721,0.806,0.851,0.83,0.807,0.717,0.83,0.762,0.917,0.806,0.801,0.723,0.803,0.767,0.774,0.775,0.917,0.835,0.71,0.788,0.881,0.829,0.731,0.599,0.925,0.804,0.795,0.761,0.664,0.778,0.681,0.792,0.752,0.773,0.801,0.821,0.788,0.829,0.787,0.822,0.689,0.761,0.783,0.796,0.803,0.776,0.892,0.725,0.792,0.793,0.745,0.828,0.824,0.801,0.837,0.779,0.765,0.797,0.841,0.825,0.8,0.733,0.736,0.793,0.766,0.797,0.877,0.772,0.845,0.817,0.707,0.676,0.637,0.774,0.828,0.788,0.836,0.851,0.647,0.747,0.766,0.751,0.887,0.741,0.75,0.753,0.816,0.816,0.742,0.768,0.769,0.762,0.726,0.827,0.798,0.776],[0.217,0.163,0.105,0.114,0.082,0.131,0.112,0.084,0.115,0.081,0.14,0.081,0.076,0.145,0.078,0.076,0.107,0.069,0.106,0.041,0.089,0.049,0.091,0.04,0.069,0.082,0.068,0.049,0.086,0.088,0.053,0.085,0.114,0.081,0.065,0.081,0.035,0.07,0.058,0.051,0.134,0.05,0.05,0.046,0.039,0.084,0.057,0.046,0.065,0.046,0.066,0.029,0.053,0.069,0.132,0.098,0.059,0.071,0.054,0.049,0.052,0.049,0.008,0.012,0.066,0.041,0.044,0.035,0.054,0.077,0.033,0.113,0.088,0.095,0.051,0.015,0.057,0.003,0.063,0.092,0.054,0.1,0.036,0.042,-0.001,0.101,0.09,0.032,0.011,0.047,0.039,0.035,0.001,0.051,0.042,0.029,0.026,0.016,0.063,0.046,0.054,0.029,0.048,0.056,0.004,0.076,0.027,-0,0.052,0.005,0.003,0.004,-0.001,0.107,0.019,0.077,0.039,0.011,0.012,0.031,0.019,0.014,-0,0.04,0.026,-0.007,0.09,0.046,0.034,-0.025,0.008,0.014,0.118,-0.007,0.007,0.041,0.01,0.031,0.01,0.076,0.009,0.002,0.028,0.057,0,0.114,0.005,-0.011,0.034,0.011,0.093,0.037,0.065,0,0.005,-0.011,-0.014,0.029,0.013,0.035,-0.001,-0.015,0.045,0.005,0.023,0.021,0.026,0.003,-0.023,0.111,-0.011,0.001,0.037,0.036,-0.014,0.01,-0.003,-0.005,0.002,-0.002,0.004,-0.009,0.046,-0.003,-0.031,-0.029,0.015,0.062,-0.016,-0.023,-0.005,0.029,-0.013,0.04,-0.002,-0.015,-0.011,-0.003,-0.009,-0.028,-0.01,-0.003,-0.035,0.014,-0.03,0.197,-0.02,0.002,-0,-0.001,-0.005,-0.035,-0.047,-0.031,0.147,-0,-0.021,-0.038,0.007,-0.004,-0.027,-0.03,-0.018,-0.038,-0.007,0.009,0.234,-0.019,0.042,-0.024,-0.015,0.008,-0.029,-0.027,-0.011,0.171,-0.009,0.005,-0.021,-0.031,-0.033,-0.027,-0.044,0.032,0.02,-0.025,-0.033,0.18,-0.024,-0.01,-0.016,-0.019,-0.048,-0.036,-0.036,-0.031,-0.035,-0.039,-0.037,-0.034,-0.037,-0.037,-0.044,-0.046,-0.033,-0.023,-0.028,-0.052,-0.047,-0.046,-0.043,-0.026,-0.02,-0.036,0.11,-0.059,-0.058,-0.022,-0.043,-0.023,-0.054,-0.059,-0.064,-0.054,-0.028,-0.043,0.146,-0.037,-0.058,-0.061,-0.062,-0.045,-0.062,-0.01,-0.023,-0.018,-0.051,-0.019,-0.017,-0.081,-0.061,-0.057,-0.05,-0.064,-0.076,-0.057,-0.059,-0.056,-0.064,-0.047,-0.065,-0.042,-0.044,-0.047,0.015,0.006,-0.123,-0.057,-0.083,-0.073,-0.059,-0.071,-0.075,-0.058,-0.069,-0.089,-0.136,-0.05,-0.062,-0.073,-0.114,-0.13,-0.086,-0.068,-0.071,-0.068,-0.298,-0.09,-0.073,-0.094,-0.089,-0.109,-0.217,-0.131,-0.075,-0.166,-0.073,-0.088,-0.716,-0.148,-0.112,-0.085,-0.073,-0.769,-0.105,-0.782,-0.084,-0.115,-0.13,-0.086,-0.099,-0.161,-0.088,-0.116,-0.114,-0.113,-0.113,-0.094,-0.099,-0.102,-0.147,-0.176,-0.16,-0.104,-0.356,-0.156,-0.098,-0.086,-0.104,-0.101,-0.108,-0.102,-0.101,-0.108,-0.155,-0.246,-0.345,-0.134,-0.135,-0.156,-0.099,-0.41,-0.138,-0.559,-0.187,-0.286,-0.504,-0.292,-0.245,-0.184,-0.189,-0.192,-0.185,-0.786,-0.227,-0.133,-0.184,-0.348,-0.127,-0.149,-0.279,-0.143,-0.443,-0.171,-0.228,-0.189,-0.322,-0.18,-0.181,-0.138,-0.182],[0.306,0.243,0.182,0.189,0.156,0.19,0.18,0.148,0.179,0.151,0.202,0.148,0.133,0.215,0.136,0.143,0.176,0.144,0.164,0.11,0.145,0.112,0.188,0.115,0.145,0.157,0.138,0.115,0.157,0.155,0.127,0.147,0.182,0.157,0.122,0.141,0.114,0.14,0.108,0.13,0.203,0.112,0.116,0.1,0.124,0.155,0.138,0.114,0.137,0.102,0.122,0.093,0.125,0.129,0.215,0.174,0.109,0.139,0.121,0.12,0.116,0.128,0.067,0.091,0.12,0.109,0.093,0.104,0.136,0.147,0.114,0.194,0.151,0.165,0.105,0.082,0.131,0.081,0.14,0.152,0.119,0.166,0.085,0.1,0.084,0.164,0.156,0.099,0.079,0.097,0.094,0.102,0.084,0.119,0.11,0.081,0.09,0.079,0.144,0.107,0.13,0.096,0.103,0.116,0.078,0.13,0.089,0.073,0.113,0.065,0.07,0.098,0.08,0.191,0.098,0.138,0.087,0.077,0.086,0.105,0.078,0.075,0.082,0.098,0.084,0.076,0.172,0.104,0.085,0.058,0.062,0.09,0.167,0.057,0.058,0.11,0.076,0.114,0.067,0.152,0.076,0.07,0.093,0.138,0.056,0.155,0.103,0.054,0.134,0.073,0.14,0.087,0.116,0.057,0.089,0.073,0.048,0.084,0.077,0.1,0.071,0.045,0.124,0.104,0.072,0.084,0.102,0.063,0.063,0.171,0.04,0.067,0.095,0.1,0.065,0.07,0.042,0.066,0.063,0.052,0.063,0.048,0.093,0.054,0.043,0.043,0.06,0.125,0.041,0.046,0.052,0.086,0.057,0.09,0.061,0.043,0.051,0.066,0.046,0.036,0.066,0.068,0.038,0.053,0.038,0.268,0.048,0.058,0.048,0.045,0.067,0.05,0.035,0.044,0.202,0.057,0.057,0.031,0.059,0.081,0.033,0.039,0.028,0.03,0.04,0.077,0.333,0.034,0.109,0.037,0.051,0.072,0.026,0.039,0.052,0.231,0.044,0.071,0.038,0.027,0.031,0.032,0.026,0.121,0.067,0.035,0.028,0.26,0.029,0.035,0.025,0.034,0.033,0.029,0.028,0.036,0.019,0.03,0.025,0.029,0.02,0.016,0.024,0.019,0.025,0.033,0.036,0.022,0.029,0.015,0.016,0.059,0.037,0.026,0.164,0.019,0.018,0.034,0.016,0.028,0.015,0.025,0.013,0.017,0.03,0.019,0.331,0.016,0.01,0.009,0.011,0.015,0.012,0.033,0.031,0.035,0.013,0.029,0.045,0.014,0.007,0.01,0.005,0.005,0.01,0.003,0.022,0.01,0.002,0.005,0.003,0.007,0.002,0.003,0.016,0.005,0,-0.001,-0.01,-0.004,-0.006,-0.007,-0.017,-0.007,-0.01,-0.021,-0.056,-0.007,-0.011,-0.007,-0.024,-0.08,-0.012,-0.042,-0.013,-0.013,-0.223,-0.025,-0.011,-0.024,-0.025,-0.084,-0.168,-0.043,-0.013,-0.131,-0.017,-0.023,-0.599,-0.125,-0.054,-0.021,-0.019,-0.664,-0.044,-0.681,-0.026,-0.046,-0.058,-0.032,-0.038,-0.088,-0.037,-0.051,-0.057,-0.034,-0.041,-0.033,-0.037,-0.043,-0.083,-0.142,-0.082,-0.042,-0.293,-0.078,-0.043,-0.036,-0.036,-0.054,-0.036,-0.035,-0.04,-0.058,-0.092,-0.175,-0.233,-0.056,-0.066,-0.099,-0.047,-0.377,-0.063,-0.512,-0.124,-0.207,-0.426,-0.192,-0.174,-0.135,-0.122,-0.143,-0.137,-0.647,-0.163,-0.066,-0.101,-0.315,-0.075,-0.073,-0.207,-0.083,-0.387,-0.099,-0.157,-0.133,-0.262,-0.101,-0.118,-0.081,-0.12],[18.89,17.551,12.642,12.366,10.282,13.366,11.468,10.385,11.728,9.765,12.157,9.462,9.773,11.286,9.133,8.489,9.592,7.442,9.839,5.543,9.082,6.412,7.125,5.098,6.829,7.407,6.905,6.011,7.723,7.952,5.764,7.94,8.542,6.837,7.012,7.513,4.032,6.513,6.91,5.047,8.422,5.733,5.36,5.715,3.856,6.549,4.972,4.866,5.626,5.415,6.296,3.659,4.891,6.21,7.108,6.476,6.17,5.728,5.009,4.524,4.98,4.253,1.382,1.406,5.933,4.106,4.993,3.591,4.199,5.557,3.064,6.117,6.066,5.984,5.032,1.879,4.442,0.334,4.557,6.103,4.576,6.003,4.27,4.141,-0.151,6.045,5.654,3.155,1.34,4.679,3.981,3.281,0.121,3.971,3.529,3.361,2.675,1.918,3.979,3.847,3.746,2.689,4.181,4.232,0.433,5.024,2.587,-0.05,3.895,0.688,0.344,0.336,-0.108,4.489,1.563,4.362,3.477,1.104,1.07,2.23,1.778,1.433,-0.038,3.027,2.273,-0.66,3.772,3.158,2.871,-3.116,0.889,1.108,4.966,-0.917,0.819,2.601,0.858,1.847,0.992,3.424,0.844,0.191,1.99,2.753,0.032,4.777,0.317,-1.358,1.645,0.976,4.201,2.641,3.505,0.031,0.314,-0.939,-1.746,2.123,1.03,2.079,-0.077,-1.93,2.179,0.276,1.833,1.473,1.491,0.269,-2.111,3.679,-1.548,0.058,2.117,1.956,-1.132,0.785,-0.365,-0.421,0.188,-0.236,0.364,-0.923,2.488,-0.266,-3.661,-3.271,1.205,2.429,-1.908,-2.316,-0.472,1.558,-1.048,2.031,-0.13,-1.597,-0.954,-0.183,-0.907,-3.496,-0.669,-0.192,-3.8,1.131,-3.193,2.962,-1.688,0.135,-0.016,-0.069,-0.301,-2.64,-4.958,-2.631,2.652,-0.017,-1.302,-4.374,0.414,-0.152,-2.711,-2.541,-2.163,-4.127,-0.573,0.334,2.108,-1.69,1.136,-1.884,-0.861,0.301,-3.186,-1.974,-0.601,2.046,-0.581,0.199,-1.506,-3.139,-2.894,-2.241,-4.379,0.668,0.736,-1.717,-2.743,1.616,-1.92,-0.667,-1.449,-1.238,-3.331,-2.778,-2.952,-1.972,-4.241,-2.815,-3.26,-2.373,-3.676,-4.333,-3.47,-4.236,-2.398,-1.254,-1.324,-4.072,-2.662,-4.96,-4.231,-0.711,-0.843,-2.059,0.989,-4.593,-4.522,-0.935,-3.635,-1.109,-4.68,-2.852,-6.165,-3.917,-1.101,-2.451,0.439,-2.324,-5.964,-6.019,-4.676,-2.559,-4.264,-0.234,-0.557,-0.371,-2.768,-0.45,-0.252,-3.887,-5.113,-3.411,-4.521,-5.755,-3.204,-7.13,-0.889,-1.525,-6.319,-1.567,-2.549,-0.623,-2.88,-1.561,0.044,0.017,-5.175,-5.105,-2.001,-5.95,-3.346,-5.122,-2.236,-4.547,-4.145,-2.681,-1.633,-4.784,-4.107,-8.748,-4.434,-1.559,-7.256,-1.633,-6.204,-6.711,-1.786,-4.885,-9.002,-5.638,-5.344,-1.955,-1.953,-4.733,-8.966,-1.995,-6.972,-6.302,-2.147,-2.213,-4.042,-7.92,-7.66,-2.308,-4.747,-2.347,-7.574,-5.869,-5.468,-6.701,-6.848,-4.82,-6.316,-6.6,-5.789,-9.871,-8.46,-9.049,-8.604,-7.684,-5.735,-4.224,-6.733,-8.707,-4.273,-6.998,-8.212,-8.549,-10.622,-6.938,-11.292,-11.376,-9.969,-7.472,-6.957,-5.899,-6.218,-10.08,-8.923,-7.042,-9.508,-4.924,-9.935,-5.035,-7.289,-6.87,-6.05,-7.879,-7.355,-7.193,-8.517,-7.482,-7.762,-7.077,-8.165,-11.956,-11.04,-7.311,-11.44,-13.855,-9.204,-12.839,-9.295,-14.377,-12.312,-12.491,-11.605,-17.259,-16.806,-19.007,-17.472],[26.663,26.191,21.785,20.391,19.601,19.334,18.377,18.235,18.228,18.126,17.531,17.261,17.108,16.768,15.94,15.923,15.816,15.505,15.211,14.871,14.822,14.766,14.66,14.467,14.354,14.118,14.115,14.115,14.109,13.917,13.719,13.63,13.614,13.17,13.14,13.085,13.005,13.001,12.978,12.885,12.802,12.788,12.571,12.266,12.233,12.073,12.037,11.938,11.892,11.89,11.738,11.676,11.643,11.637,11.588,11.49,11.459,11.275,11.268,11.195,11.131,11.119,11.023,10.908,10.823,10.815,10.651,10.644,10.606,10.571,10.566,10.481,10.433,10.384,10.354,10.337,10.221,10.185,10.104,10.039,9.971,9.951,9.928,9.914,9.875,9.844,9.832,9.81,9.777,9.578,9.556,9.51,9.358,9.257,9.238,9.235,9.207,9.204,9.098,9.023,8.996,8.953,8.925,8.69,8.648,8.563,8.526,8.525,8.439,8.252,8.232,8.219,8.203,8.001,7.948,7.863,7.824,7.811,7.782,7.583,7.489,7.414,7.366,7.333,7.28,7.277,7.218,7.2,7.125,7.124,7.07,7.053,6.995,6.977,6.968,6.919,6.87,6.865,6.84,6.821,6.804,6.763,6.674,6.64,6.527,6.519,6.474,6.434,6.433,6.378,6.292,6.282,6.254,6.182,6.143,6.121,6.099,6.066,6.039,5.982,5.938,5.937,5.929,5.911,5.808,5.801,5.798,5.692,5.658,5.648,5.544,5.458,5.388,5.385,5.288,5.287,5.208,5.152,5.143,5.13,5.093,5.007,5.002,4.987,4.983,4.93,4.872,4.869,4.77,4.71,4.677,4.656,4.609,4.608,4.602,4.602,4.558,4.523,4.418,4.418,4.365,4.267,4.121,4.1,4.078,4.023,4.019,3.983,3.863,3.815,3.807,3.719,3.673,3.66,3.64,3.601,3.593,3.561,3.546,3.418,3.391,3.268,3.265,3.235,3.121,3.021,2.997,2.966,2.955,2.925,2.91,2.822,2.808,2.802,2.782,2.772,2.77,2.77,2.743,2.733,2.724,2.689,2.561,2.539,2.42,2.389,2.357,2.341,2.332,2.327,2.267,2.257,2.249,2.248,2.239,2.237,2.235,2.16,2.157,2.034,1.966,1.91,1.841,1.788,1.779,1.773,1.727,1.682,1.678,1.647,1.624,1.598,1.555,1.501,1.478,1.451,1.438,1.415,1.346,1.339,1.298,1.207,1.204,1.194,1.164,1.11,0.994,0.992,0.971,0.859,0.843,0.842,0.814,0.793,0.753,0.725,0.709,0.686,0.675,0.67,0.618,0.6,0.42,0.419,0.408,0.391,0.324,0.275,0.241,0.163,0.115,0.11,0.106,0.091,0.048,0.016,0.01,-0.118,-0.238,-0.305,-0.352,-0.494,-0.505,-0.572,-0.614,-0.64,-0.667,-0.703,-0.753,-0.845,-0.948,-0.963,-0.974,-1.008,-1.095,-1.328,-1.336,-1.375,-1.394,-1.417,-1.485,-1.513,-1.516,-1.551,-1.573,-1.575,-1.616,-1.643,-1.798,-1.872,-1.942,-1.945,-1.945,-1.992,-1.995,-2.042,-2.298,-2.351,-2.447,-2.504,-2.619,-2.635,-2.685,-2.879,-2.913,-2.972,-3.099,-3.132,-3.242,-3.251,-3.256,-3.402,-3.458,-3.502,-3.516,-3.528,-3.589,-3.599,-3.678,-3.722,-3.772,-3.878,-3.916,-4.023,-4.138,-4.194,-4.2,-4.234,-4.329,-4.449,-4.501,-4.521,-4.556,-4.605,-4.854,-4.967,-5.108,-5.195,-5.221,-5.278,-5.476,-5.596,-5.76,-5.825,-5.878,-5.958,-6.036,-6.617,-6.71,-6.763,-6.836,-7.482,-8.127,-8.337,-8.464,-8.754,-9.417,-9.739,-10.932,-11.18,-11.495]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Kicker<\/th>\n      <th>Season<\/th>\n      <th>Kicks<\/th>\n      <th>FG%<\/th>\n      <th>eFG%<\/th>\n      <th>rFG%<\/th>\n      <th>FG% - eFG%<\/th>\n      <th>FG% - rFG%<\/th>\n      <th>PAA<\/th>\n      <th>PAR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 3, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 4, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 5, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 6, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 7, 1, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<p><br></p>
+<p>What a 2009 for <strong>Seabass</strong>! He had the most difficult set of kicks any
+full-time kicker faced in the past 10+ seasons and he hit 90% of them.
+I can’t help but wonder how high he would have ranked if my data encompassed
+the first 10 years of his very long career. I tend to think that if
+somebody is likely to have challenged Justin Tucker for the best modern kicker
+title, it might just be <strong>Sebastian Janikowski</strong>. If Janikowski hadn’t been
+one of the few first-round kicker draft picks and been beloved for his
+several eccentricities, he’d have the statistical profile of a massively
+underrated player.</p>
+<p>A few notes about bad seasons:</p>
+<ul>
+<li>The aforementioned <strong>Mason Crosby</strong> actually looks like an average kicker if
+you exclude his dreadful 2012 season.</li>
+<li><strong>Robbie Gould</strong>, one of the great all-time kickers and recent recipient of a
+4-year, $19 million contract, is in the midst of one of the worst seasons of
+the past decade. He has dealt with a leg injury, though, so I wouldn’t be
+surprised if he has a strong finish.</li>
+</ul>
+</div>
+<div id="big-legs-and-kick-distance" class="section level3">
+<h3>Big legs and kick distance</h3>
+<p>One of the things prior attempts at statistically modeling differences between
+kickers have struggled with is picking up on differences between kickers in
+leg strength. There are some challenges to this, especially since coaches aren’t
+likely to let their kickers attempt kicks at hopeless distances. If the
+attempts don’t happen, it’s hard to statistically learn from them. Nevertheless,
+I think my method has a good shot at picking up on this and it seems to do
+so reasonably well, considering the inherent difficulties involved.</p>
+<p>First of all, let’s look at what my model thinks the expected FG% is under
+average environmental conditions at various distances.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-6-1.png" width="2100" /></p>
+<p>This seems, at first blush, pretty good. At 19-20 yards, it is just shy of 100%,
+which is basically how things work out in practice. Once you get out to about
+70 yards, the model assigns around 1% probability, which is probably still too
+high but not too bad.</p>
+<p>To see how closely the model’s assumptions about the
+effects of kick distance resemble reality, below I plot the same line but with
+points representing the actual NFL FG% at those distances (+/- 1 yard). The
+vertical lines represent the 95% confidence interval for the NFL FG%, since we
+know there’s some random error in those calculations.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-7-1.png" width="2100" /></p>
+<p>Overall, there is decent agreement here although it’s hard to know whether the
+slight differences are because of the model being wrong or just that the
+real-world kicks don’t all happen in “average” conditions.</p>
+<p>So do some kickers have big legs? What I think about when it comes to a big leg
+is that there are two separate skills: accuracy and strength. A strong leg
+means you can make deeper kicks, at least insofar as your accuracy will allow.
+All NFL kickers can make 40 yard field goals, for instance, and so I consider
+that a distance where strength is only modestly influential. Once you get to
+55 and 60 yards, those are kicks where you expect only the strong-legged kickers
+to have much success.</p>
+<p>To illustrate how the model picks up on big legs, let’s take <strong>Adam Vinatieri</strong>
+and <strong>Matt Prater</strong>. At 45 yards, the model assigns these two basically equal
+probabilities of hitting a kick, both around 81%. At 60 yards, on the other
+hand, Vinatieri has a predicted 31% FG% while Prater has a much better
+predicted 44%. Here’s how their predicted success rate compares graphically:</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+<p>The model thinks they’re basically identical until you get to around 52 yards,
+at which point it strongly prefers Prater, who holds the distinction of having
+made the
+<a href="http://www.nfl.com/news/story/0ap2000000294584/article/matt-prater-breaks-fieldgoal-record-with-64yarder">longest field goal in NFL history</a>
+(64 yards). A number of kickers claim they hit longer field goals than this in
+practice settings, but the costs of missing field goals increase with the
+distance since the kicking team has to give their opponent the ball at the spot
+of the kick, so you aren’t going to see many coaches willing to take the risk
+under most circumstances.</p>
+<p>Below is a table of predicted success rates for kickers at long distances.</p>
+<div id="htmlwidget-4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"filter":"none","data":[["M.Prater","B.Maher","D.Akers","J.Tucker","D.Carpenter","S.Gostkowski","J.Brown","M.Gay","J.Feely","C.Catanzaro","J.Lambo","R.Longwell","N.Rackers","S.Janikowski","A.Rosas","J.Elliott","H.Butker","J.Sanders","G.Zuerlein","A.Seibert","S.Hauschka","E.Pineiro","C.Barth","J.Scobee","R.Gould","D.Bailey","Z.Gonzalez","G.Gano","M.Bryant","C.Boswell","P.Dawson","S.Graham","C.Parkey","R.Bironas","A.Franks","J.Kasay","D.Carlson","M.Crosby","J.Hanson","W.Lutz","J.Myers","J.Nedney","M.Nugent","J.Slye","K.Fairbairn","J.Reed","N.Kaeding","K.Brown","R.Lindell","R.Bullock","A.Vinatieri","G.Hartley","C.Sturgis","O.Mare","K.Forbath","G.Tavecchio","S.Suisham","D.Rayner","L.Tynes","C.Santos","N.Novak","B.Walsh","A.Henery","C.McLaughlin","D.Hopkins","N.Rose","T.Coons","Y.Koo","G.Joseph","M.Badgley","J.Medlock","N.Freese","B.Coutu","R.Succop","J.Hekker","S.Andrus","T.Long","K.Vedvik","P.Murray","R.Aguayo","J.Potter","C.Stitser","M.Scifres","Z.Hocker","R.Schmitt","K.Brindza","B.McManus","M.Stover","J.Elam","M.McCrane","N.Folk","J.Carney","D.Buehler","A.Pettrey","S.Ficken","B.Cundiff"],["2009–2019","2018–2019","2009–2013","2012–2019","2009–2016","2009–2019","2009–2016","2019–2019","2009–2013","2014–2018","2015–2019","2009–2011","2009–2011","2009–2018","2017–2019","2017–2019","2017–2019","2018–2019","2012–2019","2019–2019","2009–2019","2019–2019","2009–2017","2009–2015","2009–2019","2011–2019","2017–2019","2009–2018","2009–2019","2015–2019","2009–2018","2009–2015","2014–2019","2009–2013","2015–2016","2009–2011","2018–2019","2009–2019","2009–2012","2016–2019","2015–2019","2009–2010","2009–2019","2019–2019","2017–2019","2009–2010","2009–2012","2009–2010","2009–2013","2013–2019","2009–2019","2009–2014","2013–2018","2009–2012","2012–2019","2017–2018","2009–2014","2010–2011","2009–2012","2014–2019","2011–2017","2012–2017","2011–2014","2019–2019","2015–2019","2017–2017","2015–2017","2017–2019","2018–2018","2018–2019","2012–2012","2014–2014","2011–2011","2009–2019","2018–2018","2009–2010","2019–2019","2019–2019","2014–2017","2016–2016","2013–2013","2010–2010","2011–2011","2015–2015","2009–2009","2015–2015","2014–2019","2009–2009","2009–2009","2018–2018","2009–2019","2009–2010","2010–2010","2010–2010","2017–2019","2009–2014"],[314,68,200,282,255,349,197,24,154,135,127,76,89,274,66,79,88,34,235,21,300,19,189,151,296,252,60,269,299,154,264,138,122,141,39,92,38,331,109,136,138,27,229,25,86,63,74,37,119,158,322,99,141,84,141,25,174,31,123,140,188,172,91,16,131,11,40,20,19,25,10,7,1,278,1,5,9,1,48,31,4,8,1,14,3,12,172,18,18,12,257,23,32,4,24,163],[0.689,0.644,0.634,0.724,0.662,0.673,0.674,0.678,0.677,0.624,0.673,0.671,0.646,0.681,0.661,0.684,0.684,0.666,0.679,0.668,0.678,0.669,0.656,0.661,0.692,0.68,0.656,0.659,0.693,0.684,0.685,0.605,0.608,0.693,0.659,0.631,0.653,0.652,0.67,0.679,0.654,0.621,0.635,0.67,0.669,0.644,0.655,0.636,0.625,0.638,0.69,0.664,0.638,0.62,0.662,0.561,0.662,0.56,0.657,0.637,0.644,0.659,0.657,0.555,0.67,0.553,0.557,0.549,0.561,0.568,0.551,0.54,0.552,0.66,0.557,0.547,0.561,0.552,0.566,0.536,0.553,0.56,0.557,0.547,0.554,0.542,0.664,0.557,0.547,0.551,0.619,0.554,0.565,0.55,0.547,0.645],[0.578,0.532,0.518,0.584,0.531,0.541,0.542,0.544,0.544,0.504,0.538,0.536,0.517,0.544,0.528,0.545,0.543,0.527,0.539,0.527,0.535,0.529,0.519,0.522,0.546,0.533,0.516,0.521,0.547,0.538,0.54,0.478,0.482,0.545,0.517,0.496,0.512,0.51,0.522,0.529,0.511,0.487,0.497,0.522,0.519,0.499,0.509,0.495,0.486,0.493,0.535,0.515,0.491,0.479,0.51,0.44,0.507,0.438,0.504,0.489,0.492,0.505,0.501,0.431,0.509,0.429,0.43,0.425,0.433,0.438,0.426,0.419,0.427,0.5,0.43,0.423,0.433,0.426,0.435,0.414,0.426,0.431,0.429,0.422,0.426,0.419,0.5,0.428,0.421,0.422,0.468,0.425,0.432,0.422,0.419,0.473],[0.437,0.402,0.386,0.373,0.373,0.372,0.371,0.365,0.365,0.364,0.364,0.362,0.361,0.359,0.357,0.355,0.355,0.349,0.347,0.345,0.344,0.343,0.343,0.342,0.341,0.34,0.339,0.338,0.337,0.337,0.337,0.334,0.333,0.333,0.332,0.332,0.331,0.329,0.328,0.327,0.325,0.323,0.323,0.322,0.32,0.32,0.32,0.319,0.316,0.316,0.313,0.312,0.308,0.308,0.308,0.305,0.305,0.304,0.304,0.302,0.302,0.299,0.296,0.296,0.296,0.296,0.293,0.292,0.292,0.291,0.291,0.291,0.291,0.291,0.29,0.29,0.29,0.29,0.289,0.288,0.287,0.287,0.287,0.287,0.286,0.286,0.285,0.284,0.282,0.282,0.282,0.282,0.28,0.28,0.28,0.25],[0.297,0.285,0.273,0.172,0.234,0.219,0.216,0.203,0.202,0.24,0.21,0.209,0.225,0.185,0.206,0.184,0.191,0.197,0.167,0.187,0.175,0.182,0.187,0.184,0.159,0.174,0.188,0.175,0.152,0.164,0.154,0.216,0.207,0.149,0.174,0.192,0.178,0.172,0.165,0.157,0.165,0.186,0.175,0.154,0.155,0.173,0.161,0.173,0.174,0.171,0.13,0.142,0.159,0.167,0.141,0.196,0.142,0.196,0.141,0.147,0.149,0.129,0.132,0.188,0.128,0.188,0.187,0.187,0.18,0.175,0.184,0.191,0.182,0.125,0.181,0.186,0.175,0.181,0.172,0.191,0.178,0.172,0.174,0.179,0.176,0.179,0.116,0.171,0.173,0.172,0.134,0.168,0.159,0.167,0.171,0.093]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Kicker<\/th>\n      <th>Seasons<\/th>\n      <th>Kicks<\/th>\n      <th>Pred. 50yd FG%<\/th>\n      <th>Pred. 55yd FG%<\/th>\n      <th>Pred. 60yd FG%<\/th>\n      <th>Pred. 65yd FG%<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatPercentage(this, row, data, 3, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 4, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 5, 1, 3, \",\", \".\");\nDTWidget.formatPercentage(this, row, data, 6, 1, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<p><br></p>
+<p>Another worthwhile data point here is <strong>Brett Maher</strong>, a basically
+replacement -level kicker who at the moment is facing a fan revolt in Dallas
+(if Twitter is any indicator). The model sees him as around average at 45
+yards, which may be generous (note that he did not meet the definition of a
+literal replacement kicker since Dallas retained him after his first season,
+so the model sees that as a signal he may be a legit starter). However,
+the model sees him as the second-likeliest to hit a 60 yard kick.</p>
+<p>Why is this a useful sanity check for the model? Maher has the distinction of
+being the first kicker to ever
+<a href="https://profootballtalk.nbcsports.com/2019/10/21/brett-maher-definitely-cool-to-be-first-with-three-fgs-of-at-least-60-yards/">successfully hit 3 attempts of 60+ yards</a>,
+including one that was 63 yards. It seems to be a good sign for the model that
+it is flexible enough to see him as an unremarkable mid-range kicker but a
+uniquely strong-legged one.</p>
+<p>Here’s a similar visualization with Maher included. Here you can see he’s
+clearly less reliable than the other two starting the late 30s of distance,
+but his accuracy doesn’t degrade at higher distances like the others, although
+Prater is still slightly favored all the way.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-10-1.png" width="2100" /></p>
+</div>
+<div id="clutch-kicking" class="section level3">
+<h3>Clutch kicking</h3>
+<p>Once controlling for other factors, I don’t see any noteworthy effect of
+kicks that tie the game or put the kicker’s team in the lead late in the game,
+in general. But there are some nuances…</p>
+<div id="dont-trust-the-replacements" class="section level4">
+<h4>Don’t trust the replacements?</h4>
+<p>That being said, this may be because poor clutch performers get filtered out.
+I included a term in the model to see if replacement kickers perform worse at
+crunch time than would be expected (that is, even worse than the usual lower
+level of performance associated with replacement kickers). There is some
+fairly robust evidence for this. The model suggests that the probability that
+replacement-level kickers are particularly un-clutch is 98%<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>To show what the magnitude of this difference is, I’ve plotted the predicted
+FG% across the spectrum of kick distances for both replacement (orange line)
+and non-replacement (blue line) kickers. On the left-hand side, you see the
+predicted FG% in non-clutch situations and on the right, clutch situations.
+Note that clutch is defined here as game-tying or go-ahead field goals in the
+4th quarter or later.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-11-1.png" width="2100" /></p>
+<p>If you look closely, you can see that non-replacement kickers are unaffected
+by the situation. On the other hand, replacement kickers get noticeably worse
+in clutch situations. So while you generally are hurt by having a replacement
+kicker, you pay especially dearly in those clutch situations.</p>
+<p>I do have to add one note of caution. The definition of replacement kicker
+I’ve applied partly depends on the kicker not keeping his job long-term. If
+GMs and coaches are more likely to fire their kickers for bad clutch
+performance, then that could bias these results to over-represent clutch misses
+among replacement kickers; indeed, it’s possible they are replacements <em>because</em>
+of their clutch misses.</p>
+</div>
+<div id="clutch-kickers" class="section level4">
+<h4>“Clutch” kickers</h4>
+<p>Another advantage of my modeling approach is that it allows for the effect of
+game situation to be different for different kickers. In general, kickers are
+no better or worse than normal in clutch situations. But are some kickers better
+and others worse than their normal selves in such situations?</p>
+<p>Well, to put it briefly, the results from the model don’t provide very
+compelling evidence of kickers who are especially clutch once you factor in
+all these other things, including whether they are/were a replacement kicker.
+There is an inherent difficulty in detecting such a thing, of course, because
+kickers don’t get many clutch opportunities. So I won’t say there’s no such
+thing, just that it doesn’t look particularly promising for there to be any
+evidence of a clutch skill — and don’t forget that there’s the added problem
+that bad clutch performance may get kickers fired and therefore they stop
+providing data. Maybe the league is populated with a bunch of really clutch
+kickers.</p>
+</div>
+<div id="icing" class="section level4">
+<h4>Icing</h4>
+<p>Put briefly, I see some weak evidence that icing the kicker may help. Overall,
+the model suggests a tiny, basically zero effect of having a timeout called
+by the opponent before a kick.</p>
+<p>But for the combination of the kick tying the game or giving the team a lead
+late in the game <em>and</em> the kicker being iced, which is really the true icing
+situation, there is some modest evidence.</p>
+<p>In the plot below, I show the model’s predicted probability of making a 40 yard
+field goal in 4 situations — each combination of kicks that would tie the
+game/put the kicker’s team ahead in the 4th quarter (I call these “clutch”)
+and kicks in which the opponent did/didn’t call a timeout before the kick
+(which I’m calling “icing”).</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-12-1.png" width="2100" /></p>
+<p>What we see is that 3 out of 4 situations have basically the same predicted
+probability of success, at about 85%. But when the kicker is iced and it’s a
+clutch kick, the predicted probability of success is 80%, consistent with
+an effect of icing the kicker. That being said, the confidence intervals show
+that because there aren’t that many kicks that fit this definition, the model
+isn’t very sure whether the probability of success is that much lower.</p>
+<p>Statistically, the model implies a 91% chance that icing a kicker
+late in a close game reduces the chances of a make somewhat. If I was a coach,
+I’d take this as good enough information to keep trying it in those situations
+where the timeouts couldn’t be used in any other productive way. That being
+said, I wouldn’t blow the timeout if my team had hopes of getting the ball
+back and trying to make a late charge down the field.</p>
+</div>
+</div>
+<div id="odds-and-ends" class="section level3">
+<h3>Odds and ends</h3>
+<div id="wind" class="section level4">
+<h4>Wind</h4>
+<p>Yes, wind appears to typically make it hard to kick and those effects
+do seem to multiply as the distance gets longer. Of course, as mentioned
+earlier, I didn’t find the cross-wind data to be reliable enough to deal
+with the possible cases of tailwind, the only case where the wind may help.</p>
+<p>Given that stadiums probably tend to have swirling winds, I don’t know that
+it’s very common for kickers to have a helpful wind.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-13-1.png" width="2100" /></p>
+</div>
+<div id="temperature" class="section level4">
+<h4>Temperature</h4>
+<p>Temperature on the other hand does not seem to have much of an effect once
+controlling for other factors. That being said, this could be related to there
+being relatively few cold weather games or coaches being especially cautious
+in the cold.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-14-1.png" width="2100" /></p>
+<p>You can see the apparent effect is quite subtle.</p>
+</div>
+<div id="rain" class="section level4">
+<h4>Rain</h4>
+<p>The model overwhelmingly supports the proposition that rain makes kicks
+more difficult. Statistically, it is over 99% probable that this is the case
+and given that it makes so much sense, I see no reason to doubt it.</p>
+<p>The rain effect is about two thirds of the replacement kicker effect, so
+it’s the equivalent of a quite meaningful kicker downgrade.</p>
+<p><img src="/post/evaluating-kickers_files/figure-html/unnamed-chunk-15-1.png" width="2100" /></p>
+<p>In plain terms, you’re going from an 86% chance of a 40 yarder to 82%. At
+50 yards, it takes you from 71% to 65%.</p>
+<p>Additionally, the effect of <strong>snow</strong> is approximately the same, but the
+model is much less sure about it — probably because there are so few kicks
+attempted in the snow.</p>
+</div>
+<div id="home-kicker-advantage" class="section level4">
+<h4>Home kicker advantage</h4>
+<p>I don’t see any evidence of kickers doing better at home except by a trivial
+amount.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>To be clear, I’m not abusing <em>p</em> values here; I’m talking about the
+<a href="https://en.wikipedia.org/wiki/Posterior_probability">posterior probability</a>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

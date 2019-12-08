@@ -1,0 +1,856 @@
+---
+title: A better way to evaluate NFL kickers
+author: ''
+date: '2019-12-08'
+slug: evaluating-kickers
+categories:
+  - Data science
+tags:
+  - statistics
+  - NFL
+  - sports
+  - data science
+draft: no
+summary: "When you want to find out who the NFL's best kickers are, the tools available to you tend to be pretty crude, with not much more than a record of makes and misses. We all know from watching the games that some kicks are harder than others, but how do we synthesize that into a few easy to understand statistics?"
+image:
+  caption: ''
+  focal_point: ''
+photoswipe: false
+disable_jquery: true
+math: false
+mathjax: false
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE,
+                      dev = "CairoPNG", dpi = 300)
+```
+
+When you want to find out who the NFL's best kickers are, the tools available
+to you tend to be pretty crude, with not much more than a record of makes and
+misses. 
+
+Here's a snippet of statistics from [Pro Football Reference](https://www.pro-football-reference.com/years/2019/kicking.htm):
+ 
+<div class="sr_share_wrap" style="overflow:auto">
+<table class="sr_share" id="" data-cols-to-freeze="2" data-non-qual="1" data-qual-text="" data-qual-label="Hide non-qualifiers for rate stats" style="border-collapse: collapse; font-size:.83em; border: 1px sold #aaa; overflow:auto;">
+<colgroup><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col class=""><col><col class="sort_col"><col><col><col><col><col><col><col><col></colgroup>
+<thead>
+<tr>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;"></th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;"></th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;"></th>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">0-19</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">0-19</th>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">20-29</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">20-29</th>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">30-39</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">30-39</th>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">40-49</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">40-49</th>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">50+</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">50+</th>
+  <th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">Overall</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">Overall</th><th colspan="1" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">Overall</th>
+</tr>
+<tr>
+  <th scope="col" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">Rk</th>
+  <th scope="col" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">Player</th>
+  <th scope="col" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">Tm</th>
+  <th scope="col" data-over-header="0-19" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGA</th>
+  <th scope="col" data-over-header="0-19" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGM</th>
+  <th scope="col" data-over-header="20-29" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGA</th>
+  <th scope="col" data-over-header="20-29" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGM</th>
+  <th scope="col" data-over-header="30-39" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGA</th>
+  <th scope="col" data-over-header="30-39" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGM</th>
+  <th scope="col" data-over-header="40-49" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGA</th>
+  <th scope="col" data-over-header="40-49" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGM</th>
+  <th scope="col" data-over-header="50+" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGA</th>
+  <th scope="col" data-over-header="50+" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGM</th>
+  <th scope="col" data-over-header="Scoring" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGA</th>
+  <th scope="col" data-over-header="Scoring" style="background-color: #ddd; border: 1px solid #aaa; padding: 2px;">FGM</th>
+  <th scope="col" data-over-header="Scoring" data-filter="1" data-name="Field Goal %" style="background-color: #ffa; border: 1px solid #aaa; padding: 2px;">FG%<span class="sorttable_elSortDir1" id=""><br>▼</span></th>
+</tr>
+</thead>
+<tbody>
+<tr><th scope="row" csk="27" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</th><td csk="Elliott,Jake" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/E/ElliJa03.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Jake Elliott</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/phi/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Philadelphia Eagles">PHI</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">3</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">3</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">14</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">14</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">100.0%</td></tr><tr><th scope="row" csk="6" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</th><td csk="Lambo,Josh" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/L/LambJo00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Josh Lambo</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/jax/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Jacksonville Jaguars">JAX</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">9</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">9</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">25</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">24</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">96.0%</td></tr><tr><th scope="row" csk="13" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">3</th><td csk="Tucker,Justin" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/T/TuckJu00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Justin Tucker</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/rav/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Baltimore Ravens">BAL</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">21</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">20</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">95.2%</td></tr><tr><th scope="row" csk="26" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</th><td csk="Crosby,Mason" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/C/CrosMa20.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Mason Crosby</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/gnb/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Green Bay Packers">GNB</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">14</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">13</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">92.9%</td></tr><tr><th scope="row" csk="10" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</th><td csk="Boswell,Chris" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/B/BoswCh00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Chris Boswell</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/pit/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Pittsburgh Steelers">PIT</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">23</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">21</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">91.3%</td></tr><tr><th scope="row" csk="31" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</th><td csk="Koo,Younghoe" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/K/KooxYo00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Younghoe Koo</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/atl/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Atlanta Falcons">ATL</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">3</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">3</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">11</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">10</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">90.9%</td></tr><tr><th scope="row" csk="1" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</th><td csk="Gonzalez,Zane" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/G/GonzZa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Zane Gonzalez</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/crd/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Arizona Cardinals">ARI</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">10</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">10</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">11</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">10</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">29</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">26</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">89.7%</td></tr><tr><th scope="row" csk="22" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</th><td csk="Bailey,Dan" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/B/BailDa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Dan Bailey</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/min/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Minnesota Vikings">MIN</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">6</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">3</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">2</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">17</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">15</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">88.2%</td></tr><tr><th scope="row" csk="8" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">9</th><td csk="Gay,Matt" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/G/GayxMa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Matt Gay</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/tam/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Tampa Bay Buccaneers">TAM</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">9</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">5</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">24</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">21</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">87.5%</td></tr><tr><th scope="row" csk="2" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">10</th><td csk="Butker,Harrison" style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/players/B/ButkHa00.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool">Harrison Butker</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "><a href="https://www.pro-football-reference.com/teams/kan/2019.htm?utm_source=direct&amp;utm_medium=Share&amp;utm_campaign=ShareTool" title="Kansas City Chiefs">KAN</a></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; "></td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">8</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">7</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">9</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">9</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">4</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">1</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">28</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">24</td><td style="border: 1px solid #ccc; padding: 2px 3px 2px 2px; white-space: nowrap; ">85.7%</td></tr></tbody></table>
+</div>
+
+## Goals
+
+We want to know who the most accurate kickers are, but as might be somewhat 
+apparent from the table, not all kicks are created equally. Zane Gonzalez,
+who at the moment leads the league in made field goals and ranks in the top 
+10 in FG%, also seems to have a high number of very short kicks relative to
+the other contenders. In other words, he's had an easier path to the top of
+these leaderboards than some of the other contenders.
+
+What would be nice is some way to account for difficulty of kicks when ranking
+the kickers. There's more than distance to consider as well: wind, temperature,
+elevation, stadium conditions, and game situation are among the factors known
+or speculated to influence the difficulty of kicks. And since most kickers are
+playing half their games at the same stadium, kickers are bound to face quite
+different conditions from one another.
+
+As far as concrete outputs are concerned, a few things would be nice:
+
+* A rank ordering of kickers from best to worst
+* A metric that tells us how a kicker performed compared to some reference level
+(e.g. average or replacement level)
+* Some insight into the situational factors that influence whether a kick is
+made.
+
+## Data
+
+The most important thing we need is data on whether field goals are made and
+missed. Thankfully, Ron Yurko has been collecting all of the 
+[NFL's play-by-play data](https://github.com/ryurko/nflscrapR-data) via his
+`nflscrapR` package going back to 2009 and up through this week's Thursday 
+night game.
+I downloaded those files, filtered 
+to just get the plays with field goal attempts, and voila, I got the essentials:
+
+* Field goal distance
+* Field goal result
+* Kicker
+* Date of game
+* Situation (score, time of game, etc.)
+
+Using what I knew from the play-by-play data, I scraped more metadata from 
+[Pro Football Reference](https://www.pro-football-reference.com/) which got
+me:
+
+* Location of game (including the stadium)
+* Whether the stadium is outdoors, a dome, closed/open retractable roof
+* Temperature and wind speed at kickoff
+
+In my quest to get a sense of wind direction, I myself figured out the cardinal
+direction of every stadium. Then I scraped the following from 
+[NFLWeather.com](http://nflweather.com): 
+
+* English-language summary of weather conditions (e.g., "party cloudy")
+* Temperature
+* Wind speed
+* Wind direction
+* Precipitation probability
+
+And for most recent games, and many others going back to 2009, NFLWeather has 
+the data for each quarter of the games (approximately). Unfortunately, there
+is a lot of missing data on wind direction and precipitation probability. 
+Using the wind direction data where available and the cardinal direction of the
+stadiums, I can calculate cross-winds. Unfortunately, this was kind of a bust 
+and I won't show you any models with cross-winds since it forces me to drop 
+missing data and doesn't improve model accuracy enough.
+Either due to accuracy issues in the data or because stadiums block/redirect
+the wind, just knowing the wind speed is just as good as knowing the direction.
+
+Rather than use the oft-missing precipitation data, I used the verbal summaries
+and did some very basic natural language processing to create variables for 
+whether it was raining, snowing, or foggy.
+
+I also made variables to indicate whether the kicker was possibly iced, defined
+as the opposing team calling a timeout before the kick attempt. I also created
+a variable to indicate whether the kick both: 1. occurred in the 4th quarter/OT
+and 2. would tie the game or give the team the lead if made. I further note 
+whether the game occurred in the playoffs or regular season.
+
+Lastly, I made an effort to define a "replacement" kicker. Whether a kicker is
+performing poorly enough to be replaced depends on the likelihood that the 
+typical "kicker on the street" would be expected to do in his place. To get a 
+sense for the performance of replacement kickers, I tried to automatically 
+classify a kicker in a given situation as a replacement. He was classified as
+a replacement if...
+
+All of the following are true:
+
+* He was not the first kicker the team used that season 
+* He wasn't the team's kicker the previous season (eliminates players coming
+back from a preseason injury)
+* He wasn't retained as the team's kicker the next season (eliminates guys who
+won and then kept the jobs because they were clearly better than replacement)
+
+or:
+
+* He was the kicker for most/all of one season but was not retained for a 
+second season.
+
+There will still be some false positives and false negatives, but overall about
+11.6% of kicks were attempted by replacement kickers by this definition. I point
+this out because for their statistics for all positions, Football Outsiders 
+sets replacement level as the average performance of the bottom 10% of 
+performers. 
+
+## Model
+
+{{% alert note %}}
+I have written a [separate post](/post/kickers-methods-notes) 
+talking about the statistical background and
+details, including links to the data and code used here.
+{{% / alert %}}
+
+So what predicts field goal success? Here's how I put things together. I include
+the following factors:
+
+* Distance
+* Wind speed
+* Temperature 
+* Whether it is rainy
+* Whether it is snowy
+* Whether is is foggy
+* Whether the stadium is a dome
+* Whether the game is a playoff game
+* Whether the kick was game-tying/go-ahead late in the game
+* Whether it is both a playoff game and the kick was game-tying/go-ahead late 
+in the game
+* Whether a timeout was just called by the opponent
+* Whether the kick was game-tying/go-ahead late in the game *and* 
+the opponent just called a timeout.
+* Whether kicker plays for the home team 
+* Season (2010, 2011, etc.)
+* Whether the kicker is a "replacement" kicker
+* Adjustments for kicker ability
+* Adjustments for stadium difficulty beyond those other factors
+
+## Results
+
+### Overall best kickers, 2009-2019
+
+Let's get down to business. A reminder about our key metrics:
+
+* eFG%: What percentage we would have expected an *average* kicker to have for
+each kicker's set of attempts
+* rFG%: What percentage we would have expected a *replacement-level* kicker to 
+have for each kicker's set of attempts.
+* PAA: How many more/fewer points the kicker generated than an *average* one.
+* PAR: How many more/fewer points the kicker generated than a 
+*replacement-level* one.
+
+I've sorted the table below such that the kickers with the most PAA are first,
+but you can sort and search through the table however you want.
+
+```{r} 
+library(readr)
+library(dplyr)
+library(jtools)
+library(stringr)
+library(purrr)
+library(tidyr)
+library(magrittr)
+library(brms)
+library(ggplot2)
+library(DT)
+library(extrafont)
+
+mod <- readRDS("./kicker_files/mod12.rds")
+pbp_f <- readRDS("./kicker_files/pbp_f.RDS")
+
+kicks <- select(
+  pbp_f, kicker_player_id, kicker_player_name, made, kick_distance, wind, temp,
+  dome, rain, snow, fog, kicking_team, posteam, iced, late_tga, playoffs.x, 
+  stadium, season
+)
+
+kicks_avg <- kicks %>%
+  mutate(replacement = 0) 
+
+kicks_repl <- kicks %>%
+  mutate(replacement = 1) 
+
+preds_avg <- 
+  fitted(mod, newdata = kicks_avg, 
+    re_formula = ~(scale(wind) + poly(kick_distance, 3) | stadium))[, "Estimate"]
+
+preds_repl <- 
+  fitted(mod, newdata = kicks_repl, 
+    re_formula = ~(scale(wind) + poly(kick_distance, 3) | stadium))[, "Estimate"]
+
+kicks %<>% 
+  mutate(
+    pred_avg = preds_avg,
+    pred_repl = preds_repl
+  )
+
+kicks %>%
+  group_by(kicker_player_id) %>%
+  summarize(
+    kicker_player_name = unique(kicker_player_name)[1],
+    expected_avg = mean(pred_avg),
+    expected_repl = mean(pred_repl),
+    actual = mean(made),
+    n_kicks = n(),
+    first_year = min(season),
+    last_year = max(season)
+  ) ->
+  kickers
+
+# Generate data for predicted success rates
+# Can't use make_predictions() for this off the bat because I need to account
+# for replacement status
+pred_data <- 
+  make_new_data(mod, "kick_distance", pred.values = seq(30, 65, by = 5), 
+    at = list(kicker_player_id = unique(pbp_f$kicker_player_id))          
+  ) 
+# To adjust for replacement kicker status, taking the average value over each
+# kicker's career. To adjust for career trajectory, taking the midpoint of 
+# each kicker's career (in the data).
+repls <- pbp_f %>%
+  group_by(kicker_player_id) %>%
+  summarize(
+    replacement = mean(replacement),
+    # season = median(season)
+  )
+# Now append the player-specific replacement and season to the prediction data
+pred_data <- inner_join(repls, select(pred_data, -replacement, -season),
+ by = "kicker_player_id") %>%
+ mutate(season = 2019)
+# Finally generate predictions
+hyp_preds <- make_predictions(mod, "kick_distance", new_data = pred_data,
+  re.form = ~(poly(kick_distance, 3) | kicker_player_id))
+
+hyp_preds %<>%
+  select(kicker_player_id, made, kick_distance, late_tga) %>%
+  pivot_wider(id_cols = kicker_player_id, 
+              names_from = c(kick_distance), values_from = made)
+
+kickers <- inner_join(kickers, hyp_preds, by = "kicker_player_id")
+
+kickers %<>% 
+  mutate(
+    pred_35 = `35`,
+    pred_40 = `40`,
+    pred_45 = `45`,
+    pred_50 = `50`,
+    pred_55 = `55`,
+    pred_60 = `60`,
+    pred_65 = `65`,
+    actual_minus_expected_avg = actual - expected_avg,
+    actual_minus_expected_repl = actual - expected_repl,
+    expected_makes_avg = expected_avg * n_kicks,
+    expected_makes_repl = expected_repl * n_kicks,
+    actual_makes = actual * n_kicks,
+    points_above_average = (actual_makes - expected_makes_avg) * 3,
+    points_above_replacement = (actual_makes - expected_makes_repl) * 3,
+    seasons = paste0(first_year, "–", last_year)
+  ) %>%
+  select(-starts_with("TRUE"), -starts_with("FALSE"))
+```
+
+```{r, results = 'asis'}
+library(DT)
+kickers %>%
+  select(Kicker = kicker_player_name, Seasons = seasons, `Kicks` = n_kicks,
+         `FG%` = actual, `eFG%` = expected_avg, `rFG%` = expected_repl, 
+         `FG% - eFG%` = actual_minus_expected_avg,
+         `FG% - rFG%` = actual_minus_expected_repl,
+          PAA = points_above_average, PAR = points_above_replacement) %>%
+  arrange(desc(PAR)) %>%
+  map_df(function(x) if (is.numeric(x)) round(x, 3) else x) %>%
+  datatable(rownames = FALSE) %>%
+  formatPercentage(columns = 4:8, digits = 1)
+```
+
+<br>
+
+The modeling approach I used has some nice properties that deals with things
+like small sample sizes well, but the problem is how to express this information
+when the numbers produced don't have a clear translation into football terms.
+
+Here's what I've done: I've let the statistical model predict how successful
+each kicker would be in hypothetical kicking situations, which should give us
+some feel for who has really established themselves enough to separate from
+the pack. Just as important, it can give you an idea about how much variance
+there really is in kicker talent. Worth noting is that to some extent, the 
+model tends to assume that if there's not a lot of data for a kicker, it's 
+probably because he is replacement level. 
+
+```{r, results = 'asis'}
+kickers %>%
+  select(Kicker = kicker_player_name, Seasons = seasons, `Kicks` = n_kicks,
+         `Pred. 35yd FG%` = pred_35, `Pred. 40yd FG%` = pred_40,
+         `Pred. 45yd FG%` = pred_45, `Pred. 50yd FG%` = pred_50,) %>%
+  arrange(desc(`Pred. 45yd FG%`)) %>%
+  map_df(function(x) if (is.numeric(x)) round(x, 3) else x) %>%
+  datatable(rownames = FALSE) %>%
+  formatPercentage(columns = 4:7, digits = 1)
+```
+
+<br>
+
+At 35 yards, the best kicker is predicted to have a 91% success rate while the 
+worst is predicted to hit about 84%. Once you get to 50 yards, the 
+difference grows to about 28 percentage points (72% vs 54%), which not only
+implies pretty noticeable differences in player value but also significant 
+differences in the way coaches would need to adjust their decision-making 
+regarding whether to even attempt a kick at that distance versus punting or 
+going for it.
+
+#### The unparalleled greatness of Justin Tucker
+
+**Justin Tucker** is so great that, quite frankly, it doesn't matter which
+metric you use. PAA, FG% - eFG%, or just plain old FG%, he's unlike
+anyone else in the past 10 years. Given the well-documented trend of
+increasing kicker accuracy in the NFL, I think Tucker has a solid claim on 
+being the greatest kicker of all time.
+
+Even with fewer seasons than many of his competitors, his PAA are double all
+the others who kicked in the past 10 years. He had a slightly more difficult
+than average set of attempts but made a higher percentage of his attempts than 
+anyone who has had more than 22 tries. Good luck trying to find any defect in 
+Tucker's record.
+
+One way to talk about this is that if the Ravens had been cycling through 
+replacement-level kickers since 2012 and letting them try the same field 
+goals as they let Tucker attempt, they'd have scored 123 fewer points --- 
+that's 17 fewer TD and nothing to sneeze at. And at 65 points better than 
+average, even if you had the rare average kicker to replace him, you'd be 9
+touchdowns worse off.
+
+#### Nick Folk: Mr. Replacement Level
+
+In my early efforts at creating this model, I did not set a replacement level 
+and instead focused on points above *average*, a metric by which **Nick Folk** 
+ranks clearly in last place. An implication of this, you'd think, might be that
+he's been the worst kicker of the past 10 years. But not quite! Why has Folk
+stuck around so long, despite being so clearly below average? Because he has 
+established a very long track record of being almost exactly replacement level.
+
+His FG% - rFG%, over the course of 253 kicks, is .013, meaning he's out-kicked
+a replacement kicker by just a single percentage point. He racks up about a
+single PAR per season. Nobody is going to get too excited about that, but you
+can imagine how teams might look at him as a very safe replacement --- 
+obviously, there's no
+guarantee that a given replacement kicker won't be *worse* than the average
+replacement, but teams tend to gamble on these unproven guys since they might 
+also be *better*. A team can turn to Nick Folk if they're more risk-averse and
+just want to get a guy who isn't going to be a disaster.
+
+Another interesting case in this vein is **Mason Crosby**, who has one of the
+worst PAA over his time in the league but who ranks in the top 20 (out of 96)
+in PAR. This is possible because he has spent a long time in the league and 
+has occupied the space between average and replacement level. He's been clearly
+better than replacement, but clearly worse than average. 
+
+### Best seasons
+
+We often don't look at multi-year statistics like what I've just showed you,
+so it might also be interesting to see each kicker-season separately.
+
+```{r, results = 'asis'}
+kicks %>%
+  group_by(kicker_player_id, season) %>%
+  summarize(
+    kicker_player_name = unique(kicker_player_name)[1],
+    expected_avg = mean(pred_avg),
+    expected_repl = mean(pred_repl),
+    actual = mean(made),
+    n_kicks = n(),
+  ) %>%
+  mutate(
+    actual_minus_expected_avg = actual - expected_avg,
+    actual_minus_expected_repl = actual - expected_repl,
+    expected_makes_avg = expected_avg * n_kicks,
+    expected_makes_repl = expected_repl * n_kicks,
+    actual_makes = actual * n_kicks,
+    points_above_average = (actual_makes - expected_makes_avg) * 3,
+    points_above_replacement = (actual_makes - expected_makes_repl) * 3,
+  ) %>%
+  ungroup() %>%
+  select(
+    Kicker = kicker_player_name, Season = season, `Kicks` = n_kicks,
+    `FG%` = actual, `eFG%` = expected_avg, `rFG%` = expected_repl,
+    `FG% - eFG%` = actual_minus_expected_avg, 
+    `FG% - rFG%` = actual_minus_expected_repl,
+     PAA = points_above_average, PAR = points_above_replacement
+  ) %>%
+  arrange(desc(PAR)) %>%
+  map_df(function(x) if (is.numeric(x)) round(x, 3) else x) %>%
+  datatable(rownames = FALSE) %>%
+  formatPercentage(columns = 4:8, digits = 1)
+```
+
+<br>
+
+What a 2009 for **Seabass**! He had the most difficult set of kicks any 
+full-time kicker faced in the past 10+ seasons and he hit 90% of them. 
+I can't help but wonder how high he would have ranked if my data encompassed
+the first 10 years of his very long career. I tend to think that if 
+somebody is likely to have challenged Justin Tucker for the best modern kicker 
+title, it might just be **Sebastian Janikowski**. If Janikowski hadn't been 
+one of the few first-round kicker draft picks and been beloved for his 
+several eccentricities, he'd have the statistical profile of a massively 
+underrated player.
+
+A few notes about bad seasons:
+
+* The aforementioned **Mason Crosby** actually looks like an average kicker if
+you exclude his dreadful 2012 season. 
+* **Robbie Gould**, one of the great all-time kickers and recent recipient of a 
+4-year, $19 million contract, is in the midst of one of the worst seasons of 
+the past decade. He has dealt with a leg injury, though, so I wouldn't be 
+surprised if he has a strong finish. 
+
+### Big legs and kick distance
+
+One of the things prior attempts at statistically modeling differences between
+kickers have struggled with is picking up on differences between kickers in 
+leg strength. There are some challenges to this, especially since coaches aren't
+likely to let their kickers attempt kicks at hopeless distances. If the 
+attempts don't happen, it's hard to statistically learn from them. Nevertheless,
+I think my method has a good shot at picking up on this and it seems to do
+so reasonably well, considering the inherent difficulties involved.
+
+First of all, let's look at what my model thinks the expected FG% is under 
+average environmental conditions at various distances.  
+
+```{r}
+effect_plot(mod, kick_distance, x.label = "Kick distance (yards)", 
+            y.label = "Expected FG%") + 
+  labs(title = "Predicted FG% by distance", 
+       subtitle = "by an average kicker in average conditions",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+This seems, at first blush, pretty good. At 19-20 yards, it is just shy of 100%,
+which is basically how things work out in practice. Once you get out to about 
+70 yards, the model assigns around 1% probability, which is probably still too 
+high but not too bad. 
+
+To see how closely the model's assumptions about the 
+effects of kick distance resemble reality, below I plot the same line but with
+points representing the actual NFL FG% at those distances (+/- 1 yard). The
+vertical lines represent the 95% confidence interval for the NFL FG%, since we
+know there's some random error in those calculations. 
+
+```{r}
+pred_data <- make_predictions(mod, "kick_distance", interval = T, data = pbp_f)
+pbp_f %>%
+  mutate(
+    kick_d2 = case_when(
+      kick_distance >= 29 & kick_distance <= 31 ~ 30,
+      kick_distance >= 34 & kick_distance <= 36 ~ 35,
+      kick_distance >= 39 & kick_distance <= 41 ~ 40,
+      kick_distance >= 42 & kick_distance <= 43 ~ 42.5,
+      kick_distance >= 44 & kick_distance <= 46 ~ 45,
+      kick_distance >= 47 & kick_distance <= 48 ~ 47.5,
+      kick_distance >= 49 & kick_distance <= 51 ~ 50,
+      kick_distance >= 52 & kick_distance <= 53 ~ 52.5,
+      kick_distance >= 54 & kick_distance <= 56 ~ 55,
+      kick_distance >= 57 & kick_distance <= 58 ~ 57.5,
+      kick_distance >= 59 & kick_distance <= 61 ~ 60,
+      TRUE ~ NA_real_
+    )
+  ) %>%
+  group_by(kick_d2) %>%
+  summarize(
+    se = sd(made)/sqrt(n()),
+    made = mean(made),
+    kick_distance = mean(kick_d2),
+    lower = made - 1.96 * se,
+    upper = made + 1.96 * se,
+    group = "Actual"
+  ) %>%
+  filter(!is.na(kick_distance)) %>%
+  select(-kick_d2) -> binned
+
+pred_data %<>% mutate(group = "Model Prediction")
+
+ggplot(mapping = aes(x = kick_distance, y = made, colour = group, group = group)) +
+  geom_path(data = pred_data) +
+  geom_pointrange(data = binned, aes(ymin = lower, ymax = upper), show.legend = FALSE) +
+  xlab("Kick distance (yards)") + ylab("FG %") +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  labs(title = "Predicted and actual FG% by distance",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  guides(colour = guide_legend(title = NULL)) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+Overall, there is decent agreement here although it's hard to know whether the
+slight differences are because of the model being wrong or just that the 
+real-world kicks don't all happen in "average" conditions.
+
+So do some kickers have big legs? What I think about when it comes to a big leg
+is that there are two separate skills: accuracy and strength. A strong leg 
+means you can make deeper kicks, at least insofar as your accuracy will allow.
+All NFL kickers can make 40 yard field goals, for instance, and so I consider
+that a distance where strength is only modestly influential. Once you get to 
+55 and 60 yards, those are kicks where you expect only the strong-legged kickers
+to have much success.
+
+To illustrate how the model picks up on big legs, let's take **Adam Vinatieri**
+and **Matt Prater**. At 45 yards, the model assigns these two basically equal 
+probabilities of hitting a kick, both around 81%. At 60 yards, on the other 
+hand, Vinatieri has a predicted 31% FG% while Prater has a much better 
+predicted 44%. Here's how their predicted success rate compares graphically:
+
+```{r}
+jtools:::plot_varying_effects(
+  mod, kick_distance, kicker_player_id, 
+  group_levels = c("Adam Vinatieri" = "00-0016919", 
+                   "Matt Prater" = "00-0023853"),
+  re.form = ~ (poly(kick_distance, 3) | kicker_player_id),
+  x.label = "Kick distance (yards)", y.label = "Predicted FG%"
+) + 
+  labs(title = "Kicker-specific predicted FG% by distance", 
+       subtitle = "in average conditions",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  guides(colour = guide_legend(title = NULL),
+         fill = guide_legend(title = NULL)) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+The model thinks they're basically identical until you get to around 52 yards,
+at which point it strongly prefers Prater, who holds the distinction of having
+made the
+[longest field goal in NFL history](http://www.nfl.com/news/story/0ap2000000294584/article/matt-prater-breaks-fieldgoal-record-with-64yarder) 
+(64 yards). A number of kickers claim they hit longer field goals than this in 
+practice settings, but the costs of missing field goals increase with the 
+distance since the kicking team has to give their opponent the ball at the spot
+of the kick, so you aren't going to see many coaches willing to take the risk
+under most circumstances.
+
+Below is a table of predicted success rates for kickers at long distances.
+
+```{r, results = 'asis'}
+kickers %>%
+  select(Kicker = kicker_player_name, Seasons = seasons, `Kicks` = n_kicks,
+         `Pred. 50yd FG%` = pred_50, `Pred. 55yd FG%` = pred_55,
+         `Pred. 60yd FG%` = pred_60, `Pred. 65yd FG%` = pred_65,) %>%
+  arrange(desc(`Pred. 60yd FG%`)) %>%
+  map_df(function(x) if (is.numeric(x)) round(x, 3) else x) %>%
+  datatable(rownames = FALSE) %>%
+  formatPercentage(columns = 4:7, digits = 1)
+```
+
+<br>
+
+Another worthwhile data point here is **Brett Maher**, a basically 
+replacement -level kicker who at the moment is facing a fan revolt in Dallas
+(if Twitter is any indicator). The model sees him as around average at 45 
+yards, which may be generous (note that he did not meet the definition of a
+literal replacement kicker since Dallas retained him after his first season,
+so the model sees that as a signal he may be a legit starter). However,
+the model sees him as the second-likeliest to hit a 60 yard kick. 
+
+Why is this a useful sanity check for the model? Maher has the distinction of 
+being the first kicker to ever 
+[successfully hit 3 attempts of 60+ yards](https://profootballtalk.nbcsports.com/2019/10/21/brett-maher-definitely-cool-to-be-first-with-three-fgs-of-at-least-60-yards/),
+including one that was 63 yards. It seems to be a good sign for the model that 
+it is flexible enough to see him as an unremarkable mid-range kicker but a 
+uniquely strong-legged one. 
+
+Here's a similar visualization with Maher included. Here you can see he's 
+clearly less reliable than the other two starting the late 30s of distance,
+but his accuracy doesn't degrade at higher distances like the others, although
+Prater is still slightly favored all the way. 
+
+```{r}
+jtools:::plot_varying_effects(
+  mod, kick_distance, kicker_player_id, 
+  group_levels = c("Adam Vinatieri" = "00-0016919", 
+                   "Matt Prater" = "00-0023853",
+                   "Brett Maher" = "00-0030332"),
+  re.form = ~ (poly(kick_distance, 3) | kicker_player_id),
+  x.label = "Kick distance (yards)", y.label = "Predicted FG%",
+  line.thickness = 0.75
+) + 
+  labs(title = "Kicker-specific predicted FG% by distance", 
+       subtitle = "in average conditions",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  guides(colour = guide_legend(title = NULL),
+         fill = guide_legend(title = NULL)) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+### Clutch kicking 
+
+Once controlling for other factors, I don't see any noteworthy effect of 
+kicks that tie the game or put the kicker's team in the lead late in the game,
+in general. But there are some nuances...
+
+#### Don't trust the replacements?
+
+That being said, this may be because poor clutch performers get filtered out.
+I included a term in the model to see if replacement kickers perform worse at 
+crunch time than would be expected (that is, even worse than the usual lower 
+level of performance associated with replacement kickers). There is some 
+fairly robust evidence for this. The model suggests that the probability that
+replacement-level kickers are particularly un-clutch is 98%[^pvalue].
+
+[^pvalue]: To be clear, I'm not abusing *p* values here; I'm talking about the 
+[posterior probability](https://en.wikipedia.org/wiki/Posterior_probability). 
+
+To show what the magnitude of this difference is, I've plotted the predicted
+FG% across the spectrum of kick distances for both replacement (orange line)
+and non-replacement (blue line) kickers. On the left-hand side, you see the
+predicted FG% in non-clutch situations and on the right, clutch situations.
+Note that clutch is defined here as game-tying or go-ahead field goals in the
+4th quarter or later.
+
+```{r}
+library(interactions)
+interact_plot(mod, kick_distance, replacement, 
+              mod2 = late_tga,
+              modx.values = c(0, 1), 
+              mod2.values = c(FALSE, TRUE),
+              modx.labels = c("Not replacement", "Replacement"),
+              mod2.labels = c("Not clutch", "Clutch"),
+              legend.main = "Kicker status", vary.lty = FALSE,
+              colors = c("#49b7fc", "#ff7b00"),
+              x.label = "Kick distance (yards)", y.label = "Predicted FG%") +
+              theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+              labs(title = "Replacement kickers struggle in the clutch",
+                subtitle = "Model-predicted performance",
+                caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)"
+              ) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+If you look closely, you can see that non-replacement kickers are unaffected
+by the situation. On the other hand, replacement kickers get noticeably worse
+in clutch situations. So while you generally are hurt by having a replacement 
+kicker, you pay especially dearly in those clutch situations.
+
+I do have to add one note of caution. The definition of replacement kicker 
+I've applied partly depends on the kicker not keeping his job long-term. If 
+GMs and coaches are more likely to fire their kickers for bad clutch 
+performance, then that could bias these results to over-represent clutch misses
+among replacement kickers; indeed, it's possible they are replacements *because*
+of their clutch misses.
+
+#### "Clutch" kickers
+
+Another advantage of my modeling approach is that it allows for the effect of
+game situation to be different for different kickers. In general, kickers are 
+no better or worse than normal in clutch situations. But are some kickers better
+and others worse than their normal selves in such situations? 
+
+Well, to put it briefly, the results from the model don't provide very 
+compelling evidence of kickers who are especially clutch once you factor in 
+all these other things, including whether they are/were a replacement kicker.
+There is an inherent difficulty in detecting such a thing, of course, because
+kickers don't get many clutch opportunities. So I won't say there's no such 
+thing, just that it doesn't look particularly promising for there to be any
+evidence of a clutch skill --- and don't forget that there's the added problem
+that bad clutch performance may get kickers fired and therefore they stop 
+providing data. Maybe the league is populated with a bunch of really clutch 
+kickers.
+
+#### Icing
+
+Put briefly, I see some weak evidence that icing the kicker may help. Overall,
+the model suggests a tiny, basically zero effect of having a timeout called
+by the opponent before a kick. 
+
+But for the combination of the kick tying the game or giving the team a lead 
+late in the game *and* the kicker being iced, which is really the true icing
+situation, there is some modest evidence.
+
+In the plot below, I show the model's predicted probability of making a 40 yard
+field goal in 4 situations --- each combination of kicks that would tie the 
+game/put the kicker's team ahead in the 4th quarter (I call these "clutch") 
+and kicks in which the opponent did/didn't call a timeout before the kick 
+(which I'm calling "icing"). 
+
+```{r}
+library(interactions)
+cat_plot(mod, late_tga, iced, at = list(kick_distance = 40),
+         pred.labels = c("Not clutch", "Clutch"),
+         modx.labels = c("Not iced", "Iced"), 
+         legend.main = "", x.label = "", y.label = "Expected FG%") +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  drop_x_gridlines() + 
+  labs(title = "Predicted FG% by situational factors",
+       subtitle = "at 40 yards out in average conditions",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  scale_y_continuous(labels = scales::percent) +
+  guides(colour = guide_legend(title = NULL), fill = guide_legend(title = NULL))
+```
+
+What we see is that 3 out of 4 situations have basically the same predicted
+probability of success, at about 85%. But when the kicker is iced and it's a
+clutch kick, the predicted probability of success is 80%, consistent with 
+an effect of icing the kicker. That being said, the confidence intervals show
+that because there aren't that many kicks that fit this definition, the model
+isn't very sure whether the probability of success is that much lower.
+
+Statistically, the model implies a 91% chance that icing a kicker 
+late in a close game reduces the chances of a make somewhat. If I was a coach,
+I'd take this as good enough information to keep trying it in those situations
+where the timeouts couldn't be used in any other productive way. That being 
+said, I wouldn't blow the timeout if my team had hopes of getting the ball 
+back and trying to make a late charge down the field.
+ 
+### Odds and ends
+
+#### Wind
+
+Yes, wind appears to typically make it hard to kick and those effects 
+do seem to multiply as the distance gets longer. Of course, as mentioned 
+earlier, I didn't find the cross-wind data to be reliable enough to deal
+with the possible cases of tailwind, the only case where the wind may help.
+
+Given that stadiums probably tend to have swirling winds, I don't know that 
+it's very common for kickers to have a helpful wind.
+
+```{r}
+interact_plot(mod, kick_distance, wind, modx.values = c(0, 5, 15, 25),
+              x.label = "Kick distance (yards)", y.label = "Predicted FG%",
+              legend.main = "Wind speed (mph)", vary.lty = FALSE) +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  labs(title = "Predicted FG% by wind speed",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+#### Temperature
+
+Temperature on the other hand does not seem to have much of an effect once
+controlling for other factors. That being said, this could be related to there
+being relatively few cold weather games or coaches being especially cautious
+in the cold.
+
+```{r}
+interact_plot(mod, kick_distance, temp, modx.values = c(30, 50, 70, 90),
+              x.label = "Kick distance (yards)", y.label = "Predicted FG%",
+              legend.main = "Temperature (F)", vary.lty = FALSE) +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  labs(title = "Predicted FG% by temperature",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+You can see the apparent effect is quite subtle.
+
+#### Rain
+
+The model overwhelmingly supports the proposition that rain makes kicks 
+more difficult. Statistically, it is over 99% probable that this is the case
+and given that it makes so much sense, I see no reason to doubt it. 
+
+The rain effect is about two thirds of the replacement kicker effect, so 
+it's the equivalent of a quite meaningful kicker downgrade. 
+
+```{r}
+interact_plot(mod, kick_distance, rain, modx.values = c(FALSE, TRUE),
+              x.label = "Kick distance (yards)", y.label = "Predicted FG%",
+              legend.main = "", vary.lty = FALSE,
+              modx.labels = c("Not raining", "Raining")) +
+  theme_nice(base_family = "IBM Plex Sans", legend.pos = "bottom") +
+  labs(title = "Predicted FG% with/without rain",
+       caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+In plain terms, you're going from an 86% chance of a 40 yarder to 82%. At
+50 yards, it takes you from 71% to 65%.
+
+Additionally, the effect of **snow** is approximately the same, but the
+model is much less sure about it --- probably because there are so few kicks
+attempted in the snow.
+
+#### Home kicker advantage
+
+I don't see any evidence of kickers doing better at home except by a trivial
+amount. 
+
