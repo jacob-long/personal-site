@@ -254,11 +254,11 @@ kicks_repl <- kicks %>%
 
 preds_avg <- 
   fitted(mod, newdata = kicks_avg, 
-    re_formula = ~(scale(wind) + poly(kick_distance, 3) | stadium))[, "Estimate"]
+    re_formula = ~(wind + poly(kick_distance, 3) | stadium))[, "Estimate"]
 
 preds_repl <- 
   fitted(mod, newdata = kicks_repl, 
-    re_formula = ~(scale(wind) + poly(kick_distance, 3) | stadium))[, "Estimate"]
+    re_formula = ~(wind + poly(kick_distance, 3) | stadium))[, "Estimate"]
 
 kicks %<>% 
   mutate(

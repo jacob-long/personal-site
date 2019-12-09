@@ -415,6 +415,30 @@ and wasn't picking up on the differences among kickers in leg strength.
 That being said, the choices among these top few models are not very important
 at all when it comes to the basics of who are the top and bottom ranked kickers.
 
+### Comparisons to previous work
+
+PC-R report Brier scores in their paper, so that can serve as a useful 
+benchmark. Their final model has Brier score of 0.1226, which is higher 
+(worse) than all my candidate models. I should note, though, that they use a
+K-fold cross-validation procedure to select a model which could lead to a
+worse choice by this metric since just adding more predictors can arbitrarily
+improve the Brier score within sample. That being said, I think a multilevel
+model is bound to outperform one without kicker and stadium random effects.
+
+An interesting note of comparison to PC-R, whose data have minimal overlap with
+mine in terms of timespan covered: We agree on the best kicker season, 
+Sebastian Janikowski's 2009. My model thinks it was worth a little more over
+replacement, but it's really quite close.
+
+OL, on the other hand, focus primarily on AUC in terms of measures that can
+reasonably be compared across datasets. Their clog-log model maxes out at 
+.7646, which again is worse than all of my models. That being said, I still
+want to apply some caution because our procedures aren't all that different,
+the set of kicks under analysis are only partially overlapping, and they 
+used a different model selection process that could potentially be choosing
+a model worse at in-sample prediction because it doesn't do well out of sample.
+I can't do these procedures for computational reasons.
+
 ## Notes on predicted success
 
 I initially resisted including things like replacement status and anything else
@@ -441,4 +465,3 @@ For `season`, on the other hand, I could eliminate the kicker-specific
 aspect of this by intentionally zeroing these effects out in the 
 predictions. If I wanted to predict success in a specific season, of course,
 I could include this.
-
