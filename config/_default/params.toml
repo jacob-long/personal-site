@@ -30,6 +30,9 @@ sharing_image = ""
 # Description for social sharing and search engines. If undefined, author role is used in place.
 description = ""
 
+# Main menu alignment (l = left, c = center, r = right) and logo options.
+main_menu = {align = "r", show_logo = true}
+
 # Publication types.
 #   Used to categorize publications.
 #   The index of the publication type in the list is used as its unique numerical identifier.
@@ -113,8 +116,7 @@ contact_links = [
 ] 
 
 
-# Main menu alignment (l = left, c = center, r = right) and logo options.
-main_menu = {align = "r", show_logo = false}
+
 
 # Recommend sites links ####
 
