@@ -1,38 +1,32 @@
-{{ $ga := site.Params.marketing.google_analytics | default site.GoogleAnalytics | default "" }}
+{{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") }}
 
-{{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and $ga  }}
-
-<script async src="https://www.googletagmanager.com/gtag/js?id={{$ga}}"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-85962705-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-      dataLayer.push(arguments);
-  }
-
-  function trackOutboundLink(url) {
-    gtag('event', 'click', {
-         'event_category': 'outbound',
-         'event_label': url,
-         'transport_type': 'beacon',
-         'event_callback': function () {
-           document.location = url;
-         }
-    });
-    console.debug("Outbound link clicked: " + url);
-  }
-
-  function onClickCallback(event) {
-    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
-      return;
-    }
-    trackOutboundLink(event.target);  // Send GA event.
-  }
-
+  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', '{{$ga}}', '{}');
 
-  // Outbound link tracking.
-  document.addEventListener('click', onClickCallback, false);
+  gtag('config', 'UA-85962705-1');
 </script>
+
+<!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setCookieDomain", "*.jacob-long.com"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.jacob-long.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '3']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//stats.jacob-long.com/matomo.php?idsite=3&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Matomo Code -->
+
+
 {{ end }}
