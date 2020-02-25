@@ -333,7 +333,7 @@ h1, h2, h3, h4 {
  .dark div#TOC a, .dark table a, .dark .contact-widget a,
  .dark .project-title a,
  .dark .pub-list-item a, .dark i, .dark .see-all a {
-	color: lighten($sta-primary, 40%) !important;
+	color: lighten($sta-primary, 50%) !important;
 }
 
 .dark h1, .dark h2, .dark h3, .dark h4, .dark .table, .dark .table-striped {
@@ -355,12 +355,12 @@ h1, h2, h3, h4 {
 .dark .btn-outline-primary:hover, .dark .btn-outline-primary:hover i, .dark .btn-outline-primary:active,
 	.dark .btn-outline-primary:active i {
 	border-color: $sta-menu-primary !important;
-	background-color: lighten($sta-primary, 30%) !important;
+	background-color: lighten($sta-primary, 40%) !important;
 	color: $sta-menu-primary !important;
 }
 
 .dark p > code, .dark p > a code  {
-	color: lighten($sta-primary, 40%) !important;
+	color: lighten($sta-primary, 50%) !important;
 	background: #4b4b53 !important;
 }
 

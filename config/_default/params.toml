@@ -12,7 +12,7 @@ logo = ""
 
 # Color theme.
 #   Choose from `default`, `ocean`, `forest`, or `coffee`.
-theme = "Scarlet"
+theme = "Garnet"
 # Enable users to switch between day and night mode?
 day_night = true
 # Font style.
