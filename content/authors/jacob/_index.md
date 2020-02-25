@@ -25,9 +25,9 @@ email = ""
 interests = [
     "Political communication",
     "Social identity",
-    "Statistical and computational methods",
-    "Moral psychology",
-    "Communication technology"
+    "Data science",
+    "Longitudinal data analysis",
+    "Social networks"
   ]
 
 # Organizational groups that you belong to (for People widget)
@@ -92,10 +92,16 @@ user_groups = []
 
 +++
 
-I am a PhD candidate at the School of Communication at 
+I am a PhD candidate in the School of Communication at 
 <font size="1">[The]</font> 
 Ohio State University. My research interests are broadly in the area of 
 political communication, with special interests in social identity, social 
 environments, and the maintenance thereof. I also spend a good deal of my time
 thinking about the research designs and analytic methods we can use to learn
 more about these things.
+
+Starting in Autumn 2020, I will be joining the **University of South Carolina**'s
+[School of Journalism and Mass Communications](https://www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php) 
+as Assistant Professor.
+
+
