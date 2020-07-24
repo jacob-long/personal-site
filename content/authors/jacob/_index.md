@@ -39,16 +39,19 @@ user_groups = []
   course = "PhD in Communication (expected)"
   institution = "Ohio State University"
   year = 2020
+  icon = "osu"
 
 [[education.courses]]
   course = "MA in Communication"
   institution = "Ohio State University"
   year = 2019
+  icon = "osu"
 
 [[education.courses]]
   course = "BA with Honors in Political Science"
   institution = "Rhodes College"
   year = 2014
+  icon = "rhodes"
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons

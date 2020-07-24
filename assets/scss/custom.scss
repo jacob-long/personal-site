@@ -201,8 +201,99 @@ div.highlight {
 *********************/
 
 .teach-metadata {
-    font-size: .95rem;
+    font-size: .8rem;
     font-style: italic
+}
+
+.class-name {
+	font-size: .85rem;
+}
+
+.btn.btn-sm.teach-btn {
+	font-size: .6rem !important;
+	line-height: 10px !important;
+	margin-left: 5px;
+}
+
+.teach-list-item {
+	margin-bottom: 0.5rem;
+}
+
+// Making a special OSU icon
+.osu-icon {
+	background-image: url('/img/osu_icon.png');
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 20px;
+	width: 20px;
+	margin-bottom: -4px;
+	margin-left: 0px;
+	display: inline-block;
+	/* Other styles here */
+}
+
+.osu-icon-ed {
+	left: -1.5em;
+	bottom: 2.65em;
+	position:absolute;
+	background-image: url('/img/osu_icon.png');
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 20px;
+	width: 20px;
+	margin-bottom: -10px;
+	margin-left: 0px;
+	// display: inline-block;
+	/* Other styles here */
+}
+
+// Making a special USC icon
+.usc-icon {
+	background-image: url('/img/usc_icon.png');
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 30px;
+	width: 45px;
+	// margin-bottom: -4px;
+	margin-left: 0px;
+	display: inline-block;
+	/* Other styles here */
+}
+
+// Use white for dark mode
+.dark .usc-icon {
+	background-image: url('/img/usc_icon_white.png');
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 30px;
+	width: 45px;
+	// margin-bottom: -4px;
+	margin-left: 0px;
+	display: float;
+	/* Other styles here */
+}
+
+// Making a special USC icon
+.rhodes-icon-ed {
+	left: -1.5em;
+	bottom: 1.95em;
+	position:absolute;
+	text-align:center;
+	line-height:inherit;
+	background-image: url('/img/rhodes_shield.png');
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 20px;
+	width: 20px;
+	// margin-bottom: -4px;
+	margin-left: 0px;
+	display: float;
+	/* Other styles here */
 }
 
 /*******************

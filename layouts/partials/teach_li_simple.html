@@ -1,10 +1,20 @@
-<div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/Event">
+{{ if .Params.selected }}
+
+<div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event">
     {{ if .Params.online }}
-        <i class="fas fa-desktop pub-icon" aria-hidden="true"></i>
+        <i class="fas fa-desktop pub-icon" aria-hidden="true" title="Online course"></i>
     {{ else }}
-        <i class="fas fa-university pub-icon" aria-hidden="true"></i>
+        <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i>
     {{ end }}
-    <span itemprop="name">{{ .Title }}</span>
+    {{ if .Params.school }}
+      <i class="{{.Params.school}}-icon"></i>
+    {{ else }}
+      <i class="osu-icon"></i>
+    {{ end }}
+    <span class="class-name" itemprop="name">{{ .Title }}</span>
+    <!-- Buttons -->
+    {{ partial "teach_links" (dict "content" . "is_list" 1) }}
+    
     <!-- <div itemprop="startDate">
       {{ $date := .Params.time_start | default .Date }}
       {{ (time $date).Format $.Site.Params.date_format }}
@@ -19,7 +29,7 @@
               {{ .Params.event | markdownify }}
       {{ end }}
     </div>
-    <div class="teach-links">
-      {{ partial "teach_links" (dict "content" . "is_list" 1) }}
-    </div>
+    
   </div>
+{{  else  }}
+{{ end }}
