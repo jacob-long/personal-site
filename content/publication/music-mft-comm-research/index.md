@@ -3,7 +3,7 @@ title = "Entertainment use and political ideology: Linking worldviews to media c
 date = 2019-01-01
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["**Jacob A. Long**", "William P. Eveland, Jr."]
+authors = ["jacob", "William P. Eveland, Jr."]
 author = ""
 
 tags = []

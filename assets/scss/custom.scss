@@ -5,13 +5,28 @@
  /* Aligning my name/title in the bio area flush to the top and left */
 
  #profile {
-	text-align: left;
+	// text-align: left;
 	padding: 0px 10px;
 	position: relative;
 }
 
 .portrait-title > h2 {
     margin-top: 0px !important
+}
+
+// Don't make my name and title red
+.portrait-title > h3 {
+	color: rgba(0,0,0,0.54) !important;
+}
+
+.portrait-title > h2 {
+	color: rgba(0,0,0,1) !important;
+}
+
+// Add some padding on the bottom of this icon list in mobile layout
+ul.network-icon {
+	margin-bottom: 20px;
+	margin-top: 10px !important;
 }
 
 /* Make mini buttons more legible and spaced right */

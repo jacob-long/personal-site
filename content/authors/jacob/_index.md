@@ -1,6 +1,6 @@
 +++
 # Display name
-name = "Jacob A. Long"
+title = "Jacob A. Long"
 
 # Username (this should match the folder name)
 authors = ["admin"]
@@ -9,11 +9,11 @@ authors = ["admin"]
 superuser = true
 
 # Role/position
-role = "PhD Candidate, Communication"
+role = "Assistant Professor of Mass Communications"
 
 # Organizations/Affiliations
 #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-organizations = [{name = "Ohio State University", url = "//comm.osu.edu/"}]
+organizations = [{name = "University of South Carolina", url = "//www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php"}]
 
 # Short bio (displayed in user profile at end of posts)
 bio = ""
@@ -26,7 +26,7 @@ interests = [
     "Political communication",
     "Social identity",
     "Data science",
-    "Longitudinal data analysis",
+    "Longitudinal data",
     "Social networks"
   ]
 
@@ -36,20 +36,20 @@ user_groups = []
 
 # List qualifications (such as academic degrees)
 [[education.courses]]
-  course = "PhD in Communication (expected)"
-  institution = "Ohio State University"
+  course = "PhD in Communication"
+  institution = "[Ohio State University](//comm.osu.edu)"
   year = 2020
   icon = "osu"
 
 [[education.courses]]
   course = "MA in Communication"
-  institution = "Ohio State University"
+  institution = "[Ohio State University](//comm.osu.edu)"
   year = 2019
   icon = "osu"
 
 [[education.courses]]
   course = "BA with Honors in Political Science"
-  institution = "Rhodes College"
+  institution = "[Rhodes College](//rhodes.edu)"
   year = 2014
   icon = "rhodes"
 
@@ -95,16 +95,14 @@ user_groups = []
 
 +++
 
-I am a PhD candidate in the School of Communication at 
-<font size="1">[The]</font> 
-Ohio State University. My research interests are broadly in the area of 
+I am (starting in fall 2020) an Assistant Professor at
+the University of South Carolina's [School of Journalism and Mass
+Communications](https://www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php). 
+
+My research interests are broadly in the area of 
 political communication, with special interests in social identity, social 
 environments, and the maintenance thereof. I also spend a good deal of my time
 thinking about the research designs and analytic methods we can use to learn
 more about these things.
-
-Starting in Autumn 2020, I will be joining the **University of South Carolina**'s
-[School of Journalism and Mass Communications](https://www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php) 
-as Assistant Professor.
 
 

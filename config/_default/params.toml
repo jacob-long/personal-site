@@ -1,9 +1,8 @@
 name = "Jacob A. Long"
 role = "PhD Candidate, Communication"
 organizations = [{name = "Ohio State University", url = ""}]
-avatar = ""
-email = "long.1377@osu.edu"
-address = {street = "154 N Oval Mall", city = "Columbus", region = "OH", postcode = "43214", country = "United States", country_code = "US"}
+email = "jacob.long@sc.edu"
+address = {street = "800 Sumter St", city = "Columbia", region = "SC", postcode = "29208", country = "United States", country_code = "US"}
 twitter = "jacobandrewlong"
 phone = ""
 office_hours = ""
