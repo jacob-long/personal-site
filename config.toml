@@ -73,3 +73,10 @@ time_format = "3:04 PM"
   category = "categories"
   publication_type = "publication_types"
   author = "authors"
+
+[permalinks]
+  authors = "/author/:slug/"
+  tags = "/tag/:slug/"
+  categories = "/category/:slug/"
+  publication_types = "/publication-type/:slug/"
+  

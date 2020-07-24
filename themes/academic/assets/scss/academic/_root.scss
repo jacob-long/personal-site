@@ -24,7 +24,7 @@ body {
   padding-top: 0;
   counter-reset: captions;
 }
-@media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
+@include media-breakpoint-down(md) { /* Match max-width of .nav-bar query. */
   body {
     margin-top: 50px; /* Offset body content by navbar height. */
   }
@@ -168,12 +168,13 @@ pre,
 code {
   font-family: $sta-font-mono, monospace;
   color: #c7254e;
-  background-color: #f9f2f4;
+  /* Match bg of default highlight theme. */
+  background-color: rgb(248, 248, 248);
 }
 
 pre {
   margin: 0 0 1rem 0;
-  background-color: rgb(248, 248, 248); /* Match default highlight theme. */
+  /* Match bg of default highlight theme. */
   border-color: rgb(248, 248, 248);
   font-size: 0.7rem;
   border-radius: 4px;
@@ -290,6 +291,7 @@ a[data-fancybox] {
 
 .gallery a[data-fancybox] img {
   height: 250px;
+  width: auto;
   max-width: inherit;
   display: inherit;
   margin: 0;
@@ -358,7 +360,7 @@ footer a.back-to-top i {
 }
 
 .dark site-footer,
-.dark footer a#back_to_top i,
+.dark footer a.back-to-top i,
 .dark .docs .body-footer {
   color: rgba(255,255,255,0.54);
 }
