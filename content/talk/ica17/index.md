@@ -2,7 +2,7 @@
 title = "Partisan media selectivity and partisan identity threat: The role of social and geographic context"
 publishDate = 2018-09-28 # Schedule page publish date.
 draft = false
-authors = ["**Jacob A. Long** (presenter)", "William P. Eveland, Jr.", "Michael D. Slater"]
+authors = ["jacob", "William P. Eveland, Jr.", "Michael D. Slater"]
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.

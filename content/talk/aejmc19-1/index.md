@@ -1,7 +1,7 @@
 +++
 title = "Improving the generalizability of inferences in quantitative communication research"
 publishDate = 2019-05-17 # Schedule page publish date.
-authors = ["**Jacob A. Long**"]
+authors = ["jacob"]
 draft = false
 
 # Talk start and end times.

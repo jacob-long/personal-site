@@ -2,7 +2,7 @@
 title = "Inferring preferences without talking: Using limited visual information to guide political discussant choice via homophily"
 publishDate = 2018-09-28 # Schedule page publish date.
 draft = false
-authors = ["William P. Eveland, Jr. (presenter)", "Steven B. Kleinman", "**Jacob A. Long**"]
+authors = ["William P. Eveland, Jr.", "Steven B. Kleinman", "jacob"]
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.

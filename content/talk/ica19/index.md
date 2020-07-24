@@ -2,7 +2,7 @@
 title = "Racial differences in having and choosing cross-race political discussion partners"
 publishDate = 2019-05-18 # Schedule page publish date.
 draft = false
-authors = ["William P. Eveland, Jr. (presenter)", "Osei Appiah", "**Jacob A. Long**", "Steven B. Kleinman"]
+authors = ["William P. Eveland, Jr.", "Osei Appiah", "jacob", "Steven B. Kleinman"]
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.

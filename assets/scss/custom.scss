@@ -101,19 +101,7 @@ pre > code {
     color: #FFF !important;
 }
 
-.talk-author {
-    font-size: .75px;
-    padding-top: 10px;
-}
 
-.talk-metadata {
-    font-style: italic;
-}
-
-/* Crude fix for alignment of years/talks on talks index page */
-div.row#talk_list > div.col-lg-10 {
-    padding-top: 25px;
-}
 
 /* Makes space for TOC */
 /*.article-metadata {
@@ -132,18 +120,6 @@ h3.article-title {
 .card h4 {
 	text-transform: none;
 }
-
-/* Used to be green for who knows what reason */
-.talk-event {
-	// color: rgb(110,110,110);
-	font-size: 0.8rem;
-}
-
-/* Ultimately didn't change this, but it's the title of teaching/talks list objects */
-// span[itemprop="name"] {
-// 	color: rgb(0,0,0);
-// 	font-size: 0.9rem;
-// }
 
 /* Name of degree fields (was 0.9rem) */
 ul.ul-edu li .description p.course {
@@ -183,17 +159,35 @@ div.highlight {
 * Talk customizations 
 *********************/
 
-.talk-metadata {
-    // padding-top: .5rem
-}
-
-.talk-start, .talk-metadata {
-    font-size: .85rem
+.talk-start {
+    font-size: .75rem
 }
 
 .talk-author {
     font-size: .85rem;
     padding-top: .01rem
+}
+
+/* Used to be green for who knows what reason */
+.talk-event, .talk-metadata {
+	// color: rgb(110,110,110);
+	font-size: 0.75rem;
+}
+
+/* Ultimately didn't change this, but it's the title of teaching/talks list objects */
+// span[itemprop="name"] {
+// 	color: rgb(0,0,0);
+// 	font-size: 0.9rem;
+// }
+
+.talk-metadata {
+	font-style: italic;
+	font-size: .75rem;
+}
+
+/* Crude fix for alignment of years/talks on talks index page */
+div.row#talk_list > div.col-lg-10 {
+	padding-top: 35px;
 }
 
 /********************

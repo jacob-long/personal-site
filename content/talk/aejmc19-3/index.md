@@ -1,7 +1,7 @@
 +++
 title = "From political satire to political discussion: Satire talk as mediator and affinity for political humor as moderator"
 publishDate = 2019-05-17 # Schedule page publish date.
-authors = ["Min Seon Jeong (presenter)", "**Jacob A. Long**", 
+authors = ["Min Seon Jeong", "jacob", 
 "Simon M. Lavis"]
 draft = false
 

@@ -1,7 +1,7 @@
 +++
 title = "Short- and long-term trends in the moral and political content of popular music"
 publishDate = 2018-09-28 # Schedule page publish date.
-authors = ["**Jacob A. Long**"]
+authors = ["jacob"]
 draft = false
 
 # Talk start and end times.
@@ -22,7 +22,7 @@ event_url = ""
 location = "Columbus, OH"
 
 # Is this a selected talk? (true/false)
-featured = true
+featured = false
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.
