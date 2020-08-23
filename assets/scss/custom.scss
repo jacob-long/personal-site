@@ -19,6 +19,10 @@
 	color: rgba(0,0,0,0.54) !important;
 }
 
+.portrait-title h3 {
+	font-size: 0.85rem !important;
+}
+
 .portrait-title > h2 {
 	color: rgba(0,0,0,1) !important;
 }
@@ -286,7 +290,7 @@ div.row#talk_list > div.col-lg-10 {
 	/* Other styles here */
 }
 
-// Making a special USC icon
+// Making a special Rhodes icon
 .rhodes-icon-ed {
 	left: -1.5em;
 	bottom: 1.95em;
@@ -303,6 +307,49 @@ div.row#talk_list > div.col-lg-10 {
 	margin-left: 0px;
 	display: float;
 	/* Other styles here */
+}
+
+// Making a special USC icon
+.wordmark-sjmc {
+	background-image: url('/img/sjmc_color_wordmark.png');
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: contain;
+	// height: 30px;
+	// width: 45px;
+	width: 250px;
+	height: 50px;
+	line-height: 0px;
+	// margin-bottom: -4px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+	font-size: 0px;
+	display: inline-block;
+	/* Other styles here */
+}
+
+// Use white for dark mode
+.dark .wordmark-sjmc {
+	background-image: url('/img/sjmc_bw_wordmark.png');
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: contain;
+	// height: 30px;
+	// width: 45px;
+	width: 250px;
+	height: 50px;
+	line-height: 0px;
+	// margin-bottom: -4px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+	font-size: 0px;
+	display: inline-block;
 }
 
 /*******************

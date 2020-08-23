@@ -9184,6 +9184,9 @@ html[dir="rtl"] body {
 .portrait-title > h3 {
   color: rgba(0, 0, 0, 0.54) !important; }
 
+.portrait-title h3 {
+  font-size: 0.85rem !important; }
+
 .portrait-title > h2 {
   color: black !important; }
 
@@ -9403,6 +9406,39 @@ div.row#talk_list > div.col-lg-10 {
   margin-left: 0px;
   display: float;
   /* Other styles here */ }
+
+.wordmark-sjmc {
+  background-image: url("/img/sjmc_color_wordmark.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 250px;
+  height: 50px;
+  line-height: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+  font-size: 0px;
+  display: inline-block;
+  /* Other styles here */ }
+
+.dark .wordmark-sjmc {
+  background-image: url("/img/sjmc_bw_wordmark.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 250px;
+  height: 50px;
+  line-height: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+  font-size: 0px;
+  display: inline-block; }
 
 /*******************
 * Project

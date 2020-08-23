@@ -13,7 +13,7 @@ role = "Assistant Professor of Mass Communications"
 
 # Organizations/Affiliations
 #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-organizations = [{name = "University of South Carolina", url = "//www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php"}]
+organizations = [{name = "University of South Carolina", url = "//www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php", logo = true}]
 
 # Short bio (displayed in user profile at end of posts)
 bio = ""
@@ -95,7 +95,7 @@ user_groups = []
 
 +++
 
-I am (starting in fall 2020) an Assistant Professor at
+I am an [Assistant Professor](https://www.sc.edu/study/colleges_schools/cic/faculty-staff/long_jacob.php) at
 the University of South Carolina's [School of Journalism and Mass
 Communications](https://www.sc.edu/study/colleges_schools/cic/journalism_and_mass_communications/index.php). 
 
