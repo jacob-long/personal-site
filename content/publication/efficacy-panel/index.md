@@ -61,7 +61,7 @@ url_source = ""
 
 # Custom links (optional).
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
-# url_custom = [{name = "Custom Link", url = "http://example.org"}]
+links = [{icon = "external-link-alt", name = "Publisher Link (free access)", url = "https://academic.oup.com/hcr/advance-article/doi/10.1093/hcr/hqaa011/5929326?guestAccessKey=28136606-889c-4e9f-8163-d893e0b8ba5f"}, {icon = "file-pdf", icon_pack = "far", name = "Post-Print", url = "/pdf/Long_Jeong_Lavis_HCR_Post_Print.pdf"}, {icon = "file-pdf", icon_pack = "far", name = "Appendix", url = "/pdf/Long_Jeong_Lavis_HCR_Appendix.pdf"}]
 
 # Digital Object Identifier (DOI)
 doi = ""
