@@ -26,6 +26,11 @@ googleAnalytics = "UA-85962705-1"
     startLevel = 2
     endLevel = 3
 
+[imaging]
+  resampleFilter = "lanczos"
+  quality = 100
+  anchor = "smart"
+
 # Default language to use (if you setup multilingual support)
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
