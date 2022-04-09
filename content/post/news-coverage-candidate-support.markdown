@@ -447,7 +447,9 @@ weak evidence of online news possibly hurting.
 
 Responding to Grossmann's tweet, Jonathan Ladd raises an interesting question:
 
-{{< tweet 1177912481517309952 >}}
+[The tweet has since been deleted, but it read:]
+
+> I wonder how much of this is driven only by the non-Biden candidates, since it seems to show that much of poll movement is driven by name recognition and need to coordinate on a non-Biden alternative.
 
 There are a couple of ways to look at this. First of all, let's think about
 this as less of a Biden vs. all others phenomenon and more about whether this
