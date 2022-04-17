@@ -1,18 +1,19 @@
 # Theme metadata
 name = "Garnet"
 
-# Is theme light or dark?
-light = true
+[light]
+    # Is theme light or dark?
+    light = true
 
-# Primary
-primary = "#73000a"
+    # Primary
+    primary = "#73000a"
 
-# Menu
-menu_primary = "#f8f8f8"
-menu_text = "#73000a"
-menu_text_active = "#73000a"
-menu_title = "#73000a"
+    # Menu
+    menu_primary = "#f8f8f8"
+    menu_text = "#73000a"
+    menu_text_active = "#73000a"
+    menu_title = "#73000a"
 
-# Home sections
-home_section_odd = "#fff"
-home_section_even = "#f8f8f8"
+    # Home sections
+    home_section_odd = "#fff"
+    home_section_even = "#f8f8f8"

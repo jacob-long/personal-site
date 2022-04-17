@@ -1,21 +1,23 @@
 ---
-title: Comparing `panelr` and `plm`
-# author: ''
-date: '2019-05-21'
-slug: comparing-panelr-and-plm
 categories:
-  - R
-tags:
-  - panel data
-  - panelr
-  - R
-  - statistics
-  - plm
-draft: no
-summary: "It has been just a little more than a day since I announced my new R package, `panelr`, to the wider world. There's at least one comparable package for R, called `plm`, which is very good and should be particularly appealing for economists. This leads to the understandable question as to how `panelr` differs from `plm`."
+- R
+date: "2019-05-21"
+draft: false
 image:
-  caption: ''
-  focal_point: ''
+  caption: ""
+  focal_point: ""
+slug: comparing-panelr-and-plm
+summary: It has been just a little more than a day since I announced my new R package,
+  `panelr`, to the wider world. There's at least one comparable package for R, called
+  `plm`, which is very good and should be particularly appealing for economists. This
+  leads to the understandable question as to how `panelr` differs from `plm`.
+tags:
+- panel data
+- panelr
+- R
+- statistics
+- plm
+title: Comparing `panelr` and `plm`
 ---
 
 It has been just a little more than a day since I announced my new R package,

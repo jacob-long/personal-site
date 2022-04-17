@@ -1,0 +1,110 @@
+baseurl: https://jacob-long.com/
+title: Jacob Long
+copyright: "&copy; 2022 Jacob Long"
+languageCode: en-us
+enableEmoji: true
+footnotereturnlinkcontents: <sup>^</sup>
+ignoreFiles:
+  - \.Rmd$
+  - \.Rmarkdown$
+  - _files$
+  - _cache$
+
+
+copyright_license:
+  enable: false
+  allow_derivatives: false
+  share_alike: true
+  allow_commercial: false
+  notice: This work is licensed under {license}
+
+show_related:
+  page: false
+  post: true
+  project: true
+  publication: true
+  event: true
+# Enable comments by entering your Disqus shortname
+disqusShortname: jacob-long
+# Enable analytics by entering your Google Analytics tracking ID
+googleAnalytics: UA-85962705-1
+permalinks:
+  authors: /author/:slug/
+  tags: /tag/:slug/
+  categories: /category/:slug/
+  publication_types: /publication-type/:slug/
+  event: /talk/:slug/
+icon.pack:
+    ai: true # Enable the Academicons icon pack https://jpswalsh.github.io/academicons/
+
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: false
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+  merge: _deep
+
+imaging:
+  resampleFilter: lanczos
+  quality: 100
+  anchor: smart
+
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+hasCJKLanguage: false
+enableGitInfo: false
+date_format: Jan 2, 2006
+time_format: 3:04 PM
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+    - WebAppManifest
+    - headers
+    - redirects
+  section:
+    - HTML
+    - RSS
+mediaTypes:
+  application/manifest+json:
+    suffixes:
+      - webmanifest
+
+outputFormats:
+  WebAppManifest:
+    mediaType: application/manifest+json
+    rel: manifest
+
+blackfriday:
+  hrefTargetBlank: true
+  fractions: true
+  smartypants: true
+  angledQuotes: false
+  latexDashes: true
+  extensions:
+    - backslashLineBreak
+
+taxonomies:
+  tag: tags
+  category: categories
+  publication_type: publication_types
+  author: authors
+
+module:
+  imports:
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5
+
+security:
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^WC_
+  _merge: deep

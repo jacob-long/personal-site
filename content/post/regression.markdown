@@ -1,15 +1,15 @@
 ---
-title: 'Understanding OLS regression via matrix operations: A walkthrough in R'
-author: Jacob
-date: '2018-01-12'
+author: admin
 categories:
-  - R
-tags:
-  - R
-  - statistics
-slug: understanding-ols-regression-via-matrix-operations-a-walkthrough-in-r
-math: true
+- R
+date: "2018-01-12"
 draft: true
+math: true
+slug: understanding-ols-regression-via-matrix-operations-a-walkthrough-in-r
+tags:
+- R
+- statistics
+title: 'Understanding OLS regression via matrix operations: A walkthrough in R'
 ---
 
 There is more than one way to express the underlying mathematics behind linear

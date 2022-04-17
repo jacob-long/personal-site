@@ -1,24 +1,21 @@
-+++
-date = "2017-02-06T00:57:01-05:00"
-lastmod = "2017-02-06T00:57:01-05:00"
-title = "Generate correlation matrices with complex survey data in R"
-tags = ["complex surveys", "R", "stats", "jtools"]
-categories = ["R"]
-highlight = true
-math = false
-photoswipe = false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
-[image]
-  # Caption (optional)
-  caption = ""
-
-  # Focal point (optional)
-  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
-  focal_point = ""
-
-+++
+---
+categories:
+- R
+date: "2017-02-06T00:57:01-05:00"
+highlight: true
+image:
+  caption: ""
+  focal_point: ""
+lastmod: "2017-02-06T00:57:01-05:00"
+math: false
+photoswipe: false
+tags:
+- complex surveys
+- R
+- stats
+- jtools
+title: Generate correlation matrices with complex survey data in R
+---
 
 The `survey` package is one of R's best tools for those working in the
 social sciences. For many, it saves you from needing to use commercial

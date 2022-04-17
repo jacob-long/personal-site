@@ -2,7 +2,7 @@
 name = "Default"
 
 # Optional Google font URL
-google_fonts = "Fira+Sans:400,700|Raleway:400,400italic,500,700|IBM+Plex+Mono"
+google_fonts = "family=Fira+Sans:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital@0;1&family=Raleway:ital,wght@0,400;0,500;0,700;1,400"
 
 # Font families
 heading_font = "Raleway"

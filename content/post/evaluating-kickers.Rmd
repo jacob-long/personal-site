@@ -27,7 +27,8 @@ output:
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE,
-                      dev = "CairoPNG", dpi = 300)
+                      # dev = "CairoPNG",
+                       dpi = 300)
 ```
 
 When you want to find out who the NFL's best kickers are, the tools available
@@ -178,11 +179,11 @@ performers.
 
 ## Model
 
-{{% alert note %}}
+{{% callout note %}}
 I have written a [separate post](/post/kickers-methods-notes) 
 talking about the statistical background and
 details, including links to the data and code used here.
-{{% / alert %}}
+{{% / callout %}}
 
 So what predicts field goal success? Here's how I put things together. I include
 the following factors:
@@ -333,6 +334,7 @@ kickers %<>%
 
 ```{r, results = 'asis'}
 library(DT)
+library(widgetframe)
 kickers %>%
   select(Kicker = kicker_player_name, Seasons = seasons, `Kicks` = n_kicks,
          `FG%` = actual, `eFG%` = expected_avg, `rFG%` = expected_repl, 
@@ -461,7 +463,7 @@ kicks %>%
   arrange(desc(PAR)) %>%
   map_df(function(x) if (is.numeric(x)) round(x, 3) else x) %>%
   datatable(rownames = FALSE) %>%
-  formatPercentage(columns = 4:8, digits = 1)
+  formatPercentage(columns = 4:8, digits = 1) 
 ```
 
 <br>
@@ -582,13 +584,22 @@ hand, Vinatieri has a predicted 31% FG% while Prater has a much better
 predicted 44%. Here's how their predicted success rate compares graphically:
 
 ```{r}
-jtools:::plot_varying_effects(
-  mod, kick_distance, kicker_player_id, 
-  group_levels = c("Adam Vinatieri" = "00-0016919", 
-                   "Matt Prater" = "00-0023853"),
+ps <- make_predictions(
+  mod, "kick_distance",
+  at = list("kicker_player_id" = c("00-0016919", # Vinatieri
+                   "00-0023853")), # Prater
   re.form = ~ (poly(kick_distance, 3) | kicker_player_id),
   x.label = "Kick distance (yards)", y.label = "Predicted FG%"
-) + 
+) 
+
+ggplot(ps, aes(x = kick_distance, y = made, group = kicker_player_id, 
+               color = kicker_player_id)) +
+  geom_path(size = 2) +
+  xlab("Kick distance (yards)") +
+  ylab("Predicted FG%") +
+  scale_colour_manual(values = get_colors("CUD Bright", 2), 
+                      breaks = c("00-0016919", "00-0023853"),
+                      labels = c("Vinatieri", "Prater")) +
   labs(title = "Kicker-specific predicted FG% by distance", 
        subtitle = "in average conditions",
        caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +
@@ -618,7 +629,7 @@ kickers %>%
   arrange(desc(`Pred. 60yd FG%`)) %>%
   map_df(function(x) if (is.numeric(x)) round(x, 3) else x) %>%
   datatable(rownames = FALSE) %>%
-  formatPercentage(columns = 4:7, digits = 1)
+  formatPercentage(columns = 4:7, digits = 1)  
 ```
 
 <br>
@@ -644,15 +655,22 @@ but his accuracy doesn't degrade at higher distances like the others, although
 Prater is still slightly favored all the way. 
 
 ```{r}
-jtools:::plot_varying_effects(
-  mod, kick_distance, kicker_player_id, 
-  group_levels = c("Adam Vinatieri" = "00-0016919", 
-                   "Matt Prater" = "00-0023853",
-                   "Brett Maher" = "00-0030332"),
+ps <- make_predictions(
+  mod, "kick_distance",
+  at = list("kicker_player_id" = c("00-0016919", # Vinatieri
+                   "00-0023853", "00-0030332")), # Prater, Maher
   re.form = ~ (poly(kick_distance, 3) | kicker_player_id),
-  x.label = "Kick distance (yards)", y.label = "Predicted FG%",
-  line.thickness = 0.75
-) + 
+  x.label = "Kick distance (yards)", y.label = "Predicted FG%"
+) 
+
+ggplot(ps, aes(x = kick_distance, y = made, group = kicker_player_id, 
+               color = kicker_player_id)) +
+  geom_path(size = 2) +
+  xlab("Kick distance (yards)") +
+  ylab("Predicted FG%") +
+  scale_colour_manual(values = get_colors("CUD Bright", 3), 
+                      breaks = c("00-0016919", "00-0023853", "00-0030332"),
+                      labels = c("Vinatieri", "Prater", "Maher")) +
   labs(title = "Kicker-specific predicted FG% by distance", 
        subtitle = "in average conditions",
        caption = "Analysis and graphics by Jacob Long (@jacobandrewlong)") +

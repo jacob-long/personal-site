@@ -1,19 +1,36 @@
-+++
-# Contact widget.
+---
+# An instance of the Contact widget.
+widget: contact
 
-date = "2016-04-20T00:00:00"
-draft = false
+# This file represents a page section.
+headless: true
 
-title = "Contact"
-subtitle = ""
-widget = "contact"
+# Order that this section appears on the page.
+weight: 60
 
-# Order that this section will appear in.
-weight = 60
+title: Contact
+subtitle:
 
-# Automatically link email and phone?
-autolink = true
+content:
+  # Automatically link email and phone or display as text?
+  autolink: true
 
-headless = true
-+++
+  # Contact details (edit or remove options as required)
+  email: jacob.long@sc.edu
+  address:
+    street: 800 Sumter St.
+    city: Columbia
+    region: SC
+    postcode: '29205'
+    country: United States
+    country_code: US
+  contact_links:
+    - icon: twitter
+      icon_pack: fab
+      name: jacobandrewlong
+      link: 'https://twitter.com/jacobandrewlong'
+
+design:
+  columns: '2'
+---
 

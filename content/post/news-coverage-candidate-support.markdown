@@ -1,25 +1,29 @@
 ---
-title: Does news coverage boost support for presidential candidates in the Democratic primary?
-# author: ''
-date: '2019-09-29'
-slug: news-coverage-candidate-support
 categories:
-  - R
-  - politics
-tags:
-  - panel data
-  - R
-  - statistics
-  - politics
-  - research
-draft: no
-photoswipe: yes
-math: yes
-mathjax: yes
-summary: "Observers note that in the 2020 Democratic primary, candidate support in polls is closely correlated with the amount of attention candidates get in the news. This begs the question of whether and how these two things might be causally related, particularly whether news coverage is helpful to candidates. Here I show some evidence that news coverage does indeed help."
+- R
+- politics
+date: "2019-09-29"
+draft: false
 image:
-  caption: ''
-  focal_point: ''
+  caption: ""
+  focal_point: ""
+math: true
+mathjax: true
+photoswipe: true
+slug: news-coverage-candidate-support
+summary: Observers note that in the 2020 Democratic primary, candidate support in
+  polls is closely correlated with the amount of attention candidates get in the news.
+  This begs the question of whether and how these two things might be causally related,
+  particularly whether news coverage is helpful to candidates. Here I show some evidence
+  that news coverage does indeed help.
+tags:
+- panel data
+- R
+- statistics
+- politics
+- research
+title: Does news coverage boost support for presidential candidates in the Democratic
+  primary?
 ---
 
 

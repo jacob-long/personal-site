@@ -1,0 +1,158 @@
+email: jacob.long@sc.edu
+address:
+  street: 800 Sumter St
+  city: Columbia
+  region: SC
+  postcode: '29208'
+  country: United States
+  country_code: US
+twitter: jacobandrewlong
+phone: ''
+office_hours: ''
+telegram: ''
+logo: ''
+
+contact_links:
+  - icon: twitter
+    icon_pack: fab
+    link: '//twitter.com/jacobandrewlong'
+    name: jacobandrewlong
+
+media_dir: img
+
+appearance:
+  theme: Garnet
+  theme_day: Garnet
+  theme_dark: Garnet
+  day_night: true
+  font: default
+  font_size: L
+
+plugins_js: []
+sharing_image: ''
+description: ''
+  
+header:
+  navbar:
+    enable: true
+    align: r
+    show_logo: true
+    show_language: false
+    show_day_night: true
+    show_search: true
+    highlight_active_link: true
+
+# footer:
+#   copyright:
+#     notice: '© {year} Me. This work is licensed under {license}'
+#     license:
+#       enable: true
+#       allow_derivatives: false
+#       share_alike: true
+#       allow_commercial: false
+
+show_related:
+  docs: true
+  page: false
+  post: true
+  project: true
+  publication: true
+  talk: true
+
+copyright_license:
+  enable: false
+  allow_derivatives: false
+  share_alike: true
+  allow_commercial: false
+  notice: 'This work is licensed under {license}'
+
+highlight_superuser: true
+
+publication_types:
+  - Uncategorized
+  - Conference paper
+  - Journal article
+  - Manuscript
+  - Report
+  - Book
+  - Book section
+
+locale:
+  date_format: 'Jan 2, 2006'
+  time_format: '3:04 PM'
+  address_format: en-us
+
+features:
+  syntax_highlighter:
+    enable: true
+    extra_languages:
+      - r
+      - latex
+  math:
+    enable: false
+  diagram:
+    enable: false
+  privacy_pack:
+    enable: false
+  avatar:
+    gravatar: false
+    shape: circle
+  comment:
+    provider: ''
+    disqus:
+      shortname: 'jacob-long'
+      show_count: true
+    commento:
+      url: ''
+  search:
+    provider: wowchemy
+    algolia:
+      app_id: ''
+      api_key: ''
+      index_name: ''
+      show_logo: false
+  map:
+    provider: ''
+    api_key: ''
+    zoom: 15
+
+math: false
+
+reading_time: true
+comment_count: true
+
+section_pager: false
+
+
+link_authors: false
+
+talks:
+  time: false
+
+publications:
+  date_format: '2006'
+  citation_style: apa
+
+projects:
+  publication_view: 2
+  post_view: 0
+  talk_view: 2
+
+
+marketing:
+  analytics:
+    google_analytics: UA-85962705-1
+    google_tag_manager: ''
+  seo:
+    site_type: Person
+    local_business_type: ''
+    org_name: ''
+    description: ''
+    twitter: 'jacobandrewlong'
+
+extensions:
+  isotope:
+    # Enable if you use the Portfolio widget or Publication filter
+    enable: true
+  academicons:
+    enable: true

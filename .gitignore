@@ -11,3 +11,5 @@ Website\.Rproj
 public/
 
 \.DS_Store
+
+*\.rds

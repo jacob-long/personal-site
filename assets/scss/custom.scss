@@ -276,6 +276,7 @@ div.row#talk_list > div.col-lg-10 {
 	height: 30px;
 	width: 45px;
 	// margin-bottom: -4px;
+	// padding-bottom: 4px;
 	margin-left: 0px;
 	display: inline-block;
 	/* Other styles here */
@@ -293,6 +294,14 @@ div.row#talk_list > div.col-lg-10 {
 	margin-left: 0px;
 	display: float;
 	/* Other styles here */
+}
+
+.fa-graduation-cap {
+	margin-left: 2px;
+}
+
+.pub-icon {
+	padding-right: 2px;
 }
 
 // Making a special Rhodes icon
@@ -361,7 +370,7 @@ div.row#talk_list > div.col-lg-10 {
 * Project
 *******************/
 
-.project-title img {
+.project-title img, .project-title figure {
     display: inline !important;
     padding-bottom: 3px !important;
 }
@@ -411,6 +420,15 @@ nav#TableOfContents ul:first-child {
 #toc-title {
     margin-left: -.5rem;
     font-size: 1.1rem;    
+}
+
+/************************************************
+* HTML widgets
+*************************************************/
+
+.html-widget, .dataTables_wrapper {
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 /*************************************************

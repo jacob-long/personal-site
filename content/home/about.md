@@ -5,7 +5,7 @@ widget = "about"
 # Order that this section will appear in.
 weight = 1
 
-author = "jacob"
+author = "admin"
 
 headless = true
 +++

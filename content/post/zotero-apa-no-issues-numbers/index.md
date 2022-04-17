@@ -1,27 +1,20 @@
-+++
-title = "Here's how to use APA style without issue numbers in Zotero"
-date = 2017-09-23T16:10:13-04:00
-lastmod = 2017-09-23T16:10:13-04:00
-draft = false
-
-math = false
-highlight = true
-tags = ["zotero", "APA"]
-categories = ["Tools"]
-
-photoswipe = false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
-[image]
-  # Caption (optional)
-  caption = ""
-
-  # Focal point (optional)
-  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
-  focal_point = ""
-
-+++
+---
+categories:
+- Tools
+date: "2017-09-23T16:10:13-04:00"
+draft: false
+highlight: true
+image:
+  caption: ""
+  focal_point: ""
+lastmod: "2017-09-23T16:10:13-04:00"
+math: false
+photoswipe: false
+tags:
+- zotero
+- APA
+title: Here's how to use APA style without issue numbers in Zotero
+---
 
 Zotero is a major part of my workflow from gathering research to the final,
 written output. One major annoyance, though, is its interpretation of APA

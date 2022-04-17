@@ -1,20 +1,19 @@
 ---
-title: A new package for panel data analysis in R
-date: '2019-05-19'
-# slug: a-new-package-for-panel-data-analysis-in-r
 categories:
-  - R
-tags:
-  - R
-  - statistics
-  - panelr
-  - panel data
-draft: no
+- R
+date: "2019-05-19"
+draft: false
 image:
-  caption: ''
-  focal_point: ''
+  caption: ""
+  focal_point: ""
 photoswipe: true
 tableofcontents: true
+tags:
+- R
+- statistics
+- panelr
+- panel data
+title: A new package for panel data analysis in R
 ---
 
 It has been a long time coming, but my R package 

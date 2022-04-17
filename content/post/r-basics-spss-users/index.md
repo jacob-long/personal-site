@@ -1,24 +1,21 @@
-+++
-math = false
-tags = ["R","RStudio","SPSS","stats"]
-categories = ["R"]
-date = "2016-11-20T10:46:01-05:00"
-lastmod = "2016-11-20T10:46:01-05:00"
-title = "Some R basics for SPSS users"
-tableofcontents = true
-photoswipe = true
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
-[image]
-  # Caption (optional)
-  caption = ""
-
-  # Focal point (optional)
-  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
-  focal_point = ""
-
-+++
+---
+categories:
+- R
+date: "2016-11-20T10:46:01-05:00"
+image:
+  caption: ""
+  focal_point: ""
+lastmod: "2016-11-20T10:46:01-05:00"
+math: false
+photoswipe: true
+tableofcontents: true
+tags:
+- R
+- RStudio
+- SPSS
+- stats
+title: Some R basics for SPSS users
+---
 
 There are a lot of reasons to use R instead of my field's standby software, SPSS. With that said, I won't get into them here. Instead, I just want to talk about a few things in R that might help a beginner get the hang of it. <!--more-->
 

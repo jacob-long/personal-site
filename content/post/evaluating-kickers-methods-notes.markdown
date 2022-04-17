@@ -1,39 +1,42 @@
 ---
-title: Building a statistical model for field goal kicker accuracy
-author: ''
-date: '2019-12-08'
-slug: kickers-methods-notes
+author: ""
 categories:
-  - Data science
-  - R
-tags:
-  - statistics
-  - NFL
-  - sports
-  - data science
-  - R
-  - Bayesian statistics
-draft: no
-summary: "Here I discuss statistical and logistical details involved in my attempts at modeling kicker talent. This includes model selection as well as a brief history of research. I use some quantitative assessments to compare my approach to previous attempts and it does quite well."
-image:
-  caption: ''
-  focal_point: ''
-photoswipe: false
+- Data science
+- R
+date: "2019-12-08"
 disable_jquery: false
+draft: false
+image:
+  caption: ""
+  focal_point: ""
 math: false
 mathjax: false
 output:
   blogdown::html_page:
     toc: true
+photoswipe: false
+slug: kickers-methods-notes
+summary: Here I discuss statistical and logistical details involved in my attempts
+  at modeling kicker talent. This includes model selection as well as a brief history
+  of research. I use some quantitative assessments to compare my approach to previous
+  attempts and it does quite well.
+tags:
+- statistics
+- NFL
+- sports
+- data science
+- R
+- Bayesian statistics
+title: Building a statistical model for field goal kicker accuracy
 ---
 
 
 
-{{% alert note %}}
+{{% callout note %}}
 This is the methodological companion to [my post](/post/evaluating-kickers) on
 my proposed method for evaluating NFL kickers. To get all the results and 
 some extra info about the data, check it out.
-{{% / alert %}}
+{{% / callout %}}
 
 When you have a hammer, everything looks like a nail, right? Well I'm a big
 fan of multilevel models and especially the ability of MCMC estimation to 
@@ -195,10 +198,10 @@ the software I'm using.
 
 ## Model
 
-{{% alert note %}}
+{{% callout note %}}
 Code and data for reproducing these analyses can be found 
 [on Github](https://github.com/jacob-long/NFL-kicker-analysis)
-{{% / alert %}}
+{{% / callout %}}
 
 My tool is a multilevel logistic regression fit via 
 MCMC using the wonderful 

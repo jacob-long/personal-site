@@ -1,0 +1,896 @@
+/*************************************************
+ *  Miscellaneous
+ **************************************************/
+
+// Adjust body font size
+
+body {
+	font-size: .9rem;
+}
+
+ /* Aligning my name/title in the bio area flush to the top and left */
+
+ #profile {
+	text-align: left;
+	padding: 0px 10px;
+	position: relative;
+}
+
+.portrait-title > h2 {
+    margin-top: 0px !important
+}
+
+/* Make mini buttons more legible and spaced right */
+
+.btn.btn-sm {
+    font-size: 0.65rem;
+    line-height: 8px;
+    padding: 6px;
+}
+
+/* Make interests list a little bigger */
+ul.ul-interests li, ul.ul-edu li {
+	font-size: .85rem;
+}
+/* Make interests/education title semi-bold */
+.col-md-5 > h3, .col-md-7 > h3 {
+    font-weight: 500;
+    margin-top: 10px
+}
+/* Make post titles semi-bold */
+.article-title {
+    font-weight:500
+}
+
+/* Make contact icons line up with the text */
+.col-lg-8 > ul.fa-ul > li {
+    padding-top: 22px
+}
+
+/* Reduce inter-item spacing, shrink description text in projects section */
+p.project-summary {
+    margin-bottom: 0px;
+    font-size: 0.8rem
+}
+
+/* Make project category buttons line up with section title better */
+.btn-group {
+    margin-top: 15px;
+    margin-bottom: 0px
+}
+/* Reduce spacing between button row and first item */
+.project-toolbar {
+    margin-bottom: 30px
+}
+
+/* Reduce wasted vertical space */
+.home-section {
+    padding-bottom: 55px;
+    padding-top: 100px
+}
+
+/* Make author names black instead of red in pubs list */
+div.pub-list-item span[itemprop="author"] a {
+    color: #000000 !important
+}
+
+.article-container {
+	max-width: 800px !important;
+	padding: 1rem 20px 0 20px;
+	margin: 0 auto 0 auto;
+}
+ 
+/* For formatting output with a different background from code blocks */
+pre {
+    background-color: #eeeeee;   
+    color: #333333;
+    padding: 10px;
+}
+
+.highlight pre {
+  color: #dddddd ;
+  background-color: #333333;
+}
+
+code {
+ color: #9b2f0a;   
+}
+
+pre > code {
+ color: #000000;
+ background-color: transparent;
+}
+
+/* For the "copy" button */
+.toolbar-item > a, .toolbar-item > a:hover, .toolbar-item > a:focus {
+    color: #FFF !important;
+}
+
+.talk-author {
+    font-size: .75px;
+    padding-top: 10px;
+}
+
+.talk-metadata {
+    font-style: italic;
+}
+
+/* Crude fix for alignment of years/talks on talks index page */
+div.row#talk_list > div.col-lg-10 {
+    padding-top: 25px;
+}
+
+/* Makes space for TOC */
+/*.article-metadata {
+/*  margin-bottom: 35px;
+/*  line-height: 30px; /* Match share bar line height. */
+/*  font-size: 14px;
+/*  letter-spacing: 0.03em;
+/*  color: #888;
+/*} */
+
+h3.article-title {
+  margin-top: 0rem;
+}
+
+/* I want correct case on the projects cards */
+.card h4 {
+	text-transform: none;
+}
+
+/* Used to be green for who knows what reason */
+.talk-event {
+	color: rgb(110,110,110);
+	font-size: 0.8rem;
+}
+
+/* Ultimately didn't change this, but it's the title of teaching/talks list objects */
+span[itemprop="name"] {
+	color: rgb(0,0,0);
+	font-size: 0.9rem;
+}
+
+/* Name of degree fields (was 0.9rem) */
+ul.ul-edu li .description p.course {
+	font-size: 0.9rem;
+}
+
+/* Final changes to comment button */
+button#comment-button {
+	display: block;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: auto;
+    margin-left: auto;
+	width: 50%;
+}
+
+button#comment-button:focus {
+	display: none;
+}
+
+/* Get rid of redundant highlight background */
+div.highlight {
+	background: transparent !important;
+}
+
+.hljs {
+	background: transparent !important; 
+}
+
+/********************
+* Talk customizations 
+*********************/
+
+.talk-metadata {
+    padding-top: .5rem
+}
+
+.talk-start, .talk-metadata {
+    font-size: .85rem
+}
+
+.talk-author {
+    font-size: .85rem;
+    padding-top: .01rem
+}
+
+/********************
+* Teach customizations 
+*********************/
+
+.teach-metadata {
+    font-size: .95rem;
+    font-style: italic
+}
+
+/*******************
+* Project
+*******************/
+
+.project-title img {
+    display: inline !important;
+    padding-bottom: 3px !important;
+}
+
+span.badges {
+    padding-left: 10px;
+}
+
+/*************************************************
+ *  Table of Contents
+ **************************************************/
+ 
+ #toc ul { 
+  list-style-type: none; 
+  margin: 0 auto;
+}
+
+#toc ul ul { 
+  list-style-type: disc; 
+}
+
+#toc {
+	margin-left: 5px;
+	float: right;
+	padding-left: 1.5rem; 
+	padding-bottom: 1rem;
+	padding-top: 1.2rem;
+	padding-right: 1.5rem;
+	border-left: 0px solid #eee;
+	font-size: 0.75rem;
+}
+
+#toc li ul {
+	padding-bottom: 0rem;
+	padding-top:0rem;
+}
+
+#toc li li {
+	padding-bottom: 0.1rem;
+	padding-top:0rem;
+}
+
+nav#TableOfContents ul:first-child {
+    padding-left: 5px;
+}
+
+#toc-title {
+    margin-left: -.5rem;
+    font-size: 1.1rem;    
+}
+
+/*************************************************
+ *  Dropdown links menu
+ **************************************************/
+
+/* Style The Dropdown Button */
+/* .dropbtn {
+} */
+
+/* The container <div> - needed to position the dropdown content */
+/* .dropdown {
+    position: relative;
+    float: left;
+    display: inline-block;
+} */
+
+/* Dropdown Content (Hidden by Default) */
+/* .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9 !important;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
+    z-index: 1000;	
+} */
+
+/* Links inside the dropdown */
+/* .dropdown-content a {
+    padding: 5px 5px;
+    display: block;
+    font-size: 0.7rem;
+} */
+
+/* Change color of dropdown links on hover */
+/* .dropdown-content a:hover {background-color: #f1f1f1} */
+
+/* Show the dropdown menu on hover */
+/* .dropdown:hover .dropdown-content {
+    display: block;
+} */
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+/* .dropdown:hover .dropbtn {
+    background-color: rgb(170,0,0) !important; 
+    color: white !important;
+}  */
+
+/*************************************************
+ *  Based on example green theme
+ **************************************************/
+
+/* Adding a little red to the navbar */
+.navbar-light {
+	top:0 !important;
+    border-width:0 0 2px !important;
+    border-bottom-style: solid !important;
+}
+
+.navbar-light {
+	background-color:#f8f8f8 !important;
+	border-color: rgb(170,0,0) !important;
+}
+
+.navbar-light .navbar-nav li a, .navbar-light .navbar-nav li a:visited {
+	white-space: nowrap !important;
+/* 	-webkit-transition: 0.2s ease; */
+/* 	transition: 0.2s ease; */
+	color: rgb(130,0,0) !important;
+}
+
+.navbar-light .navbar-nav li a:hover {
+	white-space: nowrap !important;
+	-webkit-transition: 0.2s ease !important;
+	transition: 0.2s ease !important;
+	color: rgb(210,0,0) !important;
+}
+
+.navbar-light .navbar-nav li.nav-item a.active, .navbar-light .navbar-nav li.nav-item a.active:focus {
+	color: #efefef !important;
+	background-color: rgb(170,0,0) !important;
+}
+
+.navbar-light .navbar-nav li.nav-item a.active:hover {
+    color: #dadada !important;
+    /* transition: 0.2s ease !important; */
+	background-color: rgb(170,0,0) !important;
+}
+
+.navbar-light .navbar-brand {
+	color: rgb(130,0,0) !important;
+	background-color: transparent !important;
+}
+
+.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+	color: rgb(210,0,0) !important;
+	background-color: transparent !important;
+}
+
+/* Add shadow under navbar, old version of theme had this */
+.navbar-light {
+	box-shadow: 0 0.15rem 0.25rem 0 rgba(0,0,0,.11) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: rgb(130,0,0) !important;
+}
+
+a,
+a:visited,
+h3.article-title a:hover {
+    color: rgb(170,0,0) !important;
+}
+
+a:hover {
+    color: rgb(255,0,0) !important;
+}
+
+.navbar-light .navbar-nav li a:hover,
+.btn-primary,
+.btn-primary.btn-outline {
+    color: rgb(170,0,0) !important;
+}
+
+/* Articles */
+
+.article-title a {
+    color: #151515;
+}
+
+.article-metadata a {
+    color: #888;
+}
+
+.article-metadata a:hover {
+    color: rgb(170,0,0);
+}
+
+/* My own change to social icons */
+ul.share li a {
+  background-color: rgb(170,0,0);
+  display: block;
+  border-radius: 50%;
+  text-decoration: none !important;
+  margin: 0;
+  opacity: 0.5;
+}
+
+ul.share li:hover a {
+  opacity: 1;
+}
+
+ul.share li:hover .fa {
+  transform: scale(1.2);
+}
+
+/* Standard buttons */
+
+.btn,
+.btn.btn-outline-primary {
+    border-color: rgb(170,0,0) !important;
+}
+
+
+
+/* Hover buttons */
+
+.btn.btn-outline-primary:hover, .btn.btn-outline-primary:active {
+    border-color: rgb(170,0,0) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+.btn-outline-primary:visited,
+.article-tags > .btn-primary.btn-outline:hover,
+.article-tags > .btn-primary.btn-outline:focus,
+.article-tags > .btn-primary.btn-outline:active,
+.article-tags > .btn-primary.btn-outline:visited,
+.btn.btn-outline-primary:active, .btn.btn-primary.active,
+.nav-item:active, .btn-toolbar .btn.btn-primary.active {
+    background: rgba(170,0,0,1) !important;
+    background-color: rgb(170,0,0) !important;
+}
+
+/* Fixes wrongly colored shadow on click of buttons */
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 0px 0px 2px 2px rgb(255, 103, 103)  !important;
+}
+
+.btn-toolbar .btn-outline-primary.active, .btn-outline-primary:active,
+.btn-outline-primary:hover, a.btn-outline-primary:visited:focus,
+a.btn-outline-primary:visited:active,
+.article-tags > .btn-primary.btn-outline:active,
+.article-tags > .btn-primary.btn-outline:focus,
+.article-tags > .btn-primary.btn-outline:visited,
+.article-tags > .btn-primary.btn-outline:hover {
+  color: #FFF !important;
+}
+
+.btn .btn-outline-primary .btn-large {
+  color: #FFF !important;
+}
+
+.btn-toolbar .btn.btn-primary:hover {
+  color: #FFF !important;
+  background-color: rgba(170, 0, 0, .5) !important;
+}
+
+/* egri-nagy addition */
+.navbar-light .navbar-nav>.active>a,
+.navbar-light .navbar-nav>.active>a:focus,
+.navbar-light .navbar-nav>.active>a:hover {
+  color: rgb(170,0,0);
+  font-weight: 400 !important;
+/*   background-color: transparent !important; /* Override Bootstrap. */  
+}
+
+/* These removed the bolding from nav items */
+
+.navbar-light .navbar-nav > .nav-item > .nav-link {
+    font-weight: 400 !important
+}
+
+.navbar-light .navbar-nav li.nav-item a.active {
+    font-weight: 700 !important
+}
+
+.navbar-brand, .navbar-light {
+    font-weight: 500 !important
+}
+
+a.nav-link {
+	font-size: .85rem !important;
+}
+
+/*  */
+
+.btn-large.active, .btn-outline-primary:active, .btn-outline-primary:hover,
+.btn-outline-primary:focus, .btn-outline-primary.focus, .btn-large:focus, 
+.btn-large.focus, 
+ .btn-outline-primary.active, .btn-outline-primary:visited, .open > .dropdown-toggle.btn-outline-primary, .btn-primary.btn-outline {
+    background: rgba(170,0,0,1) !important;
+    background-color: rgba(170,0,0,1) !important;
+    transition: all 0.6s ease !important
+}
+
+.article-tags > .btn-primary.btn-outline {
+    background: transparent !important
+}
+
+.btn.btn-primary.btn-outline {
+    background: transparent
+}
+
+
+.btn-lg {
+	background-color: rgba(170,0,0, 0.6) !important;
+	color: #FFF;
+}
+
+.btn-lg:hover {
+	background-color: rgba(170,0,0,0.3) !important; 
+	transition: color 0.6s ease !important;
+}
+
+a.btn-lg {
+	color: #FFF !important;	
+	background-color: rgba(170,0,0, 0.6) !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem rgba(170,0,0, 0.6) !important;
+}
+
+.btn-sm {
+  line-height: 15px !important;
+  padding: 5px .4rem 5px .4rem !important;
+  font-size: .65rem !important;
+}
+
+.far.mr-1, .fas.mr-1, .fab.mr-1, .ai.mr-1 {
+  margin-right: .15rem !important;
+}
+
+span.article-metadata > span > a {
+	color: black !important;
+}
+
+// ***************************************************************************************************************
+// prismjs.css 
+// ***************************************************************************************************************
+
+/* PrismJS 1.15.0
+https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+julia+latex+markdown+r&plugins=toolbar+normalize-whitespace+copy-to-clipboard */
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+div.code-toolbar {
+	position: relative;
+}
+
+div.code-toolbar > .toolbar {
+	position: absolute;
+	top: .3em;
+	right: .2em;
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+}
+
+div.code-toolbar:hover > .toolbar {
+	opacity: 1;
+}
+
+div.code-toolbar > .toolbar .toolbar-item {
+	display: inline-block;
+}
+
+div.code-toolbar > .toolbar a {
+	cursor: pointer;
+}
+
+div.code-toolbar > .toolbar button {
+	background: none;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	overflow: visible;
+	padding: 0;
+	-webkit-user-select: none; /* for button */
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
+	color: #bbb;
+	font-size: .8em;
+	padding: 0 .5em;
+	background: #f5f2f0;
+	background: rgba(224, 224, 224, 0.2);
+	box-shadow: 0 2px 0 0 rgba(0,0,0,0.2);
+	border-radius: .5em;
+}
+
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus {
+	color: inherit;
+	text-decoration: none;
+}
+
+
+// *************************************************************************************************************************************************
+// prism_line_nos.css
+// **************************************************************************************************************************************************
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+	position: relative;
+    white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	.line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		.line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+}
+
+// ***********************************************************************************************************************************
+// prism.tomorrownight80s.css
+// ***********************************************************************************************************************************
+
+/**
+ * Tomorrow Night 80's theme. for JavaScript, CSS, R and HTML
+ * Based on the Tomorrow Night 80s theme by ChrisKempson used in RStudio
+ * https://github.com/chriskempson/tomorrow-theme
+ *
+ * @author <mathematical.coffee@gmail.com>
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #cccccc;
+	text-shadow: 0 1px rgba(0,0,0,0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+	
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+code[class*="language-"]::selection,
+pre[class*="language-"]::selection,
+code[class*="language-"] *::selection,
+pre[class*="language-"] *::selection {
+    background: #515151;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;	
+    border-radius: 0.3em;
+}
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+    background: #2d2d2d;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999999;
+    font-style: italic;
+}
+.token.operator,
+.token.punctuation {
+    color: #66cccc;
+}
+.namespace {
+	opacity: .7;
+}
+.token.keyword,
+.token.selector,
+.token.tag {
+    color: #cc99cc;
+}
+.token.number,
+.token.boolean {
+    color: #f99157;
+}
+.token.property,
+.token.attr-name,
+.token.regex,
+.token.function {
+    color: #ffcc66;
+}
+.token.atrule,
+.token.attr-value,
+.token.string {
+    color: #99cc99;
+}
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #6699cc;
+}
+.token.important {
+    color: #f2777a;
+	font-weight: bold;
+}
+.token.entity {
+	cursor: help;
+}
+.token.namespace,
+.token.variable {
+  color: #cccccc;
+}
+
+
+
