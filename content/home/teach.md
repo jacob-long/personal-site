@@ -31,6 +31,14 @@ design:
 </div>
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
+<i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 749 <i class="fas fa-graduation-cap" title="Graduate Course"></i></span> 
+<!-- <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 790 Syllabus AU21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a> -->
+<div class="teach-metadata">     
+    Literature of Mass Communication
+</div>
+</div>
+
+<div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 717  <i class="fas fa-graduation-cap" title="Graduate Course"></i></span> 
 <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 717 Syllabus SP21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
 <div class="teach-metadata">     
@@ -46,6 +54,10 @@ design:
 </div>
 </div>
 
+</div>
+<!-- second column -->
+<div class = "col-md-6 col-sm-9">
+
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 400</span> 
 <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 400 Syllabus AU21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
@@ -53,11 +65,6 @@ design:
     Digital Media and Big Data    
 </div>
 </div>
-
-</div>
-
-<!-- second column -->
-<div class = "col-md-6 col-sm-9">
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 332</span> 
