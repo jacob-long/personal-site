@@ -1,0 +1,141 @@
+cycle,branch,forecastdate,district,candidateA,candidateB,displaystep,description,margin,lite_weight,classic_weight,deluxe_weight,simulations,timestamp
+2022,Senate,11/6/22,WI-S3,Mandela Barnes,Ron Johnson,4,Expert ratings adjusted for national environment,-5.556385,0,0,8.923228,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WI-S3,Mandela Barnes,Ron Johnson,3,Fundamentals (non-polling factors),-5.218202,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WI-S3,Mandela Barnes,Ron Johnson,2,CANTOR (analysis of comparable disticts),-7.181741,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WI-S3,Mandela Barnes,Ron Johnson,1,Polls adjusted for house effects & other factors,-3.138638,16.45183,16.45183,16.45183,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WA-S3,Patty Murray,Tiffany Smiley,4,Expert ratings adjusted for national environment,10.22107,0,0,6.061917,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WA-S3,Patty Murray,Tiffany Smiley,3,Fundamentals (non-polling factors),15.79369,0,1.342794,1.342794,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WA-S3,Patty Murray,Tiffany Smiley,2,CANTOR (analysis of comparable disticts),12.83242,0,.0962403,.0962403,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,WA-S3,Patty Murray,Tiffany Smiley,1,Polls adjusted for house effects & other factors,6.825794,10.71497,10.71497,10.71497,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,VT-S3,Peter Welch,Gerald Malloy,4,Expert ratings adjusted for national environment,24.67891,0,0,1.959456,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,VT-S3,Peter Welch,Gerald Malloy,3,Fundamentals (non-polling factors),27.11148,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,VT-S3,Peter Welch,Gerald Malloy,2,CANTOR (analysis of comparable disticts),15.59645,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,VT-S3,Peter Welch,Gerald Malloy,1,Polls adjusted for house effects & other factors,25.99169,2.489629,2.489629,2.489629,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,UT-S3,Evan McMullin,Mike Lee,4,Expert ratings adjusted for national environment,-13.93755,0,0,3.193554,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,UT-S3,Evan McMullin,Mike Lee,3,Fundamentals (non-polling factors),-27.37513,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,UT-S3,Evan McMullin,Mike Lee,2,CANTOR (analysis of comparable disticts),-21.34276,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,UT-S3,Evan McMullin,Mike Lee,1,Polls adjusted for house effects & other factors,-9.542377,4.963965,4.963965,4.963965,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SD-S3,Brian L. Bengs,John R. Thune,4,Expert ratings adjusted for national environment,-33.17679,0,0,2.098302,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SD-S3,Brian L. Bengs,John R. Thune,3,Fundamentals (non-polling factors),-38.34241,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SD-S3,Brian L. Bengs,John R. Thune,2,CANTOR (analysis of comparable disticts),-22.45504,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SD-S3,Brian L. Bengs,John R. Thune,1,Polls adjusted for house effects & other factors,-28.33831,2.768011,2.768011,2.768011,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SC-S3,Krystle Matthews,Tim Scott,4,Expert ratings adjusted for national environment,-26.57319,0,0,1.295473,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SC-S3,Krystle Matthews,Tim Scott,3,Fundamentals (non-polling factors),-25.95641,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SC-S3,Krystle Matthews,Tim Scott,2,CANTOR (analysis of comparable disticts),-15.39975,.8358126,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,SC-S3,Krystle Matthews,Tim Scott,1,Polls adjusted for house effects & other factors,-22.13974,1.158359,1.158359,1.158359,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,PA-S3,John Fetterman,Mehmet Oz,4,Expert ratings adjusted for national environment,.3807132,0,0,13.82299,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,PA-S3,John Fetterman,Mehmet Oz,3,Fundamentals (non-polling factors),-1.218672,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,PA-S3,John Fetterman,Mehmet Oz,2,CANTOR (analysis of comparable disticts),-1.027108,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,PA-S3,John Fetterman,Mehmet Oz,1,Polls adjusted for house effects & other factors,.8818512,26.27574,26.27574,26.27574,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OR-S3,Ron Wyden,Jo Rae Perkins,4,Expert ratings adjusted for national environment,20.64207,0,0,2.702552,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OR-S3,Ron Wyden,Jo Rae Perkins,3,Fundamentals (non-polling factors),17.35354,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OR-S3,Ron Wyden,Jo Rae Perkins,2,CANTOR (analysis of comparable disticts),10.54055,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OR-S3,Ron Wyden,Jo Rae Perkins,1,Polls adjusted for house effects & other factors,15.50841,3.979519,3.979519,3.979519,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S3,Madison Horn,James Lankford,4,Expert ratings adjusted for national environment,-27.61748,0,0,3.446953,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S3,Madison Horn,James Lankford,3,Fundamentals (non-polling factors),-41.14121,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S3,Madison Horn,James Lankford,2,CANTOR (analysis of comparable disticts),-25.99017,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S3,Madison Horn,James Lankford,1,Polls adjusted for house effects & other factors,-21.18514,5.472025,5.472025,5.472025,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S2,Kendra Horn,Markwayne Mullin,4,Expert ratings adjusted for national environment,-24.48162,0,0,3.446953,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S2,Kendra Horn,Markwayne Mullin,3,Fundamentals (non-polling factors),-35.04806,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S2,Kendra Horn,Markwayne Mullin,2,CANTOR (analysis of comparable disticts),-20.17763,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OK-S2,Kendra Horn,Markwayne Mullin,1,Polls adjusted for house effects & other factors,-16.12004,5.472025,5.472025,5.472025,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OH-S3,Tim Ryan,J.D. Vance,4,Expert ratings adjusted for national environment,-8.575092,0,0,7.659982,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OH-S3,Tim Ryan,J.D. Vance,3,Fundamentals (non-polling factors),-8.533049,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OH-S3,Tim Ryan,J.D. Vance,2,CANTOR (analysis of comparable disticts),-5.761175,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,OH-S3,Tim Ryan,J.D. Vance,1,Polls adjusted for house effects & other factors,-4.080761,13.91905,13.91905,13.91905,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NY-S3,Charles E. Schumer,Joe Pinion,4,Expert ratings adjusted for national environment,20.42076,0,0,7.187626,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NY-S3,Charles E. Schumer,Joe Pinion,3,Fundamentals (non-polling factors),28.23939,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NY-S3,Charles E. Schumer,Joe Pinion,2,CANTOR (analysis of comparable disticts),15.56273,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NY-S3,Charles E. Schumer,Joe Pinion,1,Polls adjusted for house effects & other factors,16.60219,12.97199,12.97199,12.97199,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NV-S3,Catherine Cortez Masto,Adam Paul Laxalt,4,Expert ratings adjusted for national environment,-1.858238,0,0,9.432593,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NV-S3,Catherine Cortez Masto,Adam Paul Laxalt,3,Fundamentals (non-polling factors),5.745602,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NV-S3,Catherine Cortez Masto,Adam Paul Laxalt,2,CANTOR (analysis of comparable disticts),3.561202,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NV-S3,Catherine Cortez Masto,Adam Paul Laxalt,1,Polls adjusted for house effects & other factors,-1.033546,17.47309,17.47309,17.47309,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NH-S3,Maggie Hassan,Donald C. Bolduc,4,Expert ratings adjusted for national environment,4.07886,0,0,8.070813,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NH-S3,Maggie Hassan,Donald C. Bolduc,3,Fundamentals (non-polling factors),8.640226,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NH-S3,Maggie Hassan,Donald C. Bolduc,2,CANTOR (analysis of comparable disticts),6.519959,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NH-S3,Maggie Hassan,Donald C. Bolduc,1,Polls adjusted for house effects & other factors,3.134888,14.74275,14.74275,14.74275,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ND-S3,Katrina Christiansen,John Hoeven,4,Expert ratings adjusted for national environment,-46.23246,0,0,.7177314,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ND-S3,Katrina Christiansen,John Hoeven,3,Fundamentals (non-polling factors),-44.78049,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ND-S3,Katrina Christiansen,John Hoeven,2,CANTOR (analysis of comparable disticts),-40.96396,.8358126,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ND-S3,Katrina Christiansen,John Hoeven,1,Polls adjusted for house effects & other factors,,0,0,0,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NC-S3,Cheri Beasley,Ted Budd,4,Expert ratings adjusted for national environment,-7.795336,0,0,6.64161,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NC-S3,Cheri Beasley,Ted Budd,3,Fundamentals (non-polling factors),-3.601434,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NC-S3,Cheri Beasley,Ted Budd,2,CANTOR (analysis of comparable disticts),-2.105297,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,NC-S3,Cheri Beasley,Ted Budd,1,Polls adjusted for house effects & other factors,-2.873409,11.87724,11.87724,11.87724,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MO-S3,Trudy Busch Valentine,Eric Schmitt,4,Expert ratings adjusted for national environment,-26.00604,0,0,4.513909,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MO-S3,Trudy Busch Valentine,Eric Schmitt,3,Fundamentals (non-polling factors),-23.03544,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MO-S3,Trudy Busch Valentine,Eric Schmitt,2,CANTOR (analysis of comparable disticts),-10.72298,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MO-S3,Trudy Busch Valentine,Eric Schmitt,1,Polls adjusted for house effects & other factors,-9.26894,7.611247,7.611247,7.611247,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MD-S3,Chris Van Hollen,Chris Chaffee,4,Expert ratings adjusted for national environment,24.71517,0,0,1.382779,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MD-S3,Chris Van Hollen,Chris Chaffee,3,Fundamentals (non-polling factors),30.86284,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MD-S3,Chris Van Hollen,Chris Chaffee,2,CANTOR (analysis of comparable disticts),19.31258,.6665951,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,MD-S3,Chris Van Hollen,Chris Chaffee,1,Polls adjusted for house effects & other factors,22.0739,1.333405,1.333405,1.333405,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,LA-S3,All Democrats,All Republicans,4,Expert ratings adjusted for national environment,-24.55521,0,0,.7177314,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,LA-S3,All Democrats,All Republicans,3,Fundamentals (non-polling factors),-19.00088,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,LA-S3,All Democrats,All Republicans,2,CANTOR (analysis of comparable disticts),-27.85492,.8358126,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,LA-S3,All Democrats,All Republicans,1,Polls adjusted for house effects & other factors,,0,0,0,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KY-S3,Charles Booker,Rand Paul,4,Expert ratings adjusted for national environment,-26.03062,0,0,1.081586,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KY-S3,Charles Booker,Rand Paul,3,Fundamentals (non-polling factors),-26.42304,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KY-S3,Charles Booker,Rand Paul,2,CANTOR (analysis of comparable disticts),-20.17351,.8358126,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KY-S3,Charles Booker,Rand Paul,1,Polls adjusted for house effects & other factors,-17.0821,.7295189,.7295189,.7295189,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KS-S3,Mark R. Holland,Jerry Moran,4,Expert ratings adjusted for national environment,-25.12846,0,0,2.00591,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KS-S3,Mark R. Holland,Jerry Moran,3,Fundamentals (non-polling factors),-23.55704,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KS-S3,Mark R. Holland,Jerry Moran,2,CANTOR (analysis of comparable disticts),-16.46956,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,KS-S3,Mark R. Holland,Jerry Moran,1,Polls adjusted for house effects & other factors,-20.45329,2.582768,2.582768,2.582768,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IN-S3,Thomas McDermott,Todd Young,4,Expert ratings adjusted for national environment,-25.91419,0,0,1.499063,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IN-S3,Thomas McDermott,Todd Young,3,Fundamentals (non-polling factors),-18.60069,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IN-S3,Thomas McDermott,Todd Young,2,CANTOR (analysis of comparable disticts),-16.15643,.4334476,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IN-S3,Thomas McDermott,Todd Young,1,Polls adjusted for house effects & other factors,-5.278828,1.566552,1.566552,1.566552,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IL-S3,Tammy Duckworth,Kathy Salvi,4,Expert ratings adjusted for national environment,21.20572,0,0,3.105699,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IL-S3,Tammy Duckworth,Kathy Salvi,3,Fundamentals (non-polling factors),15.7037,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IL-S3,Tammy Duckworth,Kathy Salvi,2,CANTOR (analysis of comparable disticts),12.60539,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IL-S3,Tammy Duckworth,Kathy Salvi,1,Polls adjusted for house effects & other factors,13.68409,4.787819,4.787819,4.787819,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ID-S3,David Roth,Mike Crapo,4,Expert ratings adjusted for national environment,-40.09673,0,0,.7177314,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ID-S3,David Roth,Mike Crapo,3,Fundamentals (non-polling factors),-37.81723,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ID-S3,David Roth,Mike Crapo,2,CANTOR (analysis of comparable disticts),-41.54778,.8358126,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,ID-S3,David Roth,Mike Crapo,1,Polls adjusted for house effects & other factors,,0,0,0,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IA-S3,Michael Franken,Chuck Grassley,4,Expert ratings adjusted for national environment,-13.93755,0,0,3.851644,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IA-S3,Michael Franken,Chuck Grassley,3,Fundamentals (non-polling factors),-22.43415,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IA-S3,Michael Franken,Chuck Grassley,2,CANTOR (analysis of comparable disticts),-9.951597,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,IA-S3,Michael Franken,Chuck Grassley,1,Polls adjusted for house effects & other factors,-10.20087,6.283421,6.283421,6.283421,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,HI-S3,Brian Schatz,Bob McDermott,4,Expert ratings adjusted for national environment,34.59558,0,0,.7177314,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,HI-S3,Brian Schatz,Bob McDermott,3,Fundamentals (non-polling factors),36.57792,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,HI-S3,Brian Schatz,Bob McDermott,2,CANTOR (analysis of comparable disticts),35.10998,.8358126,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,HI-S3,Brian Schatz,Bob McDermott,1,Polls adjusted for house effects & other factors,,0,0,0,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,GA-S3,Raphael Warnock,Herschel Junior Walker,4,Expert ratings adjusted for national environment,-1.858238,0,0,14.72592,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,GA-S3,Raphael Warnock,Herschel Junior Walker,3,Fundamentals (non-polling factors),-1.187436,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,GA-S3,Raphael Warnock,Herschel Junior Walker,2,CANTOR (analysis of comparable disticts),1.620826,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,GA-S3,Raphael Warnock,Herschel Junior Walker,1,Polls adjusted for house effects & other factors,.3993568,28.08609,28.08609,28.08609,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,FL-S3,Val Demings,Marco Rubio,4,Expert ratings adjusted for national environment,-13.93755,0,0,8.556194,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,FL-S3,Val Demings,Marco Rubio,3,Fundamentals (non-polling factors),-2.843952,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,FL-S3,Val Demings,Marco Rubio,2,CANTOR (analysis of comparable disticts),-9.953932,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,FL-S3,Val Demings,Marco Rubio,1,Polls adjusted for house effects & other factors,-7.665112,15.71593,15.71593,15.71593,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CT-S3,Richard Blumenthal,Leora R. Levy,4,Expert ratings adjusted for national environment,21.05522,0,0,3.539836,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CT-S3,Richard Blumenthal,Leora R. Levy,3,Fundamentals (non-polling factors),17.50204,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CT-S3,Richard Blumenthal,Leora R. Levy,2,CANTOR (analysis of comparable disticts),11.72995,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CT-S3,Richard Blumenthal,Leora R. Levy,1,Polls adjusted for house effects & other factors,13.85885,5.658253,5.658253,5.658253,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CO-S3,Michael Bennet,Joe O'Dea,4,Expert ratings adjusted for national environment,8.433587,0,0,5.07929,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CO-S3,Michael Bennet,Joe O'Dea,3,Fundamentals (non-polling factors),5.596306,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CO-S3,Michael Bennet,Joe O'Dea,2,CANTOR (analysis of comparable disticts),8.479255,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CO-S3,Michael Bennet,Joe O'Dea,1,Polls adjusted for house effects & other factors,8.740971,8.744822,8.744822,8.744822,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CA-S3,Alex Padilla,Mark P. Meuser,4,Expert ratings adjusted for national environment,23.45292,0,0,1.85821,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CA-S3,Alex Padilla,Mark P. Meuser,3,Fundamentals (non-polling factors),27.00525,0,1.342794,1.342794,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CA-S3,Alex Padilla,Mark P. Meuser,2,CANTOR (analysis of comparable disticts),12.82561,0,.0962403,.0962403,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,CA-S3,Alex Padilla,Mark P. Meuser,1,Polls adjusted for house effects & other factors,23.40515,2.286632,2.286632,2.286632,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AZ-S3,Mark Kelly,Blake Masters,4,Expert ratings adjusted for national environment,1.839909,0,0,14.30232,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AZ-S3,Mark Kelly,Blake Masters,3,Fundamentals (non-polling factors),2.074085,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AZ-S3,Mark Kelly,Blake Masters,2,CANTOR (analysis of comparable disticts),.7170274,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AZ-S3,Mark Kelly,Blake Masters,1,Polls adjusted for house effects & other factors,2.357159,27.23678,27.23678,27.23678,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AR-S3,Natalie James,John Boozman,4,Expert ratings adjusted for national environment,-30.32681,0,0,2.090477,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AR-S3,Natalie James,John Boozman,3,Fundamentals (non-polling factors),-34.48936,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AR-S3,Natalie James,John Boozman,2,CANTOR (analysis of comparable disticts),-22.73055,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AR-S3,Natalie James,John Boozman,1,Polls adjusted for house effects & other factors,-25.48569,2.752323,2.752323,2.752323,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AL-S3,Will Boyd,Katie Britt,4,Expert ratings adjusted for national environment,-32.19983,0,0,1.601254,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AL-S3,Will Boyd,Katie Britt,3,Fundamentals (non-polling factors),-33.41558,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AL-S3,Will Boyd,Katie Britt,2,CANTOR (analysis of comparable disticts),-15.66347,.2285585,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AL-S3,Will Boyd,Katie Britt,1,Polls adjusted for house effects & other factors,-29.05285,1.771441,1.771441,1.771441,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AK-S3,Patricia R. Chesbro,All Republicans,4,Expert ratings adjusted for national environment,-55.9898,0,0,1.842906,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AK-S3,Patricia R. Chesbro,All Republicans,3,Fundamentals (non-polling factors),-31.84424,0,1.284435,1.284435,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AK-S3,Patricia R. Chesbro,All Republicans,2,CANTOR (analysis of comparable disticts),-14.58243,0,.1545999,.1545999,40000,20:35:27  6 Nov 2022
+2022,Senate,11/6/22,AK-S3,Patricia R. Chesbro,All Republicans,1,Polls adjusted for house effects & other factors,-69.53084,2.255949,2.255949,2.255949,40000,20:35:27  6 Nov 2022

@@ -1,0 +1,548 @@
+---
+title: Mapping polling errors in US elections, 2016-20
+author: ''
+date: '2022-11-06'
+slug: polling-errors-map
+categories:
+  - Politics
+  - Data science
+  - Academic
+tags:
+  - statistics
+  - politics
+  - polling
+  - survey research
+draft: no
+summary: "Some folks like to look at current polls and poll averages and make a mental adjustment to the results and see how they'd look if the polls missed the way they did in the recent past. But I think even for people who follow
+this stuff pretty closely, it can be hard to remember all those details. My goal here is to help with that kind of thing while also showing that the narrative about polling errors is probably an overgeneralization."
+image:
+  caption: ''
+  focal_point: ''
+photoswipe: false
+disable_jquery: true
+math: false
+mathjax: false
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<style type="text/css" media="screen">
+
+.article-container {
+  max-width:1000px !important;
+}
+
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warn = FALSE)
+```
+
+If you follow US politics at all, you've probably heard a few things about 
+polling in the past few election cycles:
+
+* They have been "wrong"
+* They have been biased towards Democrats
+* They have been worse in some places than others
+
+And there's some truth to all of this! But I think even for people who follow
+this stuff pretty closely, it can be hard to remember all the details. Some 
+folks like to look at current polls and poll averages and make a mental 
+adjustment to the results and see how they'd look if the polls missed the way 
+they did in the recent past. My goal here is to help with that kind of thing.
+
+Below are three types of maps:
+
+1. Average polling error for each state in the past 3 elections
+2. Average polling bias for each in the past 3 elections
+3. The 2022 Senate election polling averages 
+
+Some states seem to be easier to poll than others. The **first map** is meant to 
+highlight the ones where polls are generally more on the mark, regardless of 
+whether they tilt towards one or the other party. It goes without saying that
+high levels of bias also cause error, but some places may have
+little bias but the typical poll still misses by a good deal.
+
+The **second map** shows polling bias instead. Here we are looking at how much
+the average polling margin tends to miss towards one party or the other compared
+to the actual results. I've shaded states blue for pro-Democrat bias (meaning 
+the polling average *overestimates* the Democrats) and red for pro-Republican 
+bias. Lighter shades mean the bias is closer to zero.
+
+Finally, the **third map** lets you take the current (as of 11/6)
+FiveThirtyEight polling averages, which is shown in the default view, and see
+how the margins would change if you applied the levels of bias seen in that 
+state in past elections. Let's just say the Democrats will be rooting for a 
+2018 miss and the Republicans will probably be happy with anything else.
+
+The polling data used to calculate bias and error is for President, Senate, and
+Governor only. No other statewide races, ballot issues, or Congressional races 
+are used here due to data availability and other issues.
+
+**Hover over states (or tap on mobile) to see the exact number**.
+
+### Important note about methods
+
+These numbers are not derived from simply averaging all public polls and 
+comparing them to the results. Instead, I'm using a statistical model to
+adjust for the quality and types of polls conducted in each race. So the
+estimates are ultimately quite similar to what you'd get if you compared 
+the projected vote share from [FiveThirtyEight](https://fivethirtyeight.com) 
+(which is also based on polls with adjustments for pollster quality, 
+partisanship, and some other things) to the actual votes.
+
+See the "[How this works](#how-this-works)" section for more info.
+
+```{r include = FALSE}
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(plotly)
+library(brms)
+library(rjson)
+library(scales)
+library(jtools)
+library(magrittr)
+
+usgeo <- fromJSON(file = "https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_500k.json")
+
+d <- read_csv("./polling-error-files/raw-polls.csv") %>%
+  mutate(
+    # statewide = stringr::str_detect(race, "Sen\\-G|Gov\\-G|Pres\\-G"),
+    statewide = type_simple %in% c("Sen-G", "Gov-G", "Pres-G"),
+    partisan = case_when(
+      is.na(partisan) ~ "No",
+      TRUE ~ partisan
+    ),
+    year = case_when(
+      year == 2017 ~ 2018,
+      year == 2019 ~ 2020,
+      TRUE ~ year
+    ),
+    partisan = relevel(factor(partisan), ref = "No"),
+    days_till_election = as.numeric(mdy(electiondate) - mdy(polldate)),
+    yearf = factor(year),
+    methodology = factor(methodology),
+    methodology = relevel(methodology, ref = "Live Phone"),
+    weight = 0.5^(as.numeric(days_till_election)/30) * sqrt(min(c(samplesize, 2000))/600)
+  ) %>%
+  filter(year >= 2016, statewide, location %nin% "PR") %>%
+  mutate(year = factor(year))
+
+options(Ncpus = 6, mc.cores = 6)
+library(brms)
+
+# fit <- brm(mvbf(bias ~ year + partisan + log(samplesize) + days_till_election +
+#            (year | pollster_rating_id) + (year | location/type_simple),
+#            error ~ year + partisan + log(samplesize) + days_till_election +
+#            (year | pollster_rating_id) + (year | location/type_simple)),
+#            data = d, iter = 4000)
+# saveRDS(fit, "fitcombined.RDS")
+fit <- readRDS("./polling-error-files/fitcombined.RDS")
+
+state_biases <- make_predictions(fit, "year", 
+                                 at = list(location = unique(d$location), 
+                                           days_till_election = 0, 
+                                           samplesize = 800), 
+                                 re.form = ~ (year | location), resp = "bias")
+
+state_biases %<>%
+  group_by(location) %>%
+  mutate(
+    bias16 = case_when(
+      year == 2016 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias18 = case_when(
+      year == 2018 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias20 = case_when(
+      year == 2020 ~ bias,
+      TRUE ~ NA_real_
+    )
+  ) %>%
+  summarize(
+    bias16 = mean(bias16, na.rm = T),
+    bias18 = mean(bias18, na.rm = T),
+    bias20 = mean(bias20, na.rm = T)
+  )
+
+dgyears <- d %>%
+
+  group_by(location, year) %>%
+  summarize(
+    bias_u = mean(bias, na.rm = T),
+    bias = weighted.mean(bias, w = weight, na.rm = T),
+    polls = n(),
+    races = length(unique(race_id))
+  ) 
+
+dgyears %<>% 
+  ungroup() %>%
+  mutate(
+    races_2020 = case_when(
+      year == 2020 ~ races
+    ),
+    races_2018 = case_when(
+      year == 2018 ~ races
+    ),
+    races_2016 = case_when(
+      year == 2016 ~ races
+    ),
+    polls_2020 = case_when(
+      year == 2020 ~ polls
+    ),
+    polls_2018 = case_when(
+      year == 2018 ~ polls
+    ),
+    polls_2016 = case_when(
+      year == 2016 ~ polls
+    )
+  ) %>% 
+  group_by(location) %>%
+  summarize(
+    races_2020 = mean(races_2020, na.rm = T),
+    races_2018 = mean(races_2018, na.rm = T),
+    races_2016 = mean(races_2016, na.rm = T),
+    polls_2020 = mean(polls_2020, na.rm = T),
+    polls_2018 = mean(polls_2018, na.rm = T),
+    polls_2016 = mean(polls_2016, na.rm = T),
+    polls = sum(polls_2016, polls_2018, polls_2020, na.rm = T)
+  ) %>%
+  mutate(
+    races_2018 = ifelse(is.na(races_2018), yes = 0, no = races_2018),
+    polls_2018 = ifelse(is.na(polls_2018), yes = 0, no = polls_2018),
+  )
+
+
+  
+state_biases <- left_join(state_biases, dgyears)
+state_biases$bias_avg <- sapply(1:nrow(state_biases), function (x) {
+  weighted.mean(state_biases[x, c("bias16", "bias18", "bias20")], w = state_biases[x, c("polls_2016", "polls_2018", "polls_2020")])
+})
+
+states_names_abbs <- bind_cols(abb = state.abb, name = state.name)
+
+dg <- left_join(state_biases, states_names_abbs, by = c("location" = "abb"))
+
+
+### Errors
+state_errors <- make_predictions(fit, "year", 
+                                 at = list(location = unique(d$location), 
+                                           days_till_election = 0, 
+                                           samplesize = 800), 
+                                 re.form = ~ (year | location), resp = "error")
+
+state_errors %<>%
+  group_by(location) %>%
+  mutate(
+    error16 = case_when(
+      year == 2016 ~ error,
+      TRUE ~ NA_real_
+    ),
+    error18 = case_when(
+      year == 2018 ~ error,
+      TRUE ~ NA_real_
+    ),
+    error20 = case_when(
+      year == 2020 ~ error,
+      TRUE ~ NA_real_
+    )
+  ) %>%
+  summarize(
+    error16 = mean(error16, na.rm = T),
+    error18 = mean(error18, na.rm = T),
+    error20 = mean(error20, na.rm = T)
+  )
+  
+state_errors <- left_join(state_errors, dgyears)
+state_errors$error_avg <- sapply(1:nrow(state_errors), function (x) {
+  weighted.mean(state_errors[x, c("error16", "error18", "error20")], w = state_errors[x, c("polls_2016", "polls_2018", "polls_2020")])
+})
+
+dge <- left_join(state_errors, states_names_abbs, by = c("location" = "abb"))
+```
+
+## Polling Error 
+
+```{r out.width = "100%", out.height = "600px"}
+fig <-  plot_ly(dge) %>% add_trace(
+  type = "choropleth", locations = ~name, featureidkey = "properties.NAME",
+  geojson = usgeo,  z = ~error_avg, color = ~error_avg, 
+  colors = "Purples",
+  zmin = 2, zmax = 8,  hovertemplate = '%{z:2d}%<extra>%{location}</extra>',
+  colorbar = list(title = list(text = "Average Error", side = "top"),
+                  len = 150, lenmode = "pixels",
+                  orientation = "h", y = 0,
+                  tickformat = "2d%%",
+                  tick0 = 0,
+                  tickvals = c(2, 5, 8),
+                  ticktext = c("2%", "5%", "8%"))
+) %>%
+  layout(
+    geo = list(
+      scope = 'usa'
+    ),
+    dragmode = FALSE,
+    updatemenus = list(
+      list(
+        type = "buttons",
+        xanchor = 'center',
+        yanchor = "top",
+        direction = "right",
+        pad = list('r'= 0, 't'= 10, 'b' = 10),
+        x = 0.5,
+        y = 1.17,
+        buttons = list(
+          list(method = "restyle",  
+               args = list(list("z" = list(~error_avg), "color" = list(~error_avg))), 
+               label = "2016-20 average"),
+          list(method = "restyle",
+               args = list(list("z" = list(~error16), "color" = list(~error16))),  
+               label = "2016"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~error18), "color" = list(~error18))),
+               label = "2018"),
+          list(method = "restyle",
+               args = list(list("z" = list(~error20), "color" = list(~error20))),
+               label = "2020")))  
+    )
+  )
+
+fig
+```
+
+
+## Polling Bias
+
+```{r out.width = "100%", out.height = "600px"}
+fig <-  plot_ly(dg) %>% add_trace(
+  type = "choropleth", locations = ~name, featureidkey = "properties.NAME",
+  geojson = usgeo,  z = ~bias_avg, color = ~bias_avg, 
+  colorscale = list(c(0, 0.5, 1), c(muted("red"), "white", muted("blue"))),
+  zmin = -8, zmax = 8,  hovertemplate = 'D %{z:+2.1d}%<extra>%{location}</extra>',
+  colorbar = list(title = list(text = "Average Bias", side = "top"),
+                  len = 150, lenmode = "pixels",
+                  orientation = "h", y = 0,
+                  tickformat = "D%+2d%%",
+                  tick0 = 0,
+                  tickvals = c(-8, -4, 0, 4, 8),
+                  ticktext = c("D -8%", "", "No bias", "", "D +8%"))
+) %>%
+  layout(
+    geo = list(
+      scope = 'usa'
+    ),
+    dragmode = FALSE,
+    updatemenus = list(
+      list(
+        type = "buttons",
+        xanchor = 'center',
+        yanchor = "top",
+        direction = "right",
+        pad = list('r'= 0, 't'= 10, 'b' = 10),
+        x = 0.5,
+        y = 1.17,
+        buttons = list(
+          list(method = "restyle",    
+               args = list(list("z" = list(~bias_avg), "color" = list(~bias_avg))),    
+               label = "2016-20 average"),
+          list(method = "restyle",   
+               args = list(list("z" = list(~bias16), "color" = list(~bias16))),   
+               label = "2016"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~bias18), "color" = list(~bias18))),  
+               label = "2018"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~bias20), "color" = list(~bias20))), 
+               label = "2020")))
+    )
+  )
+
+fig
+```
+
+## 2022 Senate polling averages with bias adjustments 
+
+```{r out.width = "100%", out.height = "600px"}
+projs <- read_csv("./polling-error-files/senate_steps_2022.csv") %>%
+  filter(displaystep == 1) %>%
+  # select(district, margin) %>%
+  mutate(
+    state = str_extract(district, "..")
+  )
+
+projs <- full_join(projs, dg, by = c("state" = "location"))
+projs %<>%
+  mutate(
+    margin_avg = margin - bias_avg,
+    margin16 = margin - bias16,
+    margin18 = margin - bias18,
+    margin20 = margin - bias20
+  )
+projs <- filter(projs, district != "OK-S2", !is.na(margin))
+ 
+fig <-  plot_ly(projs) %>% add_trace(
+  type = "choropleth", locations = ~name, featureidkey = "properties.NAME",
+  geojson = usgeo,  z = ~margin, color = ~margin, 
+  colorscale = list(c(0, 0.5, 1), c(muted("red"), "white", muted("blue"))),
+  zmin = -10, zmax = 10,  hovertemplate = 'D %{z:+2.1d}%<extra>%{location}</extra>',
+  colorbar = list(title = list(text = "Margin of victory", side = "top"),
+                  len = 150, lenmode = "pixels",
+                  orientation = "h", y = 0,
+                  tickformat = "D%+2d%%",
+                  tick0 = 0,
+                  tickvals = c(-10, -5, 0, 5, 10),
+                  ticktext = c("D -10%", "", "Even", "", "D +10%"))
+) %>%
+  layout(
+    geo = list(
+      scope = 'usa'
+    ),
+    dragmode = FALSE,
+    updatemenus = list(
+      list(
+        type = "buttons",
+        xanchor = 'center',
+        yanchor = "top",
+        direction = "right",
+        pad = list('r'= 0, 't'= 10, 'b' = 10),
+        x = 0.5,
+        y = 1.17,
+        buttons = list(
+          list(method = "restyle",    
+               args = list(list("z" = list(~margin), "color" = list(~margin))),    
+               label = "Current polling average"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~margin_avg), "color" = list(~margin_avg))),    
+               label = "with 2016-20 average bias"),
+          list(method = "restyle",   
+               args = list(list("z" = list(~margin16), "color" = list(~margin16))),   
+               label = "with 2016 bias"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~margin18), "color" = list(~margin18))),  
+               label = "with 2018 bias"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~margin20), "color" = list(~margin20))), 
+               label = "with 2020 bias")))
+    )
+  )
+
+fig
+```
+
+## How this works
+
+As already mentioned, this is not a simple polling average in the sense of 
+finding the mean of all polls and reporting just that. My opinion was that this
+just wasn't going to be all that informative since the number, quality, and type
+of polls would vary too much from place to place and time to time. In other 
+words, I basically agree with the the FiveThirtyEight approach to poll averaging.
+
+To generate the numbers you see in the maps, I created a statistical model to 
+generate average polling error and bias estimates for each state in each year
+(off-year elections in 2017 and 2019 were classified as 2018 and 2020). I'll 
+describe that in more detail the statistically inclined at the end of this 
+section. Basically, what this does for us is applies adjustments for the 
+quality/tendencies of the individual pollster, the partisanship of the pollster
+(if any), the sample size, and 
+the time until the election when the poll was fielded. This means if one state
+seems to attract low-quality partisan pollsters, it won't look as bad in my 
+model as it would in a simple average. 
+
+The best way to think about it is the cycle-specific numbers 
+represent my best estimate of **the polling error/bias you would expect from 
+an average quality non-partisan pollster using a sample size of about 800 on
+the day before election day**. In some states, that's pretty similar to the 
+literal polling average. In some others, it's rather different due to usually
+fewer polls from a subset of pollsters who do not represent the industry well 
+(either because they do better or worse). 
+
+To create the 3 year average, I simply take the 3 cycle-specific estimates and  
+calculate a weighted mean. Why weighted? I weight by the number of polls per 
+cycle. I could do it in a more sophisticated way, but it didn't ordinarily 
+change the results. I could also have fit a separate model to create this 
+estimate, but it would have given something quite similar.
+
+### Data
+
+The **data** comes from 
+[FiveThirtyEight's public data](https://github.com/fivethirtyeight/data/tree/master/pollster-ratings) 
+used for generating their
+pollster grades. I make no use of their pollster grades, but they conveniently 
+include all late-cycle polls (i.e., within 3 weeks of election day) along with
+pre-calculated error and bias for each poll (so I don't have to look up the 
+results for every single race).
+
+I do not use the data from primaries because they cannot have a partisan bias
+and generally have so much more polling error that it would swamp everything 
+else. Combine that with the greatly differing methods for doing primaries 
+(e.g., Iowa's caucus system) and it just didn't seem right to include even if 
+just for the polling error part.
+
+I did not include statewide races for the House, like in Montana, Wyoming, and
+Alaska. I may change that in the future. I also do not include Presidential 
+results for the congressional districts in Nebraska and Maine that cast their 
+votes according to their district vote rather than the statewide vote. I'm open 
+to it, but can't find a shapefile that has the 50 states *and* cutouts for those
+districts. 😅 
+
+### The model
+
+I'm a one-trick pony, so whether it's (calculating the 
+value of field goal kickers)[/post/evaluating-kickers] or mapping polling 
+errors, I'm reaching for a multilevel model. There are some serious advantages
+in this case. The data are grouped in a few ways:
+
+* By state
+* By pollster 
+* By election type (President/Senate/Governor)
+* By year of election
+
+Now there aren't actually enough separate election years to accomplish much
+with treating it as a leveling factor in the multilevel model, but the others
+do have some value. This is especially true because many of the pollsters and 
+states won't contribute much data so we need a principled way to use their data
+without overfitting. And multilevel models let me make adjustments for other
+things like pollster partisanship, time until the election, and sample size. 
+(Note: I considered adding adjustments by method but there are *so many* thanks 
+to pollsters combining many at once. It was a real mess and not adding much.)
+
+With so many "groups," many of which have little data associated, and a desire 
+to produce useful preditions, the obvious option (for me, a one-trick pony) was
+Bayesian estimation via [`brms`](https://paul-buerkner.github.io/brms/). I love
+this R package. With just a few lines of code I was able to fit a relatively
+complex model that includes multiple dependent variables (error and bias) that
+allows the residuals of those two dependent variables to correlate. With a 
+few more lines of code, I could generate state- and year-level predictions via
+some of the conveniences in my [`jtools` package](https://jtools.jacob-long.com).
+
+Seriously, see below how brief the most intellectually challenging steps are.
+
+Model fit:
+
+```R
+brm(mvbf(
+  bias ~ year + partisan + log(samplesize) + days_till_election +
+  (year | pollster_rating_id) + (year | location/type_simple), # first DV
+  
+  error ~ year + partisan + log(samplesize) + days_till_election +
+  (year | pollster_rating_id) + (year | location/type_simple)), # second DV
+  data = d, iter = 4000
+)
+```
+
+Making predictions used in the maps:
+
+```R 
+make_predictions(fit, pred = "year", 
+                 at = list(location = unique(d$location), days_till_election = 0, 
+                           samplesize = 800),
+                 re.form = ~ (year | location), resp = "bias")
+```
+
+There's a good deal more code in the full R Markdown document used to create
+this post (which can be found in my website's Github repository), but it's 
+mostly just data cleaning and futzing around with Plotly to make the maps.
