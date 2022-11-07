@@ -546,3 +546,283 @@ make_predictions(fit, pred = "year",
 There's a good deal more code in the full R Markdown document used to create
 this post (which can be found in my website's Github repository), but it's 
 mostly just data cleaning and futzing around with Plotly to make the maps.
+
+## Historical bias going back to 1998
+
+If you want a longer view at polling bias state by state, here
+you go! I don't bother calculating an average over this time 
+period since it can't do much besides mislead you.
+
+```{r out.width = "100%", out.height = "600px"}
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(plotly)
+library(brms)
+library(rjson)
+library(scales)
+library(jtools)
+library(magrittr)
+
+usgeo <- fromJSON(file = "https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_500k.json")
+
+d <- read_csv("./polling-error-files/raw-polls.csv") %>%
+  mutate(
+    # statewide = stringr::str_detect(race, "Sen\\-G|Gov\\-G|Pres\\-G"),
+    statewide = type_simple %in% c("Sen-G", "Gov-G", "Pres-G"),
+    partisan = case_when(
+      is.na(partisan) ~ "No",
+      partisan == "IND" ~ "No",
+      TRUE ~ partisan
+    ),
+    year = case_when(
+      year %% 2 != 0 ~ year + 1,
+      TRUE ~ year
+    ),
+    partisan = relevel(factor(partisan), ref = "No"),
+    days_till_election = as.numeric(mdy(electiondate) - mdy(polldate)),
+    yearf = factor(year),
+    methodology = factor(methodology),
+    methodology = relevel(methodology, ref = "Live Phone"),
+    weight = 0.5^(as.numeric(days_till_election)/30) * sqrt(min(c(samplesize, 2000))/600)
+  ) %>%
+  filter(statewide, location %nin% "PR") %>%
+  mutate(year = factor(year))
+
+options(Ncpus = 6, mc.cores = 6)
+library(brms)
+
+# fitc <- brm(bias ~ year * partisan + log(samplesize) + days_till_election +
+#            (year | pollster_rating_id) + (year | location/type_simple),
+#            data = d, iter = 2000)
+# saveRDS(fitc, "./content/post/polling-error-files/fithistory.RDS")
+fit <- readRDS("./polling-error-files/fithistory.RDS")
+
+state_biases <- make_predictions(fit, "year", 
+                                 at = list(location = unique(d$location), 
+                                           days_till_election = 0, 
+                                           samplesize = 800), 
+                                 re.form = ~ (year | location), resp = "bias")
+
+state_biases %<>%
+  group_by(location) %>%
+  mutate(
+    bias98 = case_when(
+      year == 1998 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias00 = case_when(
+      year == 2000 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias02 = case_when(
+      year == 2002 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias04 = case_when(
+      year == 2004 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias06 = case_when(
+      year == 2006 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias08 = case_when(
+      year == 2008 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias10 = case_when(
+      year == 2010 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias12 = case_when(
+      year == 2012 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias14 = case_when(
+      year == 2014 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias16 = case_when(
+      year == 2016 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias18 = case_when(
+      year == 2018 ~ bias,
+      TRUE ~ NA_real_
+    ),
+    bias20 = case_when(
+      year == 2020 ~ bias,
+      TRUE ~ NA_real_
+    )
+  ) %>%
+  summarize(
+    bias98 = mean(bias98, na.rm = T),
+    bias00 = mean(bias00, na.rm = T),
+    bias02 = mean(bias02, na.rm = T),
+    bias04 = mean(bias04, na.rm = T),
+    bias06 = mean(bias06, na.rm = T),
+    bias08 = mean(bias08, na.rm = T),
+    bias10 = mean(bias10, na.rm = T),
+    bias12 = mean(bias12, na.rm = T),
+    bias14 = mean(bias14, na.rm = T),
+    bias16 = mean(bias16, na.rm = T),
+    bias18 = mean(bias18, na.rm = T),
+    bias20 = mean(bias20, na.rm = T)
+  )
+
+dgyears <- d %>%
+
+  group_by(location, year) %>%
+  summarize(
+    bias_u = mean(bias, na.rm = T),
+    bias = weighted.mean(bias, w = weight, na.rm = T),
+    polls = n(),
+    races = length(unique(race_id))
+  ) 
+
+dgyears %<>% 
+  ungroup() %>%
+  mutate(
+    polls_2020 = case_when(
+      year == 2020 ~ polls
+    ),
+    polls_2018 = case_when(
+      year == 2018 ~ polls
+    ),
+    polls_2016 = case_when(
+      year == 2016 ~ polls
+    )
+  ) %>% 
+  group_by(location) %>%
+  summarize(
+    polls_2020 = mean(polls_2020, na.rm = T),
+    polls_2018 = mean(polls_2018, na.rm = T),
+    polls_2016 = mean(polls_2016, na.rm = T),
+    polls = sum(polls_2016, polls_2018, polls_2020, na.rm = T)
+  ) %>%
+  mutate(
+    # races_2018 = ifelse(is.na(races_2018), yes = 0, no = races_2018),
+    polls_2018 = ifelse(is.na(polls_2018), yes = 0, no = polls_2018),
+  )
+
+
+  
+state_biases <- left_join(state_biases, dgyears)
+state_biases$bias_avg <- sapply(1:nrow(state_biases), function (x) {
+  weighted.mean(state_biases[x, c("bias16", "bias18", "bias20")], w = state_biases[x, c("polls_2016", "polls_2018", "polls_2020")])
+})
+
+states_names_abbs <- bind_cols(abb = state.abb, name = state.name)
+
+dg <- left_join(state_biases, states_names_abbs, by = c("location" = "abb"))
+
+
+### Errors
+# state_errors <- make_predictions(fit, "year", 
+#                                  at = list(location = unique(d$location), 
+#                                            days_till_election = 0, 
+#                                            samplesize = 800), 
+#                                  re.form = ~ (year | location), resp = "error")
+
+# state_errors %<>%
+#   group_by(location) %>%
+#   mutate(
+#     error16 = case_when(
+#       year == 2016 ~ error,
+#       TRUE ~ NA_real_
+#     ),
+#     error18 = case_when(
+#       year == 2018 ~ error,
+#       TRUE ~ NA_real_
+#     ),
+#     error20 = case_when(
+#       year == 2020 ~ error,
+#       TRUE ~ NA_real_
+#     )
+#   ) %>%
+#   summarize(
+#     error16 = mean(error16, na.rm = T),
+#     error18 = mean(error18, na.rm = T),
+#     error20 = mean(error20, na.rm = T)
+#   )
+  
+# state_errors <- left_join(state_errors, dgyears)
+# state_errors$error_avg <- sapply(1:nrow(state_errors), function (x) {
+#   weighted.mean(state_errors[x, c("error16", "error18", "error20")], w = state_errors[x, c("polls_2016", "polls_2018", "polls_2020")])
+# })
+
+# dge <- left_join(state_errors, states_names_abbs, by = c("location" = "abb"))
+
+fig <-  plot_ly(dg) %>% add_trace(
+  type = "choropleth", locations = ~name, featureidkey = "properties.NAME",
+  geojson = usgeo,  z = ~bias_avg, color = ~bias_avg, 
+  colorscale = list(c(0, 0.5, 1), c(muted("red"), "white", muted("blue"))),
+  zmin = -8, zmax = 8,  hovertemplate = 'D %{z:+2.1d}%<extra>%{location}</extra>',
+  colorbar = list(title = list(text = "Average Bias", side = "top"),
+                  len = 150, lenmode = "pixels",
+                  orientation = "h",
+                  y = 0,
+                  tickformat = "D%+2d%%",
+                  tick0 = 0,
+                  tickvals = c(-8, -4, 0, 4, 8),
+                  ticktext = c("D -8%", "", "No bias", "", "D +8%"))
+) %>%
+  layout(
+    geo = list(
+      scope = 'usa'
+    ),
+    dragmode = FALSE,
+    updatemenus = list(
+      list(
+        # type = "dropdown",
+        xanchor = 'center',
+        yanchor = "top",
+        direction = "down",
+        pad = list('r'= 0, 't'= 10, 'b' = 10),
+        x = 0.5,
+        y = 1.17,
+        buttons = list(
+          list(method = "restyle",   
+               args = list(list("z" = list(~bias98), "color" = list(~bias98))),   
+               label = "1998"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~bias00), "color" = list(~bias00))),  
+               label = "2000"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~bias02), "color" = list(~bias02))), 
+               label = "2002"),
+          list(method = "restyle",   
+               args = list(list("z" = list(~bias04), "color" = list(~bias04))),   
+               label = "2004"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~bias06), "color" = list(~bias06))),  
+               label = "2006"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~bias08), "color" = list(~bias08))), 
+               label = "2008"),
+          list(method = "restyle",   
+               args = list(list("z" = list(~bias10), "color" = list(~bias10))),   
+               label = "2010"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~bias12), "color" = list(~bias12))),  
+               label = "2012"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~bias14), "color" = list(~bias14))), 
+               label = "2014"),
+          list(method = "restyle",   
+               args = list(list("z" = list(~bias16), "color" = list(~bias16))),   
+               label = "2016"),
+          list(method = "restyle",    
+               args = list(list("z" = list(~bias18), "color" = list(~bias18))),  
+               label = "2018"),
+          list(method = "restyle", 
+               args = list(list("z" = list(~bias20), "color" = list(~bias20))), 
+               label = "2020")))
+    )
+  )
+
+fig
+
+```
+
