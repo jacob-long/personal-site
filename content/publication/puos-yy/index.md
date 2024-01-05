@@ -8,12 +8,24 @@ authors:
 - Sei-Hill Kim
 - Ali Zain
 - Colin Piacentine
-date: "2022-05-01"
+date: "2023-01-30"
 header:
   caption: ""
 highlight: false
 image_preview: ""
 links:
+- icon: external-link-alt
+  icon_pack: fas
+  name: Publisher Link
+  url: https://doi.org/10.1177/09636625221146269
+- icon: file-pdf
+  icon_pack: far
+  name: Post-Print
+  url: /pdf/Chen_Long_et_al_PUOS_Post_Print.pdf
+- icon: file-pdf
+  icon_pack: far
+  name: Appendix
+  url: /pdf/Chen_Long_et_al_PUOS_supplement.pdf
 math: false
 projects: []
 publication: '*Public Understanding of Science*'

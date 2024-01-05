@@ -54,6 +54,13 @@ design:
 </div>
 </div>
 
+<div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
+<i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 515</span> 
+<div class="teach-metadata">     
+    Mass Communications Capstone 
+</div>
+</div>
+
 </div>
 <!-- second column -->
 <div class = "col-md-6 col-sm-9">

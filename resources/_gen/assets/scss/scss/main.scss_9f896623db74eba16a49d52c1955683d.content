@@ -9763,8 +9763,9 @@ div.row#talk_list > div.col-lg-10 {
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 30px;
-  width: 45px;
+  height: 20px;
+  width: 30px;
+  margin-bottom: -4px;
   margin-left: 0px;
   display: inline-block;
   /* Other styles here */ }

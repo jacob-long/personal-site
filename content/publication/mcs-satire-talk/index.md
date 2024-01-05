@@ -5,20 +5,20 @@ authors:
 - Min Seon Jeong
 - admin
 - Simon M. Lavis
-date: "2022-08-01"
+date: "2023-08-01"
 header:
   caption: ""
 highlight: false
 image_preview: ""
 links:
-# - icon: external-link-alt
-#   icon_pack: fas
-#   name: Publisher Link (free access)
-#   url: https://www.tandfonline.com/eprint/QUCZXYI6A4SUFTGYQ8SB/full?target=10.1080/23808985.2021.1979421
-# - icon: file-pdf
-#   icon_pack: far
-#   name: Post-Print
-#   url: /pdf/Long_Annals_Post_Print.pdf
+- icon: external-link-alt
+  icon_pack: fas
+  name: Publisher Link 
+  url: https://www.tandfonline.com/doi/full/10.1080/15205436.2022.2138766
+- icon: file-pdf
+  icon_pack: far
+  name: Post-Print
+  url: /pdf/Jeong_Long_Lavis_MCS_Post_Print.pdf
 - icon: open-data
   icon_pack: ai
   name: Data and Code
