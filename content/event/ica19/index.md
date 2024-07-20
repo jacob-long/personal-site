@@ -23,7 +23,7 @@ date: "2019-05-28"
 draft: false
 event: 69th Annual Conference of the International Communication Association
 event_url: ""
-featured: true
+featured: false
 header:
   caption: ""
   image: ""

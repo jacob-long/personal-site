@@ -8,7 +8,7 @@ date: "2022-05-30"
 draft: false
 event: 72nd Annual Conference of the International Communication Association
 event_url: ""
-featured: true
+featured: false
 header:
   caption: ""
   image: ""
