@@ -44,7 +44,7 @@ publication: '*Communication Research*'
 publication_short: '*Communication Research*'
 publication_types:
 - "2"
-selected: true
+featured: true
 summary: ""
 tags: []
 title: 'Entertainment use and political ideology: Linking worldviews to media content'

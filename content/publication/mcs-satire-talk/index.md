@@ -29,7 +29,7 @@ publication: '*Mass Communication and Society*'
 publication_short: '*Mass Communication and Society*'
 publication_types:
 - "2"
-selected: true
+featured: false
 summary: ""
 tags: []
 title: "The viral water cooler: Talking about political satire promotes further political discussion"

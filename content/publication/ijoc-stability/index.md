@@ -23,7 +23,7 @@ publication: '*International Journal of Communication*'
 publication_short: '*International Journal of Communication*'
 publication_types:
 - "2"
-selected: true
+featured: true
 summary: ""
 tags: []
 title: Stability as an outcome in communication research

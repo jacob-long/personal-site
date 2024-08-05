@@ -41,7 +41,7 @@ publication: '*Journal of Communication*'
 publication_short: ""
 publication_types:
 - "2"
-selected: true
+featured: true
 summary: ""
 tags: []
 title: 'From partisan media to misperception: Affective polarization as mediator'

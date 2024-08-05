@@ -38,7 +38,7 @@ publication: '*Mass Communication and Society*'
 publication_short: ""
 publication_types:
 - "2"
-selected: true
+featured: true
 summary: ""
 tags: []
 title: 'Partisan media selectivity and partisan identity threat: The role of social

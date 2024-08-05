@@ -32,7 +32,7 @@ publication: '*Public Understanding of Science*'
 publication_short: '*Public Understanding of Science*'
 publication_types:
 - "2"
-selected: true
+featured: false
 summary: ""
 tags: []
 title: "Anti-intellectualism amid the COVID-19 pandemic: The discursive elements and sources of anti-Fauci tweets"

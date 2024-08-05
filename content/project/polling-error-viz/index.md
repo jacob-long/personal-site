@@ -1,6 +1,6 @@
 ---
 custom_icon: fas fa-chart-line
-external_link: https://jacob-long.com/post/polling-error
+external_link: https://jacob-long.com/post/polling-errors-map
 math: false
 photoswipe: false
 slug: polling-error-proj

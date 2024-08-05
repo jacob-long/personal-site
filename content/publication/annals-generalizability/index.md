@@ -32,7 +32,7 @@ publication: '*Annals of the International Communication Association*'
 publication_short: '*Annals of the ICA*'
 publication_types:
 - "2"
-selected: true
+featured: true
 summary: ""
 tags: []
 title: Improving the replicability and generalizability of inferences in quantitative

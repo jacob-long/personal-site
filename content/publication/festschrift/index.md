@@ -26,7 +26,7 @@ publication: '*Informationsflüsse, Wahlen und Demokratie: Festschrift für Rüd
 publication_short: '*Informationsflüsse, Wahlen und Demokratie: Festschrift für Rüdiger Schmitt-Beck*'
 publication_types:
 - "6"
-selected: true
+featured: false
 summary: ""
 tags: []
 title: "How race affects simply having versus actually choosing cross-race political discussion partners"

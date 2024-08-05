@@ -15,6 +15,13 @@ img.avatar {
   height: 200px;
 }
 
+p.mt-1 a::after {
+	font-family: "font awesome 6 free"; /* Inherit the font family if Font Awesome is loaded globally */
+	content: "\f101";
+	font-weight: 900;
+	margin-left: 5px;
+}
+
 .portrait-title > h2 {
     
 }

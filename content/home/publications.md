@@ -1,14 +1,15 @@
 +++
 # Recent Publications widget.
 # This widget displays recent publications from `content/publication/`.
-widget = "pages"
+widget = "featured"
 active = true
 
-title = "Publications"
-subtitle = ""
+title = "Selected Publications"
+subtitle = "[See all publications](/publication)"
 
 # Order that this section will appear in.
 weight = 2
+
 
 [content]
   # Page type to display. E.g. post, talk, or publication.
@@ -38,7 +39,11 @@ weight = 2
     #  6: Book chapter
     publication_type = ""
     # Exclude publications that are shown in the Selected Publications widget?
-    exclude_featured = false
+    # exclude_featured = true
+    # featured_only = true
+
+  [content.archive]
+     enable = false
 
 [design]
   # Toggle between the various page layout types.
