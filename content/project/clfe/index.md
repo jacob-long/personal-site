@@ -1,6 +1,6 @@
 ---
-badges: '<!--<a href="https://cran.r-project.org/package=dpm"><img src="https://www.r-pkg.org/badges/version/dpm"></a>
-  <a href="https://cran.r-project.org/package=dpm"><img src="https://cranlogs.r-pkg.org/badges/grand-total/dpm"></a>-->
+badges: '<a href="https://cran.r-project.org/package=dpm"><img src="https://www.r-pkg.org/badges/version/dpm"></a>
+  <a href="https://cran.r-project.org/package=dpm"><img src="https://cranlogs.r-pkg.org/badges/grand-total/dpm"></a>
   <a href="https://github.com/jacob-long/dpm"><img src="https://img.shields.io/github/stars/jacob-long/dpm.svg?logo=github&style=flat"></a>'
 custom_icon: fab fa-r-project
 external_link: //dpm.jacob-long.com
