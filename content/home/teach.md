@@ -16,7 +16,7 @@ design:
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 801 <i class="fas fa-graduation-cap" title="Graduate Course"></i></span> 
-<!-- <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 790 Syllabus AU21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a> -->
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 801 Syllabus Fall 2023.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
 <div class="teach-metadata">     
     Communication Research Design 
 </div>
@@ -32,7 +32,7 @@ design:
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 749 <i class="fas fa-graduation-cap" title="Graduate Course"></i></span> 
-<!-- <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 790 Syllabus AU21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a> -->
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 749 Syllabus Fall 2023.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
 <div class="teach-metadata">     
     Literature of Mass Communication
 </div>
@@ -48,7 +48,7 @@ design:
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 542  <i class="fas fa-graduation-cap" title="Mixed Graduate/Undergraduate Course"></i>/<i class="fas fa-baby" title="Mixed Graduate/Undergraduate Course" style="font-size:0.8rem"></i></span>
-<!-- <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 717 Syllabus SP21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a> -->
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 542 Syllabus Spring 2023.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
 <div class="teach-metadata">     
     Public Opinion and Persuasion 
 </div>
@@ -56,7 +56,8 @@ design:
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 515</span> 
-<div class="teach-metadata">     
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 515 Syllabus Spring 2024.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
+<div class="teach-metadata">  
     Mass Communications Capstone 
 </div>
 </div>
@@ -75,7 +76,7 @@ design:
 
 <div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event"> <i class="fas fa-university pub-icon" aria-hidden="true" title="Face-to-face course"></i> 
 <i class="usc-icon" title="Taught at University of South Carolina"></i><span class="class-name" itemprop="name"> JOUR 332</span> 
-<!-- <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 400 Syllabus AU21.pdf"><i class="far fa-file-pdf"></i> Syllabus</a> -->
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="/pdf/JOUR 332 Syllabus Spring 2024.pdf"><i class="far fa-file-pdf"></i> Syllabus</a>
 <div class="teach-metadata">     
     Mass Communications Research   
 </div>
