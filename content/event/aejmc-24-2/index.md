@@ -30,6 +30,10 @@ links:
   icon_pack: far
   name: Paper
   url: /pdf/Long_AEJMC_24_identity.pdf
+- icon: chalkboard-teacher
+  icon_pack: fas
+  name: Poster
+  url: /pdf/Long_AEJ24_identity_poster.pdf
 url_code: ""
 url_pdf: ""
 url_slides: ""

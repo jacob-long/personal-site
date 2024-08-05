@@ -36,6 +36,10 @@ links:
   icon_pack: far
   name: Paper
   url: /pdf/Long_et_al_AEJMC_24.pdf
+- icon: chalkboard-teacher
+  icon_pack: fas
+  name: Poster
+  url: /pdf/Long_et_al_AEJ24_poster.pdf
 - icon: preregistered
   icon_pack: ai
   name: Pre-Registration
