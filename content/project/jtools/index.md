@@ -2,7 +2,8 @@
 badges: '<a href="https://cran.r-project.org/package=jtools"><img src="https://www.r-pkg.org/badges/version/jtools"></a>
   <a href="https://cran.r-project.org/package=jtools"><img src="https://cranlogs.r-pkg.org/badges/grand-total/jtools"></a>
   <a href="https://github.com/jacob-long/jtools"><img src="https://img.shields.io/github/stars/jacob-long/jtools.svg?logo=github&style=flat"></a>
-  <a href="https://bestpractices.coreinfrastructure.org/projects/2527"><img src="https://bestpractices.coreinfrastructure.org/projects/2527/badge"></a>'
+  <a href="https://bestpractices.coreinfrastructure.org/projects/2527"><img src="https://bestpractices.coreinfrastructure.org/projects/2527/badge"></a> 
+  <a href="https://doi.org/10.21105/joss.06610"><img src="https://joss.theoj.org/papers/10.21105/joss.06610/status.svg"></a>'
 custom_icon: fab fa-r-project
 external_link: //jtools.jacob-long.com
 math: false

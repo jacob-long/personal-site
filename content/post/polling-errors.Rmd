@@ -39,6 +39,14 @@ output:
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warn = FALSE)
 ```
 
+{{% callout note %}}
+This post is from 2022, before the midterm elections. I 
+have [an updated post](/post/polling-errors-map-24) that incorporates the 2022
+midterms, uses slightly better models, and has generally better fine-tuning. 
+I'd recommend checking that out if you're interested in the subject matter on
+this page.
+{{% /callout %}}
+
 If you follow US politics at all, you've probably heard a few things about 
 polling in the past few election cycles:
 
@@ -70,7 +78,7 @@ to the actual results. I've shaded states blue for pro-Democrat bias (meaning
 the polling average *overestimates* the Democrats) and red for pro-Republican 
 bias. Lighter shades mean the bias is closer to zero.
 
-Finally, the **third map** lets you take the current (as of 11/6)
+Finally, the **third map** lets you take the current (as of 11/6/22)
 FiveThirtyEight polling averages, which is shown in the default view, and see
 how the margins would change if you applied the levels of bias seen in that 
 state in past elections. Let's just say the Democrats will be rooting for a 
@@ -491,8 +499,8 @@ districts. 😅
 
 ### The model
 
-I'm a one-trick pony, so whether it's (calculating the 
-value of field goal kickers)[/post/evaluating-kickers] or mapping polling 
+I'm a one-trick pony, so whether it's [calculating the 
+value of field goal kickers](/post/evaluating-kickers) or mapping polling 
 errors, I'm reaching for a multilevel model. There are some serious advantages
 in this case. The data are grouped in a few ways:
 
@@ -756,7 +764,7 @@ dg <- left_join(state_biases, states_names_abbs, by = c("location" = "abb"))
 
 fig <-  plot_ly(dg) %>% add_trace(
   type = "choropleth", locations = ~name, featureidkey = "properties.NAME",
-  geojson = usgeo,  z = ~bias_avg, color = ~bias_avg, 
+  geojson = usgeo,  z = ~bias98, color = ~bias98, 
   colorscale = list(c(0, 0.5, 1), c(muted("red"), "white", muted("blue"))),
   zmin = -8, zmax = 8,  hovertemplate = 'D %{z:+2.1d}%<extra>%{location}</extra>',
   colorbar = list(title = list(text = "Average Bias", side = "top"),

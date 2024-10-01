@@ -6,5 +6,5 @@ header:
 highlight: false
 math: false
 title: Publications
-view: 2
+view: 3
 ---

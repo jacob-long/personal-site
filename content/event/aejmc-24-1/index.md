@@ -15,10 +15,18 @@ authors:
 - Abdullah M. Alajmi
 - Chinwendu Akalonu
 - Yanzhen Xu
+author_notes: 
+-
+- "Equal contribution"
+- "Equal contribution"
+- "Equal contribution"
+- "Equal contribution"
+- "Equal contribution"
+- "Equal contribution"
 date: "2024-08-09"
 draft: false
-event: 107th Annual Conference of the Association for Education in Mass Communication
-  and Journalism
+event: 107th Annual Conference of the Association for Education in Journalism
+  and Mass Communication
 event_url: ""
 featured: true
 header:

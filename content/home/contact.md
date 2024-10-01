@@ -21,7 +21,7 @@ content:
     street: 800 Sumter St.
     city: Columbia
     region: SC
-    postcode: '29205'
+    postcode: '29208'
     country: United States
     country_code: US
   contact_links:

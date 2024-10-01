@@ -48,4 +48,5 @@ featured: true
 summary: ""
 tags: []
 title: 'Entertainment use and political ideology: Linking worldviews to media content'
+altmetric: "10.1177/0093650218791011"
 ---
