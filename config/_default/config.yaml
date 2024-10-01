@@ -1,6 +1,6 @@
 baseurl: https://jacob-long.com/
 title: Jacob Long
-copyright: "&copy; 2022 Jacob Long"
+copyright: "&copy; 2024 Jacob Long"
 languageCode: en-us
 enableEmoji: true
 footnotereturnlinkcontents: <sup>^</sup>
@@ -9,7 +9,6 @@ ignoreFiles:
   - \.Rmarkdown$
   - _files$
   - _cache$
-
 
 copyright_license:
   enable: false
@@ -109,3 +108,7 @@ security:
       - ^HUGO_
       - ^WC_
   _merge: deep
+
+sitemap:
+  _merge: deep
+ 

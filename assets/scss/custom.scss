@@ -2,6 +2,29 @@
  *  Miscellaneous
  **************************************************/
 
+ /* Put the altmetric badge where it belongs */
+ .altmetric-embed.inline {
+	margin-top: -4px;
+	margin-left: 5px;
+	margin-right: 0px;
+	vertical-align: 0.01em;
+	display: inline-block;
+ }
+
+ .altmetric-embed.full-page {
+	margin-top: -2em;
+	margin-left: 5px;
+	margin-right: 0px;
+	vertical-align: -0.2em;
+	display: inline-block;
+	max-height: .75em;
+	max-width: .75em;
+ }
+
+ .altmetric-embed.full-page img {
+	max-height: 1em;
+	max-width: 1em!important;
+ }
  /* Aligning my name/title in the bio area flush to the top and left */
 
  #profile {

@@ -68,14 +68,7 @@ copyright_license:
 
 highlight_superuser: true
 
-publication_types:
-  - Uncategorized
-  - Conference paper
-  - Journal article
-  - Manuscript
-  - Report
-  - Book
-  - Book section
+
 
 locale:
   date_format: 'Jan 2, 2006'
@@ -115,6 +108,10 @@ features:
     provider: ''
     api_key: ''
     zoom: 15
+  repository:
+    url: 'https://github.com/jacob-long/personal-site'
+    content_dir: content
+    branch: master
 
 math: false
 
@@ -156,3 +153,4 @@ extensions:
     enable: true
   academicons:
     enable: true
+  

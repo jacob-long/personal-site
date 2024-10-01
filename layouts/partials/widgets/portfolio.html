@@ -84,3 +84,49 @@
   </div>
 </div>
 
+<!-- Copilot wrote this for me, not sure why it was broken after recent theme update -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let isotopeInstances = document.querySelectorAll('.projects-container');
+    isotopeInstances.forEach(function (isotopeInstance) {
+      // Find the active filter button
+      let activeFilterButton = document.querySelector('.project-filters a.active');
+      let defaultFilter = activeFilterButton ? activeFilterButton.getAttribute('data-filter') : '*';
+
+      let iso = new Isotope(isotopeInstance, {
+        itemSelector: '.isotope-item',
+        layoutMode: 'masonry', // or 'fitRows'
+        masonry: {
+          gutter: 20,
+        },
+        filter: defaultFilter, // Set default filter
+      });
+
+      // Store the Isotope instance for later use
+      isotopeInstance.isotopeInstance = iso;
+    });
+  });
+
+  document.querySelectorAll('.project-filters a').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      let selector = button.getAttribute('data-filter');
+      console.debug(`Filter button clicked: ${selector}`);
+
+      // Apply filter
+      let isoInstance = document.querySelector('.projects-container').isotopeInstance;
+      if (isoInstance) {
+        console.debug(`Applying filter: ${selector}`);
+        isoInstance.arrange({ filter: selector });
+      } else {
+        console.error('Isotope instance not found');
+      }
+
+      // Update active toolbar filter button
+      document.querySelectorAll('.project-filters a').forEach((btn) => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+    });
+  });
+</script>

@@ -12,9 +12,9 @@
   <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
   {{- .Params.publication_short | markdownify -}}.
-  {{ else if .Params.publication }}
-  {{- .Params.publication | markdownify -}}.
-  {{ end }}
+  {{ else if .Params.publication }} 
+  {{- .Params.publication | markdownify -}}. 
+  {{ end }} 
   <p>{{ partial "page_links" (dict "content" . "is_list" 1) }}</p>
 
   {{/* MLA Style */}}
@@ -23,7 +23,7 @@
   <span itemprop="author">
     {{ partial "page_metadata_authors" . }}
   </span>.
-  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>. 
   {{ if .Params.publication_short }}
   {{- .Params.publication_short | markdownify -}},
   {{ else if .Params.publication }}
