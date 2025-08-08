@@ -37,7 +37,7 @@ links:
 - icon: file-pdf
   icon_pack: far
   name: Codebook
-  url: /pdf/Morality_Codebook
+  url: /pdf/Morality_Codebook.pdf
 math: false
 projects: []
 publication: '*Communication Research*'
