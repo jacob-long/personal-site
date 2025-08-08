@@ -112,3 +112,5 @@ security:
 sitemap:
   _merge: deep
  
+ignoreErrors: 
+  - "error-remote-getjson"
