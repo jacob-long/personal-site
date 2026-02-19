@@ -13,3 +13,10 @@ public/
 \.DS_Store
 
 *\.rds
+
+# Local untracked assets/content
+content/post/nonresponse_files/
+multi_plot.png
+static/img/sjmc_color_wordmark2.png
+static/img/usc_icon_old.png
+static/img/usc_icon_white_old.png
