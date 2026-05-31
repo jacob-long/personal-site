@@ -1,0 +1,37 @@
+{{/* Backward-compatible tweet shortcode:
+     supports legacy positional form `{{< tweet 12345 >}}`
+     and modern named form `{{< tweet user="name" id="12345" >}}`. */}}
+
+{{ $id := "" }}
+{{ $user := "" }}
+
+{{ with .Get "id" }}
+  {{ $id = . }}
+{{ else }}
+  {{ with .Get 0 }}
+    {{ $id = . }}
+  {{ end }}
+{{ end }}
+
+{{ with .Get "user" }}
+  {{ $user = . }}
+{{ end }}
+
+{{ if not $id }}
+  {{ errorf "The `tweet` shortcode requires an id. See %q" .Page.File.Path }}
+{{ end }}
+
+{{ $url := "" }}
+{{ if $user }}
+  {{ $url = printf "https://twitter.com/%s/status/%s" $user $id }}
+{{ else }}
+  {{ $url = printf "https://twitter.com/i/web/status/%s" $id }}
+{{ end }}
+
+<blockquote class="twitter-tweet">
+  <a href="{{ $url }}"></a>
+</blockquote>
+{{ if not (.Page.Store.Get "twitter_widgets_loaded") }}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{ .Page.Store.Set "twitter_widgets_loaded" true }}
+{{ end }}

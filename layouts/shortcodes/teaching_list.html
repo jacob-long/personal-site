@@ -1,0 +1,23 @@
+{{ $courses := site.Data.teaching.courses | default (slice) }}
+{{ $left := where $courses "column" "left" }}
+{{ $right := where $courses "column" "right" }}
+
+{{/* Fallback for older data that does not specify columns. */}}
+{{ if and (eq (len $left) 0) (eq (len $right) 0) }}
+  {{ $half := div (add (len $courses) 1) 2 }}
+  {{ $left = first $half $courses }}
+  {{ $right = after $half $courses }}
+{{ end }}
+
+<div class="row">
+  <div class="col-md-6 col-sm-9">
+    {{ range $left }}
+      {{ partial "teaching/course_item" (dict "course" .) }}
+    {{ end }}
+  </div>
+  <div class="col-md-6 col-sm-9">
+    {{ range $right }}
+      {{ partial "teaching/course_item" (dict "course" .) }}
+    {{ end }}
+  </div>
+</div>

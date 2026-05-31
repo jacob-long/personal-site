@@ -1,0 +1,36 @@
+{{ $course := .course }}
+{{ $mode := $course.mode | default "in_person" }}
+{{ $deliveryIcon := "fas fa-university" }}
+{{ $deliveryTitle := "Face-to-face course" }}
+{{ if eq $mode "online" }}
+  {{ $deliveryIcon = "fas fa-desktop" }}
+  {{ $deliveryTitle = "Online course" }}
+{{ end }}
+
+{{ $institution := $course.institution | default "" }}
+{{ $institutionIcon := "" }}
+{{ $institutionTitle := "" }}
+{{ if eq $institution "usc" }}
+  {{ $institutionIcon = "usc-icon" }}
+  {{ $institutionTitle = "Taught at University of South Carolina" }}
+{{ else if eq $institution "osu" }}
+  {{ $institutionIcon = "osu-icon" }}
+  {{ $institutionTitle = "Taught at Ohio State University" }}
+{{ end }}
+
+<div class="pub-list-item teach-list-item" itemscope itemtype="http://schema.org/Event">
+  <i class="{{ $deliveryIcon }} pub-icon" aria-hidden="true" title="{{ $deliveryTitle }}"></i>
+  {{ with $institutionIcon }}<i class="{{ . }}" title="{{ $institutionTitle }}"></i>{{ end }}
+  <span class="class-name" itemprop="name">
+    {{ $course.code }}
+    {{ if eq ($course.level | default "") "graduate" }}
+      <i class="fas fa-graduation-cap" title="Graduate Course"></i>
+    {{ else if eq ($course.level | default "") "mixed" }}
+      <i class="fas fa-graduation-cap" title="Mixed Graduate/Undergraduate Course"></i>/<i class="fas fa-baby" title="Mixed Graduate/Undergraduate Course" style="font-size:0.8rem"></i>
+    {{ end }}
+  </span>
+  {{ with $course.syllabus }}
+    <a class="btn btn-outline-primary my-1 mr-1 btn-sm teach-btn" href="{{ . }}"><i class="far fa-file-pdf"></i> Syllabus</a>
+  {{ end }}
+  <div class="teach-metadata">{{ $course.title }}</div>
+</div>

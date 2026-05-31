@@ -3,7 +3,7 @@ title: "Jacob A. Long"
 
 bio: ""
 
-authors: ["jacob-a.-long"]
+authors: ["Jacob A. Long"]
 
 education:
   courses:
@@ -74,5 +74,4 @@ political communication, with special interests in social identity, social
 environments, and the maintenance thereof. I also spend a good deal of my time
 thinking about the research designs and analytic methods we can use to learn
 more about these things.
-
 

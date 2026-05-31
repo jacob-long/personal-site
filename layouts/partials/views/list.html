@@ -3,6 +3,7 @@
 {{/* Dynamic view adjusts to content type. */}}
 {{ $icon_pack := "far" }}
 {{ $icon := "fa-file-alt" }}
+{{ $icon_class := printf "%s %s pub-icon" $icon_pack $icon }}
 {{ $show_authors := false }}
 {{ $link := $item.RelPermalink }}
 {{ $target := "" }}
@@ -18,9 +19,10 @@
   {{ $show_authors = true }}
 {{ else if eq $item.Type "project" }}
   {{ if $item.Params.custom_icon }}
-    {{ $icon = $item.Params.custom_icon }}
+    {{ $icon_class = $item.Params.custom_icon }}
   {{ else }}
-    {{ $icon = "far fa-copy pub-icon" }}
+    {{ $icon = "fa-copy" }}
+    {{ $icon_class = printf "%s %s pub-icon" $icon_pack $icon }}
   {{end}}
   
   {{ $show_authors = true }}
@@ -29,7 +31,10 @@
 {{ $has_attachments := partial "functions/has_attachments" $item }}
 
 <div class="view-list view-list-item">
-  <i class="{{$icon}}" aria-hidden="true"></i>
+  {{ if ne $item.Type "project" }}
+    {{ $icon_class = printf "%s %s pub-icon" $icon_pack $icon }}
+  {{ end }}
+  <i class="{{$icon_class}}" aria-hidden="true"></i>
   {{ if eq $item.Type "project" }}<span class="project-title">{{end}}
   <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
   {{ if $item.Params.badges }}

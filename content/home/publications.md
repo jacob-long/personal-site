@@ -40,7 +40,7 @@ weight = 2
     publication_type = ""
     # Exclude publications that are shown in the Selected Publications widget?
     # exclude_featured = true
-    # featured_only = true
+    featured_only = true
 
   [content.archive]
      enable = false
@@ -81,4 +81,3 @@ headless = true
  # CSS class.
  css_class = ""
 +++
-

@@ -1,6 +1,7 @@
 {{- define "main" -}}
 
-
+{{/* Require Isotope */}}
+{{ $.Page.Store.Set "has_isotope" true }}
 
 {{ partial "page_header.html" . }}
 

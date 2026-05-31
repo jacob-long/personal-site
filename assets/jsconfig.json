@@ -3,7 +3,7 @@
   "baseUrl": ".",
   "paths": {
    "*": [
-    "*"
+    "../../../../../../var/folders/nb/pnt61c015p35vgzxmld8pqrc0000gp/T/hugo_cache_jacoblong/modules/filecache/modules/pkg/mod/github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy/v5@v5.9.0/assets/*"
    ]
   }
  }

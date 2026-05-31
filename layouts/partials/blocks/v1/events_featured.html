@@ -1,0 +1,39 @@
+{{/* Custom block to preserve legacy `widget: events_featured` behavior. */}}
+
+{{ $block := .wcBlock }}
+{{ $items := where site.RegularPages "Type" ($block.Params.content.page_type | default "event") }}
+{{ $items = where $items "Params.featured" true }}
+{{ $items = sort $items "Date" "desc" }}
+{{ $count := $block.Params.content.count | default 5 }}
+{{ if gt $count 0 }}
+  {{ $items = first $count $items }}
+{{ end }}
+{{ $view := $block.Params.design.view | default 1 }}
+
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>{{ with $block.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $block.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with (site.GetPage "section" "event") }}
+    <p class="view-all">
+      <a href="{{ .RelPermalink }}">
+        {{ i18n "more_talks" | markdownify }}
+        <i class="fas fa-angle-double-right"></i>
+      </a>
+    </p>
+    {{ end }}
+  </div>
+  <div class="col-12 col-lg-8">
+    {{ with $block.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ range $index, $item := $items }}
+      {{ if or (eq $view "compact") (eq $view "list") (eq $view 2) }}
+        {{ partial "event_li_compact" $item }}
+      {{ else if or (eq $view "card") (eq $view 3) }}
+        {{ partial "event_li_card" $item }}
+      {{ else }}
+        {{ partial "functions/render_view" (dict "page" $block "item" $item "view" $view "index" $index) }}
+      {{ end }}
+    {{ end }}
+  </div>
+</div>

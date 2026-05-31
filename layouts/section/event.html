@@ -17,13 +17,11 @@
         </div>
         <div class="col-lg-10">
 
-          {{ range .Pages }}
-            {{ if eq $.Params.view 1 }}
-              {{ partial "li_list" . }}
-            {{ else if eq $.Params.view 3 }}
-              {{ partial "li_card" . }}
+          {{ range $index, $item := .Pages }}
+            {{ if eq $.Params.view 2 }}
+              {{ partial "event_li_compact" $item }}
             {{ else }}
-              {{ partial "event_li_compact" . }}
+              {{ partial "functions/render_view" (dict "page" $ "item" $item "view" ($.Params.view | default "compact") "index" $index) }}
             {{ end }}
           {{ end }}
 

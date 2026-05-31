@@ -1,0 +1,55 @@
+{{- define "main" -}}
+
+{{/* Author profile page. Hugo 0.153 looks for term.html for taxonomy terms. */}}
+
+{{ $term := .Data.Term | default .Title }}
+{{ $term_slug := $term | urlize }}
+{{ $profile_page := false }}
+{{ range where site.Pages "Section" "authors" }}
+  {{ $candidate := . }}
+  {{ with $candidate.File }}
+    {{ $profile_title_slug := $candidate.Title | urlize }}
+    {{ if or (eq $candidate.Title $term) (eq $profile_title_slug $term_slug) }}
+      {{ $profile_page = $candidate }}
+    {{ end }}
+    {{ range ($candidate.Params.authors | default (slice)) }}
+      {{ if or (eq . $term) (eq (. | urlize) $term_slug) }}
+        {{ $profile_page = $candidate }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if not $profile_page }}
+<div class="universal-wrapper pt-3">
+  <h1>{{ .Title }}</h1>
+</div>
+{{ end }}
+
+<section id="profile-page" class="pt-5">
+  <div class="container">
+    {{ with $profile_page }}
+      {{ with .File }}
+        {{ $username := path.Base .Dir }}
+        {{ partial "blocks/v1/about.html" (dict "wcPage" $ "wcBlock" $profile_page "author" $username) }}
+      {{ end }}
+    {{ end }}
+
+    {{ $query := where .Pages ".IsNode" false }}
+    {{ $count := len $query }}
+    {{ if $count }}
+    <div class="article-widget content-widget-hr">
+      <h3>{{ i18n "user_profile_latest" | default "Latest" }}</h3>
+      <ul>
+        {{ range $query }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+{{- end -}}
