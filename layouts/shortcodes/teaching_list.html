@@ -1,12 +1,26 @@
 {{ $courses := site.Data.teaching.courses | default (slice) }}
-{{ $left := where $courses "column" "left" }}
-{{ $right := where $courses "column" "right" }}
+{{ $left := slice }}
+{{ $right := slice }}
+{{ $unassigned := slice }}
+
+{{ range $courses }}
+  {{ $column := .column | default "" }}
+  {{ if eq $column "left" }}
+    {{ $left = $left | append . }}
+  {{ else if eq $column "right" }}
+    {{ $right = $right | append . }}
+  {{ else }}
+    {{ $unassigned = $unassigned | append . }}
+  {{ end }}
+{{ end }}
 
 {{/* Fallback for older data that does not specify columns. */}}
 {{ if and (eq (len $left) 0) (eq (len $right) 0) }}
   {{ $half := div (add (len $courses) 1) 2 }}
   {{ $left = first $half $courses }}
   {{ $right = after $half $courses }}
+{{ else }}
+  {{ $right = $right | append $unassigned }}
 {{ end }}
 
 <div class="row">

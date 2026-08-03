@@ -1,5 +1,5 @@
 ---
-badges: '<a href="https://github.com/jacob-long/APA-LaTeX-Template"><img src="https://img.shields.io/github/stars/jacob-long/APA-LaTeX-Template.svg?logo=github&style=flat"></a>'
+badges: '<a href="https://github.com/jacob-long/APA-LaTeX-Template"><img src="https://img.shields.io/github/stars/jacob-long/APA-LaTeX-Template.svg?logo=github&style=flat" alt="APA LaTeX Template GitHub repository and star count"></a>'
 custom_icon: ""
 date: "2016-12-28"
 external_link: //github.com/jacob-long/APA-LaTeX-Template

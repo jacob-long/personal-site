@@ -41,24 +41,31 @@ role: Assistant Professor of Mass Communications
 social:
 - icon: twitter
   icon_pack: fab
+  label: Twitter
   link: //twitter.com/jacobandrewlong
 - icon: google-scholar
   icon_pack: ai
+  label: Google Scholar
   link: https://scholar.google.com/citations?hl=en&user=fi-oVkIAAAAJ
 - icon: orcid
   icon_pack: ai
+  label: ORCID
   link: https://orcid.org/0000-0002-1582-6214
 - icon: semantic-scholar
   icon_pack: ai
+  label: Semantic Scholar
   link: https://www.semanticscholar.org/author/98680521
 - icon: osf
   icon_pack: ai
+  label: OSF
   link: https://osf.io/afqty/
 - icon: github
   icon_pack: fab
+  label: GitHub
   link: //github.com/jacob-long
 - icon: cv
   icon_pack: ai
+  label: Curriculum vitae (PDF)
   link: /pdf/cv.pdf
 
 superuser: true
@@ -74,4 +81,3 @@ political communication, with special interests in social identity, social
 environments, and the maintenance thereof. I also spend a good deal of my time
 thinking about the research designs and analytic methods we can use to learn
 more about these things.
-

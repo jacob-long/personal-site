@@ -1,7 +1,6 @@
 ---
-badges: '<a href="https://cran.r-project.org/package=interactions"><img src="https://www.r-pkg.org/badges/version/interactions"></a>
-  <a href="https://cran.r-project.org/package=interactions"><img src="https://cranlogs.r-pkg.org/badges/grand-total/interactions"></a>
-  <a href="https://github.com/jacob-long/interactions"><img src="https://img.shields.io/github/stars/jacob-long/interactions.svg?logo=github&style=flat"></a>'
+badges: '<a href="https://cran.r-project.org/package=interactions"><img src="https://www.r-pkg.org/badges/version/interactions" alt="interactions version on CRAN"><img src="https://cranlogs.r-pkg.org/badges/grand-total/interactions" alt="interactions total CRAN downloads"></a>
+  <a href="https://github.com/jacob-long/interactions"><img src="https://img.shields.io/github/stars/jacob-long/interactions.svg?logo=github&style=flat" alt="interactions GitHub repository and star count"></a>'
 custom_icon: fab fa-r-project
 date: "2019-02-09T17:42:20-05:00"
 draft: false

@@ -1,5 +1,5 @@
 ---
-badges: '<a href="https://zenodo.org/badge/latestdoi/120316016"><img src="https://zenodo.org/badge/120316016.svg"></a>'
+badges: '<a href="https://zenodo.org/badge/latestdoi/120316016"><img src="https://zenodo.org/badge/120316016.svg" alt="Song and Lyric Data Scraper DOI on Zenodo"></a>'
 custom_icon: far fa-gem
 external_link: https://github.com/jacob-long/Song-and-Lyric-Data-Scraper
 math: false

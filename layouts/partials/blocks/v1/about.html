@@ -45,7 +45,7 @@
         {{ end }}
       </div>
 
-      <ul class="network-icon" aria-hidden="true">
+      <ul class="network-icon">
         {{ range $person.social }}
         {{ $pack := or .icon_pack "fas" }}
         {{ $pack_prefix := $pack }}
@@ -53,6 +53,7 @@
           {{ $pack_prefix = "fa" }}
         {{ end }}
         {{ $link := .link }}
+        {{ $label := .label | default (.icon | humanize | title) }}
         {{ $scheme := (urls.Parse $link).Scheme }}
         {{ $target := "" }}
         {{ if not $scheme }}
@@ -61,8 +62,8 @@
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
         <li>
-          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
-            <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
+          <a href="{{ $link | safeURL }}" aria-label="{{ $label }}" {{ $target | safeHTMLAttr }}>
+            <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon" aria-hidden="true"></i>
           </a>
         </li>
         {{ end }}
