@@ -16,17 +16,17 @@ author_notes:
 - "Equal contribution"
 - "Equal contribution"
 - "Equal contribution"
-date: "2026-05-30"
+date: "2026-09-04"
 draft: false
 header:
   caption: ""
 highlight: false
 image_preview: ""
 links:
-# - icon: external-link-alt
-#   icon_pack: fas
-#   name: Publisher Link (Free access) 
-#   url: https://www.tandfonline.com/eprint/WWNZ4FSTPRXSGICYK4KE/full?target=10.1080/08824096.2024.2407598
+- icon: external-link-alt
+  icon_pack: fas
+  name: Publisher Link (Open access)
+  url: https://cyberpsychology.eu/article/view/39165
 - icon: open-data
   icon_pack: ai
   name: Data and Code
@@ -37,11 +37,12 @@ links:
 #   url: /pdf/Long_CRR_measures_supplement.pdf
 math: false
 projects: []
-publication: '*Cyberpsychology: Journal of Psychosocial Research on Cyberspace, 20*(4), forthcoming'
+publication: '*Cyberpsychology: Journal of Psychosocial Research on Cyberspace, 20*(4), Article 3'
 publication_short: ""
 publication_types:
 - "2"
 featured: true
+doi: "10.5817/CP2026-4-3"
 summary: ""
 tags: []
 title: "Perceptions of AI-generated profile pictures: Effects on quality, attractiveness, and trustworthiness"
