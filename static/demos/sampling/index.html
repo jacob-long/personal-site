@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Follow individual observations into a sample mean or percentage, then compare repeated samples, sample sizes, and selection bias.">
+  <meta name="theme-color" content="#73000a"><title>Sampling Lab: from students to sample statistics · Jacob Long</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="styles.css?v=20260930-7"><link rel="stylesheet" href="pipeline.css?v=20260930-7"><script type="module" src="pipeline.mjs?v=20260930-7"></script>
+</head>
+<body class="pipeline-page">
+  <a class="skip" href="#pipeline">Skip to the lab</a>
+  <header class="site-header"><a href="https://jacob-long.com/" class="wordmark">Jacob Long <span>/</span><span class="wordmark-sub"> Research methods</span></a>
+    <div class="header-actions"><a href="percentages.html" target="_blank" rel="noopener">Percentage example <span class="sr-only">(opens another tab)</span></a><button id="classroom" class="text-button" aria-pressed="false">Classroom view</button></div></header>
+  <main>
+    <section class="pipeline-intro"><div><p class="eyebrow" id="pipeline-path">Individual observations → sample → sample mean</p><h1>Sampling Lab<span>.</span></h1></div>
+      <div><p id="research-question">How much time do students spend on social media each day?</p><span id="variable-description">10,000 hypothetical students · minutes per day</span></div></section>
+    <div class="pipeline-layout" id="pipeline">
+      <aside class="pipeline-controls" aria-label="Sampling controls">
+        <h2>Your next sample</h2>
+        <label for="pipeline-n">Students in each sample</label><select id="pipeline-n"><option value="5">5 students</option><option value="10" selected>10 students</option><option value="30">30 students</option><option value="100">100 students</option><option value="500">500 students</option><option value="1000">1,000 students</option></select>
+        <label for="pipeline-method">How are they selected?</label><select id="pipeline-method"><option value="random">Random across campus</option><option value="convenience">Recruited on social media</option></select>
+        <p id="method-help" class="help"></p>
+        <div class="pipeline-steps"><button id="sample-draw" class="primary"><span>1</span> Draw the students</button><button id="sample-mean" disabled><span>2</span><span id="summary-action">Find their average</span></button><button id="sample-save" disabled><span>3</span><span id="plot-action">Add one mean below</span></button></div>
+        <p id="setup-help" class="help"></p>
+        <div class="pipeline-repeat"><h3>Repeat the whole process</h3>
+          <div class="two-buttons"><button id="repeat-ten" disabled>10 samples</button><button id="repeat-fifty" disabled>50 samples</button></div>
+          <button id="repeat-all" disabled>50 per setup</button>
+          <div class="pace-field"><label for="pace">Animation pace</label><select id="pace"><option value="teaching">Slow walkthrough</option><option value="quick" selected>Quick</option><option value="fast">Fast</option></select></div>
+          <button id="stop" hidden>Stop after this sample</button><p id="repeat-help" class="help">First, take one sample through all three steps.</p>
+        </div>
+        <label class="check truth-control"><input id="population-line" type="checkbox" checked><span id="truth-label">Show the population average</span></label>
+        <details class="campus-details" id="campus-details"><summary>Our hypothetical campus</summary><p id="campus-sample-context" class="help">Draw a sample to compare it with the campus.</p><div id="campus-demographics"></div><p class="help">Invented demographics for 10,000 students—not USC data. “Sample” refers to the sample currently shown, not all repetitions combined.</p></details>
+        <button id="reset" class="text-button reset">Start over</button>
+      </aside>
+      <section class="pipeline-workspace" aria-label="From individuals to sample statistics">
+        <div class="variable-controls" role="group" aria-label="Choose what to summarize">
+          <div><label for="display-variable">What are we measuring?</label><select id="display-variable"><option value="minutes">Social-media use</option><option value="classYear">Class year</option><option value="gender">Gender</option></select></div>
+          <div id="category-field" hidden><label for="display-category">Percentage in which category?</label><select id="display-category"></select></div>
+          <p>Same students. Same samples.</p>
+        </div>
+        <p id="pipeline-status" class="pipeline-status" role="status" aria-live="polite">Start by drawing one sample of 10 students.</p>
+        <section class="current-sample" aria-labelledby="sample-title">
+          <div class="current-heading"><div><p class="eyebrow" id="sample-context">Individual observations</p><h2 id="sample-title">One sample, many students</h2></div><span id="sample-state">No sample yet</span></div>
+          <div id="observation-key" class="observation-key" hidden></div><div id="observations" class="pipeline-plot"></div>
+          <div class="calculation"><span id="calculation-label">Next: draw the students</span><strong id="calculation"></strong></div>
+          <details id="sample-details"><summary>Inspect this sample’s students and demographics</summary>
+            <div id="sample-mix"></div><p id="sample-record-label">No sample selected.</p><div class="record-scroll" role="region" aria-label="Students in the selected sample" tabindex="0"><table><thead><tr><th>Student ID</th><th>Class year</th><th>Gender</th><th>Min/day</th></tr></thead><tbody id="sample-records"></tbody></table></div>
+          </details>
+        </section>
+        <div class="distribution-heading"><div><p class="eyebrow">Repeated samples</p><h2 id="distribution-title">One dot = one whole sample’s mean</h2></div><div class="population-value" id="population-value"></div></div>
+        <p class="inspect-hint">Click a plotted dot to bring back its students, or use “Inspect sample.”</p>
+        <div id="distributions"></div>
+        <div class="pipeline-footer"><span>Up to 4 setups · 200 samples per setup</span><button id="clear" class="text-button">Clear plotted samples</button></div>
+      </section>
+    </div>
+    <details class="pipeline-assumptions"><summary>What this simulation assumes</summary>
+      <p>These students and their social-media use are fictional. Each student has a fixed daily usage time, recorded to the nearest tenth of a minute. For the sampling model, 40% are lower-use students (0–60 minutes), 40% moderate-use (60–180), and 20% higher-use (180–360). These are illustrative categories, not standard cutoffs. The population average is approximately 108 minutes per day.</p>
+      <p>Each sample selects students without replacement. A student may be selected again in a later sample; repeated samples are not necessarily different people. Every plotted dot summarizes one complete sample. Clicking it restores the exact observations that produced it. Changing the displayed variable recalculates statistics for those same students; it does not draw new samples.</p>
+      <p>The convenience example assumes that recruitment on social media disproportionately reaches heavier users. It illustrates one possible selection mechanism, not all social-media recruitment or convenience sampling. Everyone selected responds accurately; nonresponse and measurement error are not simulated.</p>
+      <p>Each fictional student also has a fixed class year and gender. The campus is 30% first-year students, 26% sophomores, 22% juniors, and 22% seniors; 55% women, 42% men, and 3% nonbinary students. In this invented population, heavier users are more often first-year students, while the gender proportions are the same across usage groups. Recruitment can therefore distort the class-year mix while approximately matching gender. Matching these demographics alone does not establish that the sample is representative on social-media use.</p>
+      <p>For social-media use, all plots use the same 0–360 minutes-per-day scale. For class year or gender, the upper panel highlights students in the selected category; its percentage marker and every repeated-sample plot use a 0–100% scale. Only that category’s percentage is plotted, not an average of category codes. Points are stacked in narrow bins for legibility; statistics use the actual observations. Dot size and stack height adapt to the available space, so compare horizontal spread and location rather than stack height across panels.</p>
+    </details>
+    <footer><span>Sampling Lab · Jacob Long</span><span>Runs in your browser. No responses are collected.</span><a href="means.html" target="_blank" rel="noopener">Original step-by-step introduction</a></footer>
+  </main>
+  <noscript><p>This simulation requires JavaScript. No login or installation is needed.</p></noscript>
+</body>
+</html>

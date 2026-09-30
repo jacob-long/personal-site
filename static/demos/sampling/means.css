@@ -1,0 +1,62 @@
+.means-page main { max-width:1240px; }
+.means-page .site-header { max-width:1240px; }
+.back-link { font-size:13px; text-underline-offset:3px; }
+.mean-intro { padding:25px 0; }
+.mean-intro h1 { font-size:clamp(28px,3.5vw,40px); letter-spacing:-.035em; margin-bottom:10px; }
+.mean-intro>p:not(.eyebrow) { margin:0 0 4px; font-size:18px; }
+.mean-intro>span { color:var(--muted); font-size:12px; }
+.mean-layout { display:grid; grid-template-columns:230px minmax(0,1fr); gap:30px; align-items:start; }
+.mean-controls { padding:20px; border-radius:9px; background:#eeefea; }
+.mean-controls>label:first-child { display:block; font-size:13px; font-weight:650; margin-bottom:8px; }
+.mean-controls>select { font-size:16px; }
+.mean-step-buttons { display:grid; gap:9px; margin-top:25px; }
+.mean-step-buttons button { text-align:left; display:flex; align-items:center; gap:12px; padding-inline:10px; font-size:13px; }
+.mean-step-buttons button span { opacity:.65; font-size:12px; }
+.mean-repeat { border-top:1px solid var(--line); margin-top:23px; padding-top:20px; }
+.mean-repeat h2 { font-size:14px; letter-spacing:0; margin-bottom:12px; }
+.mean-repeat .two-buttons { gap:6px; }
+.mean-repeat .two-buttons button { padding-inline:7px; font-size:12px; }
+#mean-stop { width:100%; margin-top:10px; font-size:12px; }
+.mean-truth { margin-top:20px; }
+.mean-workspace { min-width:0; }
+.mean-status { font-size:14px; margin:0 0 12px; min-height:42px; border-left:3px solid var(--teal); padding:8px 12px; background:#edf3f1; }
+.mean-chart svg { width:100%; display:block; }
+.mean-chart text { font-family:inherit; fill:var(--ink); font-size:12px; }
+.mean-chart .mean-panel-title { font-size:16px; font-weight:650; }
+.mean-chart .mean-subtitle { fill:var(--muted); font-size:12px; }
+.mean-chart .mean-axis { stroke:#ccd3cd; }
+.mean-chart .mean-grid { stroke:#e4e8e2; }
+.mean-chart .mean-tick { fill:var(--muted); font-size:11px; }
+.mean-chart .person-dot { fill:var(--teal); }
+.mean-chart .mean-dot,.mean-chart .current-mean { fill:var(--blue); }
+.mean-chart .current-mean,.mean-chart .mean-dot.latest { stroke:var(--ink); stroke-width:1.5; }
+.mean-chart .mean-equation { font-size:21px; font-weight:650; letter-spacing:-.025em; }
+.mean-chart .mean-placeholder { fill:var(--muted); }
+.mean-chart .mean-truth-line { stroke:var(--garnet); stroke-width:1.5; stroke-dasharray:4 4; }
+.mean-values { border-top:1px solid var(--line); margin-top:4px; padding-top:9px; }
+.mean-values p { font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; line-height:1.8; }
+.mean-bridge { font-size:13px; color:var(--muted); margin:15px 0 0; max-width:670px; }
+.means-page .methodology { margin-top:25px; }
+@media(max-width:760px) {
+  .mean-layout { grid-template-columns:1fr; gap:22px; }
+  .mean-controls { display:grid; grid-template-columns:1fr 1fr; gap:10px 15px; }
+  .mean-controls>label:first-child { align-self:center; margin:0; }
+  .mean-controls>.help { grid-column:1/-1; margin-top:0; }
+  .mean-step-buttons { grid-column:1/-1; grid-template-columns:repeat(3,1fr); margin-top:3px; gap:6px; }
+  .mean-step-buttons button { display:block; font-size:12px; padding:10px 8px; }
+  .mean-step-buttons button span { display:block; margin-bottom:4px; }
+  .mean-repeat { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:9px 15px; margin-top:7px; padding-top:14px; }
+  .mean-repeat h2 { margin:0; align-self:center; }
+  .mean-repeat p { margin:0; grid-column:1/-1; }
+  #mean-stop { grid-column:1/-1; margin-top:0; }
+  .mean-truth { margin-top:0; }
+  .mean-controls .reset { margin-top:0; }
+  .mean-intro { padding-block:22px; }
+}
+@media(max-width:420px) {
+  .back-link { max-width:120px; font-size:12px; text-align:right; }
+  .mean-controls { padding:16px; }
+  .mean-chart .mean-panel-title { font-size:14px; }
+  .mean-chart .mean-equation { font-size:19px; }
+  .mean-chart .mean-subtitle { font-size:11px; }
+}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore sampling variability, sample size, and selection bias with an interactive, browser-based simulation.">
+  <meta name="theme-color" content="#73000a">
+  <title>Sampling Lab · Jacob Long</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260930-7">
+  <script type="module" src="app.mjs?v=20260930-7"></script>
+</head>
+<body>
+  <a class="skip" href="#lab">Skip to the lab</a>
+  <header class="site-header">
+    <a href="https://jacob-long.com/" class="wordmark">Jacob Long <span>/</span> <span class="wordmark-sub">Research methods</span></a>
+    <button id="presentation" class="text-button" aria-pressed="false">Classroom view</button>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <div><p class="eyebrow">An interactive experiment</p><h1 id="title">Sampling Lab<span>.</span></h1>
+      <p class="lead">One population. Many possible samples.</p>
+      <a class="demo-link" href="means.html" target="_blank" rel="noopener">Where does one dot come from? <span aria-hidden="true">↗</span><span class="sr-only"> (opens a separate demonstration)</span></a></div>
+      <div class="scenario"><p class="eyebrow">Our hypothetical question</p>
+        <p>Should the campus library stay open 24 hours?</p>
+        <span>50,000 students · simulated opinions</span>
+      </div>
+    </section>
+    <nav class="preset-nav" aria-label="Set up an exploration">
+      <button data-preset="variation" aria-pressed="true"><span class="step">01</span><span><strong>Samples vary</strong><small>Same population, another draw</small></span></button>
+      <button data-preset="size" aria-pressed="false"><span class="step">02</span><span><strong>Size &amp; precision</strong><small>Compare 50 with 500 students</small></span></button>
+      <button data-preset="bias" aria-pressed="false"><span class="step">03</span><span><strong>Size &amp; bias</strong><small>Add a large convenience sample</small></span></button>
+    </nav>
+    <p class="preset-note">Starting points, not steps. Presets keep matching setups and replace the others.</p>
+    <div class="lab-layout" id="lab">
+      <aside class="controls" aria-labelledby="controls-title">
+        <p class="eyebrow">Your next sample</p><h2 id="controls-title">Set it up</h2>
+        <div class="field"><label for="sample-size">Students per sample</label>
+          <div class="size-row"><input id="sample-size" type="number" min="20" max="2000" step="1" value="50" inputmode="numeric"><span>of 50,000</span></div>
+          <input id="size-slider" type="range" min="20" max="2000" step="1" value="50" aria-label="Students per sample slider">
+          <div class="range-labels"><span>20</span><span>2,000</span></div>
+        </div>
+        <div class="field"><label for="method">Sampling method</label>
+          <select id="method"><option value="random">Random sample</option><option value="convenience">Convenience sample</option>
+            <optgroup label="Stratified methods"><option value="proportional">Proportional groups</option><option value="equal">Equal-sized groups</option></optgroup>
+          </select><p id="method-note" class="help"></p>
+        </div>
+        <div id="weight-control" hidden><label class="check"><input id="weighted" type="checkbox" checked>Weight back to population shares</label></div>
+        <div class="draw-actions"><button id="draw-one" class="primary">Draw 1 sample <span aria-hidden="true">↗</span></button>
+          <div class="two-buttons"><button id="draw-ten">Draw 10</button><button id="draw-hundred">Draw 100</button></div>
+        </div>
+        <p id="setup-notice" class="help">Change a setting to add a comparison. Earlier results stay.</p>
+        <p id="control-error" class="error" role="alert" hidden></p>
+        <details class="advanced"><summary>Edit the population</summary>
+          <p class="help">Group shares must total 100%. Applying changes clears all samples.</p>
+          <form id="population-form">
+            <div class="population-head"><span>Group</span><span>Share</span></div>
+            <div class="population-group"><label for="share-0">First-year</label><div><input id="share-0" type="number" min="10" max="80" step="1" value="45" required><span>%</span></div>
+              <label for="rate-0" class="rate-label">Support <output id="rate-value-0">35%</output></label><input id="rate-0" type="range" min="0" max="100" value="35"></div>
+            <div class="population-group"><label for="share-1">Middle-year</label><div><input id="share-1" type="number" min="10" max="80" step="1" value="35" required><span>%</span></div>
+              <label for="rate-1" class="rate-label">Support <output id="rate-value-1">55%</output></label><input id="rate-1" type="range" min="0" max="100" value="55"></div>
+            <div class="population-group"><label for="share-2">Senior</label><div><input id="share-2" type="number" min="10" max="80" step="1" value="20" required><span>%</span></div>
+              <label for="rate-2" class="rate-label">Support <output id="rate-value-2">70%</output></label><input id="rate-2" type="range" min="0" max="100" value="70"></div>
+            <p id="population-error" class="error" role="alert" hidden></p>
+            <button class="wide" type="submit">Apply &amp; clear samples</button>
+            <button id="equal-rates" class="text-button wide" type="button">Try 50% support in every group</button>
+          </form>
+        </details>
+        <details class="advanced"><summary>Optional uncertainty interval</summary>
+          <label class="check"><input id="show-interval" type="checkbox">Show a 95% interval for the last draw</label>
+          <p class="help">Approximate, design-based interval. Only shown for random sampling or appropriately weighted stratified sampling, with sufficient yes/no responses.</p>
+        </details>
+        <button id="reset-all" class="text-button reset">Restore default lab</button>
+      </aside>
+      <section class="workspace" aria-labelledby="results-title">
+        <div class="plot-header"><div><p class="eyebrow">Repeated samples</p><h2 id="results-title">Where do the estimates land?</h2></div>
+          <div class="truth"><span class="truth-line" aria-hidden="true"></span><div><span class="truth-label">Population support</span><strong id="truth-value">49.0%</strong></div></div>
+        </div>
+        <div class="chart-tools"><p><span class="legend-dot" aria-hidden="true"></span> One dot = one whole sample’s estimate</p><label class="check"><input id="zoom" type="checkbox">Zoom to results</label></div>
+        <div id="series-list" class="series-list"></div>
+        <div class="comparison-footer"><button id="repeat-all">Draw 100 per setup</button><span>Up to 4 setups · 200 draws each</span><button id="clear-results" class="text-button">Clear draws</button></div>
+        <p id="explore-prompt" class="explore-prompt">Draw a few samples. Does the estimate change even though the population stays the same?</p>
+        <section id="last-draw" class="last-draw" aria-labelledby="last-title">
+          <div class="detail-heading"><h2 id="last-title">Inside the last sample</h2><span id="last-context">No sample drawn yet</span></div>
+          <div id="last-empty" class="empty-detail">Draw a sample to compare its result and group mix with the population.</div>
+          <div id="last-content" hidden>
+            <div class="sample-numbers"><div><span>Sample estimate</span><strong id="sample-estimate"></strong></div><div><span>Difference from population</span><strong id="sample-error"></strong></div><div><span>Students sampled</span><strong id="sample-count"></strong></div></div>
+            <p id="weight-explanation" class="help" hidden></p>
+            <div id="interval-detail" class="interval-detail" hidden></div>
+            <div class="composition-heading"><h3>Who is represented?</h3><div class="composition-key"><span><i class="population-key"></i>Population</span><span><i class="sample-key"></i>Sample</span></div></div>
+            <div id="composition"></div>
+            <details class="sample-table"><summary>Group counts and support</summary><div class="table-wrap"><table><caption class="sr-only">Details for the last sample</caption><thead><tr><th>Group</th><th>Sample count</th><th>Population support</th><th>Sample support</th></tr></thead><tbody id="group-rows"></tbody></table></div></details>
+          </div>
+        </section>
+      </section>
+    </div>
+    <details class="methodology"><summary>What this simulation assumes</summary>
+      <div class="methodology-grid"><div><h3>A fixed, fictional population</h3><p>All 50,000 students have a fixed yes/no opinion. Changing the population settings changes that population and clears the samples. Real researchers usually do not know the population answer.</p><p>Every selected student responds truthfully. There is no nonresponse or measurement error here.</p></div>
+      <div><h3>Selection and estimation</h3><p>Each draw samples without replacement. A student can appear again in a later, independent sample.</p><p>The convenience scenario fixes the sample mix at approximately 70% first-year, 20% middle-year, and 10% seniors, then samples randomly within each group. It illustrates one specific source of selection bias, not every kind of convenience sample.</p></div>
+      <div><h3>Reading the charts</h3><p>Dots are stacked in narrow bins; their horizontal positions are rounded for display. The reported estimates are not rounded for calculations. All setups share the same horizontal scale.</p><p>Weighted stratified estimates combine group results using population shares. An unweighted equal-group estimate can target the wrong overall mix. An uncertainty interval does not capture selection bias.</p></div></div>
+    </details>
+    <footer><span>Sampling Lab · Jacob Long</span><span>Runs in your browser. No responses are collected.</span></footer>
+  </main>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  <noscript><p>This simulation needs JavaScript enabled. No login or installation is required.</p></noscript>
+</body>
+</html>

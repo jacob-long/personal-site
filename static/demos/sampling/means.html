@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From students to one average · Sampling Lab</title>
+  <meta name="description" content="See how individual observations become one sample mean, then build a sampling distribution one sample at a time.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css?v=20260930-7">
+  <link rel="stylesheet" href="means.css?v=20260930-7">
+  <script type="module" src="means.mjs?v=20260930-7"></script>
+</head>
+<body class="means-page">
+  <a class="skip" href="#mean-demo">Skip to the demonstration</a>
+  <header class="site-header"><a class="wordmark" href="index.html">Sampling Lab <span>/</span> <span class="wordmark-sub">One dot, explained</span></a><a class="back-link" href="index.html">Sampling comparisons <span aria-hidden="true">↗</span></a></header>
+  <main id="mean-demo">
+    <section class="mean-intro"><p class="eyebrow">From observations to an estimate</p><h1>Many students. One average.</h1>
+      <p>How much time do students spend on social media each day?</p><span>10,000 hypothetical students · minutes per day</span></section>
+    <div class="mean-layout">
+      <aside class="mean-controls" aria-label="Demonstration controls">
+        <label for="mean-n">Students in each sample</label>
+        <select id="mean-n"><option value="5">5 students</option><option value="10" selected>10 students</option><option value="30">30 students</option></select>
+        <p class="help">Changing sample size clears this demonstration.</p>
+        <div class="mean-step-buttons">
+          <button id="mean-draw" class="primary"><span>1</span> Draw the students</button>
+          <button id="mean-show" disabled><span>2</span> Show their average</button>
+          <button id="mean-plot" disabled><span>3</span> Add one dot below</button>
+        </div>
+        <div class="mean-repeat"><h2>Now repeat the process</h2><div class="two-buttons"><button id="mean-ten" disabled>10 samples</button><button id="mean-fifty" disabled>50 samples</button></div>
+          <p class="help" id="repeat-note">First, take one sample through all three steps.</p>
+          <button id="mean-stop" hidden>Stop after this sample</button>
+        </div>
+        <label class="check mean-truth"><input type="checkbox" id="mean-truth">Show the population average</label>
+        <button id="mean-reset" class="text-button reset">Start over</button>
+      </aside>
+      <section class="mean-workspace" aria-label="Individuals and sample averages">
+        <p id="mean-status" class="mean-status" role="status" aria-live="polite">Start by drawing 10 students.</p>
+        <div id="mean-chart" class="mean-chart"></div>
+        <details class="mean-values"><summary>See the individual usage times</summary><p id="mean-values">No sample drawn yet.</p></details>
+        <p class="mean-bridge">Each dot below summarizes a whole sample. The main Sampling Lab uses the same students to compare sample sizes and selection methods.</p>
+      </section>
+    </div>
+    <details class="methodology"><summary>About these numbers</summary><p>Daily social-media use is simulated, not collected from real students. This is the same fixed population as the main Sampling Lab: 10,000 hypothetical students with usage times from 0 to 360 minutes per day, recorded to the nearest tenth of a minute. The population average is approximately 108 minutes per day. Students are selected randomly without replacement within each sample, and can be selected again in a later sample.</p>
+      <p>The top plot shows individual observations in the latest sample. The bottom plot keeps one average per sample. Both use the same horizontal scale. Points are stacked in narrow bins for legibility; the averages are computed from the actual values, not the plotted positions. The individual observations stay visible when their average moves to the bottom plot.</p>
+      <p>The repeated-sampling animation shows the same three steps at a faster pace. Motion is omitted when your device requests reduced motion. Up to 200 sample means can be plotted.</p></details>
+    <footer><span>Sampling Lab · Jacob Long</span><span>Runs in your browser. No responses are collected.</span></footer>
+  </main>
+</body>
+</html>
